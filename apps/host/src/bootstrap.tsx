@@ -1,10 +1,12 @@
 import { createRoot } from 'react-dom/client';
-import { App } from './app';
+import { AppWithProviders } from './app';
 import { type RemoteModule, setRemoteModules } from './shared/lib/module-federation';
+
+const root = createRoot(document.getElementById('root')!);
 
 fetch('/module-federation.manifest.json')
   .then(async (res) => res.json())
   .then((manifest) => setRemoteModules(manifest.remotes as RemoteModule[]))
-  .then(() => createRoot(document.getElementById('root')!).render(<App />))
+  .then(() => root.render(<AppWithProviders />))
   // eslint-disable-next-line no-console
   .catch((err) => console.error(err));

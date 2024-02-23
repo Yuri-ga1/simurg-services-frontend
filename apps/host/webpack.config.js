@@ -8,6 +8,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { dependencies: deps } = require('./package.json');
 
 const NODE_ENV = process.env.NODE_ENV;
@@ -27,9 +28,7 @@ module.exports = {
     hot: false,
     static: path.join(__dirname, 'dist'),
     port: envConfig.PORT,
-    historyApiFallback: {
-      index: 'index.html',
-    },
+    historyApiFallback: true,
   },
   output: {
     publicPath: 'auto',
@@ -120,9 +119,10 @@ module.exports = {
       new LiveReloadPlugin({
         port: 35729,
       }),
-    isAnalyze && new BundleAnalyzerPlugin(),
+    isAnalyze && new BundleAnalyzerPlugin({ analyzerPort: 'auto' }),
   ].filter(Boolean),
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    plugins: [new TsconfigPathsPlugin()],
   },
 };

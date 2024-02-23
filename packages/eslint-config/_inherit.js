@@ -6,6 +6,16 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
+    'import/resolver': {
+      typescript: {
+        project: ['tsconfig.json', 'packages/*/tsconfig.json', 'apps/*/tsconfig.json'],
+      },
+    },
+  },
   ignorePatterns: ['dist', 'node_modules', '**/*.js'],
   rules: {
     'import/prefer-default-export': 'off',

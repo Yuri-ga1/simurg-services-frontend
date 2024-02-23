@@ -6,6 +6,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const { DefinePlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { dependencies: deps } = require('./package.json');
 
 const NODE_ENV = process.env.NODE_ENV;
@@ -117,9 +118,10 @@ module.exports = {
       new ReactRefreshWebpackPlugin({
         exclude: [/node_modules/, /bootstrap\.tsx$/],
       }),
-    isAnalyze && new BundleAnalyzerPlugin(),
+    isAnalyze && new BundleAnalyzerPlugin({ analyzerPort: 'auto' }),
   ].filter(Boolean),
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    plugins: [new TsconfigPathsPlugin()],
   },
 };

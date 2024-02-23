@@ -5,8 +5,9 @@
     "clean": "rm -rf node_modules && pnpm -r exec rm -rf dist logs node_modules",
     "fresh": "rm pnpm-lock.yaml && pnpm clean && pnpm i",
     "dev": "pnpm --stream --parallel dev",
+    "dev:host": "pnpm --filter host dev",
+    "dev:navi": "pnpm --filter navi dev",
     "build": "pnpm --stream --parallel build",
-    "analyze:navi": "pnpm --filter navi analyze",
     "lint": "eslint . --max-warnings 0 --fix",
     "format": "prettier . --write",
     "prepare": "husky"

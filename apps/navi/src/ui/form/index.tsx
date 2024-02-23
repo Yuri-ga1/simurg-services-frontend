@@ -5,6 +5,7 @@ import { yupResolver } from 'mantine-form-yup-resolver';
 import { Box, Button, FileInput, Text } from '@mantine/core';
 import { assert } from '@simurg-microfrontends/shared/lib/typescript';
 import { notification } from '@simurg-microfrontends/shared/lib/notification';
+import { BACKEND_URL } from '~/config/env';
 
 type FormValues = {
   obsFile: Nullable<File>;
@@ -47,7 +48,7 @@ export const Form: FC = () => {
 
     try {
       setIsPending(true);
-      const res = await fetch(`${process.env.BACKEND_URL}/coordinates`, {
+      const res = await fetch(`${BACKEND_URL}/coordinates`, {
         method: 'POST',
         body: formData,
       });
