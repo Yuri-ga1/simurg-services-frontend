@@ -1,13 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "React App",
+  "display": "React Lib",
   "extends": "./base.json",
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "allowJs": true,
     "jsx": "react-jsx",
-    "noEmit": true,
     "plugins": [
       {
         "name": "typescript-plugin-css-modules"

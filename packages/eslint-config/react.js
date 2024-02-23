@@ -1,9 +1,12 @@
+const _base = require('./_base.js');
+
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  extends: [require.resolve('./base.js'), 'airbnb', 'airbnb/hooks', 'airbnb-typescript'],
-  env: { browser: true },
+  ..._base,
+  extends: ['airbnb', 'airbnb/hooks', 'airbnb-typescript', 'plugin:prettier/recommended'],
   plugins: ['react-refresh'],
   rules: {
+    ..._base.rules,
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',

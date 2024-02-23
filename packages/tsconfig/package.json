@@ -3,6 +3,10 @@
   "private": true,
   "files": [
     "base.json",
-    "react-app.json"
-  ]
+    "react-app.json",
+    "react-lib.json"
+  ],
+  "dependencies": {
+    "typescript-plugin-css-modules": "^5.1.0"
+  }
 }

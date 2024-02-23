@@ -4,8 +4,14 @@
   "scripts": {
     "clean": "rm -rf node_modules && pnpm -r exec rm -rf dist logs node_modules",
     "fresh": "rm pnpm-lock.yaml && pnpm clean && pnpm i",
+    "dev": "pnpm --stream --parallel dev",
+    "build": "pnpm --stream --parallel build",
+    "analyze:navi": "pnpm --filter navi analyze",
     "lint": "eslint . --max-warnings 0 --fix",
     "format": "prettier . --write"
+  },
+  "dependencies": {
+    "@simurg-microfrontends/shared": "workspace:*"
   },
   "devDependencies": {
     "@simurg-microfrontends/eslint-config": "workspace:*",
