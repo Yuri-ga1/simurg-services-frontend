@@ -1,0 +1,12 @@
+{
+  "name": "simurg-microfrontends",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf node_modules && pnpm -r exec rm -rf dist logs node_modules",
+    "fresh": "rm pnpm-lock.yaml && pnpm clean && pnpm i",
+    "format": "prettier . --write"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  }
+}
