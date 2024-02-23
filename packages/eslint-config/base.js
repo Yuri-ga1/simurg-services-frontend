@@ -1,7 +1,7 @@
-const _base = require('./_base.js');
+const inherit = require('./_inherit.js');
 
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  ..._base,
+  ...inherit,
   extends: ['airbnb-base', 'airbnb-typescript/base', 'plugin:prettier/recommended'],
 };

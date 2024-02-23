@@ -10,6 +10,7 @@ module.exports = {
   rules: {
     'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': 'off',
+    '@typescript-eslint/promise-function-async': 'error',
     '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/no-use-before-define': [

@@ -1,11 +1,13 @@
 const dotenv = require('dotenv');
 const path = require('path');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const { dependencies: deps } = require('./package.json');
 
 const NODE_ENV = process.env.NODE_ENV;
@@ -22,9 +24,12 @@ module.exports = {
   mode: isDev ? 'development' : 'production',
   devtool: isDev ? 'inline-source-map' : false,
   devServer: {
-    hot: true,
+    hot: false,
     static: path.join(__dirname, 'dist'),
     port: envConfig.PORT,
+    historyApiFallback: {
+      index: 'index.html',
+    },
   },
   output: {
     publicPath: 'auto',
@@ -69,7 +74,6 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              plugins: [isDev && 'react-refresh/babel'].filter(Boolean),
               presets: [
                 ['@babel/preset-react', { runtime: 'automatic' }],
                 '@babel/preset-typescript',
@@ -81,13 +85,13 @@ module.exports = {
     ],
   },
   plugins: [
+    new CopyPlugin({
+      patterns: [{ from: 'module-federation.manifest.json', to: '' }],
+    }),
+    new NodePolyfillPlugin(),
     new MiniCssExtractPlugin(),
     new ModuleFederationPlugin({
       name: envConfig.APP_NAME,
-      filename: 'remoteEntry.js',
-      exposes: {
-        './Module': './src/remote-entry.ts',
-      },
       shared: {
         react: {
           singleton: true,
@@ -100,22 +104,21 @@ module.exports = {
         '@mantine/core': { singleton: true },
         '@mantine/hooks': { singleton: true },
         '@mantine/notifications': { singleton: true },
-        '@mantine/form': { singleton: true },
       },
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       templateParameters: {
         title: envConfig.APP_NAME,
+        isDev,
       },
-      chunks: ['main'],
     }),
     new DefinePlugin({
       'process.env': JSON.stringify(envConfig),
     }),
     isDev &&
-      new ReactRefreshWebpackPlugin({
-        exclude: [/node_modules/, /bootstrap\.tsx$/],
+      new LiveReloadPlugin({
+        port: 35729,
       }),
     isAnalyze && new BundleAnalyzerPlugin(),
   ].filter(Boolean),

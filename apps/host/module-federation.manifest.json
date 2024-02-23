@@ -1,0 +1,10 @@
+{
+  "remotes": [
+    {
+      "id": "84050ad6-aae9-4e96-ac52-fa16875e57b9",
+      "url": "http://localhost:9001",
+      "name": "Navi",
+      "backendName": "navi"
+    }
+  ]
+}

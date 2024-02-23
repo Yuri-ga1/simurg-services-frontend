@@ -3,15 +3,12 @@
   "private": true,
   "exports": {
     "./types/app.d.ts": {
-      "types": "./types/app.d.ts",
       "default": "./types/app.d.ts"
     },
     "./lib/typescript": {
-      "types": "./lib/typescript/index.ts",
       "default": "./lib/typescript/index.ts"
     },
     "./lib/notification": {
-      "types": "./lib/notification/index.ts",
       "default": "./lib/notification/index.ts"
     }
   },

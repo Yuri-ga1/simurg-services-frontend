@@ -24,10 +24,8 @@ export const Form: FC = () => {
     },
     validate: yupResolver(formSchema),
   });
-  const [result, setResult] = useState<{
-    valid: boolean;
-    coordinates: [number, number, number];
-  } | null>(null);
+  const [result, setResult] =
+    useState<Nullable<{ valid: boolean; coordinates: [number, number, number] }>>(null);
   const [isPending, setIsPending] = useState(false);
 
   const handleSubmit = async (values: FormValues): Promise<void> => {
