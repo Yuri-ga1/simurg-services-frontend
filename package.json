@@ -4,9 +4,14 @@
   "scripts": {
     "clean": "rm -rf node_modules && pnpm -r exec rm -rf dist logs node_modules",
     "fresh": "rm pnpm-lock.yaml && pnpm clean && pnpm i",
+    "lint": "eslint . --max-warnings 0 --fix",
     "format": "prettier . --write"
   },
   "devDependencies": {
-    "prettier": "^3.2.5"
+    "@simurg-microfrontends/eslint-config": "workspace:*",
+    "@simurg-microfrontends/tsconfig": "workspace:*",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
   }
 }
