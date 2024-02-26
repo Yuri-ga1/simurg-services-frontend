@@ -33,12 +33,12 @@ export const Form: FC = () => {
     const { obsFile, navFile } = values;
     assert(obsFile && navFile, 'Obs and nav files must be defined');
 
-    const obsArrayBuffer = await obsFile.arrayBuffer();
-    const navArrayBuffer = await navFile.arrayBuffer();
-    const obsBlob = new Blob([new Uint8Array(obsArrayBuffer)], {
+    const obsBuffer = await obsFile.arrayBuffer();
+    const navBuffer = await navFile.arrayBuffer();
+    const obsBlob = new Blob([new Uint8Array(obsBuffer)], {
       type: 'application/octet-stream',
     });
-    const navBlob = new Blob([new Uint8Array(navArrayBuffer)], {
+    const navBlob = new Blob([new Uint8Array(navBuffer)], {
       type: 'application/octet-stream',
     });
 

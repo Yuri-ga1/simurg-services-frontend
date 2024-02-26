@@ -85,7 +85,7 @@ module.exports = {
   },
   plugins: [
     new CopyPlugin({
-      patterns: [{ from: 'module-federation.manifest.json', to: '' }],
+      patterns: [{ from: 'module-federation.manifest.json', to: 'assets' }],
     }),
     new NodePolyfillPlugin(),
     new MiniCssExtractPlugin(),
@@ -100,9 +100,18 @@ module.exports = {
           singleton: true,
           requiredVersion: deps['react-dom'],
         },
-        '@mantine/core': { singleton: true },
-        '@mantine/hooks': { singleton: true },
-        '@mantine/notifications': { singleton: true },
+        '@mantine/core': {
+          singleton: true,
+          requiredVersion: deps['@mantine/core'],
+        },
+        '@mantine/hooks': {
+          singleton: true,
+          requiredVersion: deps['@mantine/hooks'],
+        },
+        '@mantine/notifications': {
+          singleton: true,
+          requiredVersion: deps['@mantine/notifications'],
+        },
       },
     }),
     new HtmlWebpackPlugin({
@@ -114,6 +123,7 @@ module.exports = {
     }),
     new DefinePlugin({
       'process.env': JSON.stringify(envConfig),
+      __DEV__: isDev,
     }),
     isDev &&
       new LiveReloadPlugin({

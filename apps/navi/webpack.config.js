@@ -98,10 +98,22 @@ module.exports = {
           singleton: true,
           requiredVersion: deps['react-dom'],
         },
-        '@mantine/core': { singleton: true },
-        '@mantine/hooks': { singleton: true },
-        '@mantine/notifications': { singleton: true },
-        '@mantine/form': { singleton: true },
+        '@mantine/core': {
+          singleton: true,
+          requiredVersion: deps['@mantine/core'],
+        },
+        '@mantine/hooks': {
+          singleton: true,
+          requiredVersion: deps['@mantine/hooks'],
+        },
+        '@mantine/notifications': {
+          singleton: true,
+          requiredVersion: deps['@mantine/notifications'],
+        },
+        '@mantine/form': {
+          singleton: true,
+          requiredVersion: deps['@mantine/form'],
+        },
       },
     }),
     new HtmlWebpackPlugin({
@@ -113,6 +125,7 @@ module.exports = {
     }),
     new DefinePlugin({
       'process.env': JSON.stringify(envConfig),
+      __DEV__: isDev,
     }),
     isDev &&
       new ReactRefreshWebpackPlugin({

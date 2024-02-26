@@ -3,7 +3,6 @@
 !.vscode/settings.json
 !.vscode/extensions.json
 dist
-logs
 node_modules
 .env
 .env.*

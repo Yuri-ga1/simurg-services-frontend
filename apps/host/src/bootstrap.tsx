@@ -1,12 +1,17 @@
 import { createRoot } from 'react-dom/client';
 import { AppWithProviders } from './app';
-import { type RemoteModule, setRemoteModules } from './shared/lib/module-federation';
+import { setRemoteDefinitions, type RawRemoteDefinition } from './shared/lib/module-federation';
 
-const root = createRoot(document.getElementById('root')!);
+const bootstrap = async (): Promise<void> => {
+  try {
+    const res = await fetch('/assets/module-federation.manifest.json');
+    const data = (await res.json()) as RawRemoteDefinition[];
+    setRemoteDefinitions(data);
+    createRoot(document.getElementById('root')!).render(<AppWithProviders />);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(err);
+  }
+};
 
-fetch('/module-federation.manifest.json')
-  .then(async (res) => res.json())
-  .then((manifest) => setRemoteModules(manifest.remotes as RemoteModule[]))
-  .then(() => root.render(<AppWithProviders />))
-  // eslint-disable-next-line no-console
-  .catch((err) => console.error(err));
+bootstrap();

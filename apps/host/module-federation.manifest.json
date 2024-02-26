@@ -1,9 +1,7 @@
-{
-  "remotes": [
-    {
-      "url": "http://localhost:9001",
-      "name": "Navi",
-      "backendName": "navi"
-    }
-  ]
-}
+[
+  {
+    "name": "Navi",
+    "port": "9001",
+    "backendName": "navi"
+  }
+]

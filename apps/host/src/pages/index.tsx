@@ -1,23 +1,23 @@
 import { BaseLayout } from '~/layouts/base';
 import { type FC } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { RemoteComponent, remoteModules } from '~/shared/lib/module-federation';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { RemoteModule, remoteDefinitions } from '~/shared/lib/module-federation';
 import { Title, Divider, Loader } from '@mantine/core';
 import { Page } from '~/shared/ui';
 import { IndexPage } from './index/index';
 
 export const Pages: FC = () => {
-  const mfeRoutes = remoteModules.map((remote) => (
+  const remoteRoutes = remoteDefinitions.map((definition) => (
     <Route
-      key={remote.id}
-      path={remote.name.toLowerCase()}
+      key={definition.name}
+      path={definition.name.toLowerCase()}
       element={
-        <Page title={`${remote.name}`}>
-          <Title>{remote.name}</Title>
+        <Page title={`${definition.name}`}>
+          <Title>{definition.name}</Title>
           <Divider my="md" />
-          <RemoteComponent
-            url={remote.url}
-            scope={remote.name}
+          <RemoteModule
+            url={definition.url}
+            scope={definition.name}
             module="./Module"
             fallback={<Loader />}
           />
@@ -30,8 +30,9 @@ export const Pages: FC = () => {
     <Routes>
       <Route path="/" element={<BaseLayout />}>
         <Route index element={<IndexPage />} />
-        {mfeRoutes}
+        {remoteRoutes}
       </Route>
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 };

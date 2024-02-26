@@ -1,7 +1,7 @@
 import { AppShell, Code, Group, Title } from '@mantine/core';
 import { type FC } from 'react';
 import { NavLink, type To } from 'react-router-dom';
-import { remoteModules } from '~/shared/lib/module-federation';
+import { remoteDefinitions } from '~/shared/lib/module-federation';
 import styles from './styles.module.css';
 
 export const Navbar: FC = () => {
@@ -10,16 +10,16 @@ export const Navbar: FC = () => {
       label: 'Главная',
       to: '/',
     },
-    ...remoteModules.map((remote) => ({
-      label: remote.name,
-      to: remote.name.toLowerCase(),
+    ...remoteDefinitions.map((definition) => ({
+      label: definition.name,
+      to: definition.name.toLowerCase(),
     })),
   ];
 
-  const links = data.map((item, idx) => (
+  const links = data.map((item) => (
     <NavLink
       // eslint-disable-next-line react/no-array-index-key
-      key={idx}
+      key={item.label}
       className={({ isActive }) => [styles.link, isActive && styles.active].join(' ')}
       to={item.to}
     >
