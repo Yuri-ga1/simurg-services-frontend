@@ -25,17 +25,20 @@
   font-size: var(--mantine-font-size-sm);
   text-decoration: none;
   border-radius: var(--mantine-radius-sm);
+  transition: all 150ms ease-in-out;
+  transition-property: color, background-color;
 
-  @mixin hover {
+  &:hover {
     color: var(--mantine-color-black);
     background-color: var(--mantine-color-gray-0);
   }
 
   &.active {
-    &,
+    color: var(--mantine-color-blue-light-color);
+    background-color: var(--mantine-color-blue-light);
+
     &:hover {
-      color: var(--mantine-color-blue-light-color);
-      background-color: var(--mantine-color-blue-light);
+      background-color: var(--mantine-color-blue-1);
     }
   }
 }

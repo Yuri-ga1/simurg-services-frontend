@@ -3,16 +3,23 @@
   "private": true,
   "exports": {
     "./types/app.d.ts": {
-      "default": "./types/app.d.ts"
+      "default": "./src/types/app.d.ts"
     },
     "./lib/typescript": {
-      "default": "./lib/typescript/index.ts"
+      "default": "./src/lib/typescript/index.ts"
     },
     "./lib/notification": {
-      "default": "./lib/notification/index.ts"
+      "default": "./src/lib/notification/index.ts"
+    },
+    "./lib/time": {
+      "default": "./src/lib/time/index.ts"
+    },
+    "./api": {
+      "default": "./src/api/index.ts"
     }
   },
   "dependencies": {
-    "@mantine/notifications": "7.5.1"
+    "@mantine/notifications": "7.5.1",
+    "query-string": "^9.0.0"
   }
 }

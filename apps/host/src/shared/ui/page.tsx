@@ -1,12 +1,7 @@
-import { type ReactNode, type FC } from 'react';
+import { type FC, type PropsWithChildren } from 'react';
 import { useTitle } from '../lib/dom';
 
-type PageProps = {
-  title: string;
-  children: ReactNode;
-};
-
-export const Page: FC<PageProps> = ({ title, children }) => {
+export const Page: FC<PropsWithChildren<{ title: string }>> = ({ title, children }) => {
   useTitle(title);
   return children;
 };

@@ -5,7 +5,7 @@ import { yupResolver } from 'mantine-form-yup-resolver';
 import { Box, Button, FileInput, Text } from '@mantine/core';
 import { assert } from '@simurg-microfrontends/shared/lib/typescript';
 import { notification } from '@simurg-microfrontends/shared/lib/notification';
-import { BACKEND_URL } from '~/config/env';
+import { api, type CoordinateCalculationResult } from '~/api';
 
 type FormValues = {
   obsFile: Nullable<File>;
@@ -25,9 +25,8 @@ export const Form: FC = () => {
     },
     validate: yupResolver(formSchema),
   });
-  const [result, setResult] =
-    useState<Nullable<{ valid: boolean; coordinates: [number, number, number] }>>(null);
-  const [isPending, setIsPending] = useState(false);
+  const [result, setResult] = useState<Nullable<CoordinateCalculationResult>>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (values: FormValues): Promise<void> => {
     const { obsFile, navFile } = values;
@@ -47,15 +46,8 @@ export const Form: FC = () => {
     formData.append('navfile', navBlob, navFile.name);
 
     try {
-      setIsPending(true);
-      const res = await fetch(`${BACKEND_URL}/coordinates`, {
-        method: 'POST',
-        body: formData,
-      });
-      if (![200, 201].includes(res.status)) {
-        throw new Error('Failed to calculate coordinates');
-      }
-      const data = await res.json();
+      setIsLoading(true);
+      const data = await api.calculateCoordinates(formData);
       setResult(data);
     } catch {
       notification.error({
@@ -63,7 +55,7 @@ export const Form: FC = () => {
         message: 'Произошла ошибка при расчете координат 😔',
       });
     } finally {
-      setIsPending(false);
+      setIsLoading(false);
     }
   };
 
@@ -75,7 +67,7 @@ export const Form: FC = () => {
           placeholder="Загрузить файл"
           withAsterisk
           accept=".17o"
-          disabled={isPending}
+          disabled={isLoading}
           {...form.getInputProps('obsFile')}
         />
         <FileInput
@@ -84,10 +76,10 @@ export const Form: FC = () => {
           withAsterisk
           mt="md"
           accept=".17n"
-          disabled={isPending}
+          disabled={isLoading}
           {...form.getInputProps('navFile')}
         />
-        <Button type="submit" mt="md" loading={isPending}>
+        <Button type="submit" mt="md" loading={isLoading}>
           Рассчитать координаты
         </Button>
       </form>

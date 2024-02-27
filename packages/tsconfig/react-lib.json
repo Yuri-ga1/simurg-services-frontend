@@ -3,6 +3,8 @@
   "display": "React Lib",
   "extends": "./base.json",
   "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "jsx": "react-jsx",
     "plugins": [
       {

@@ -1,12 +1,21 @@
 import { Center, Loader, MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
-import { Suspense, type FC } from 'react';
+import { Suspense, type FC, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Pages } from '~/pages';
+import { BackendServiceProvider, useBackendServiceHandlers } from '~/entities/backend-service';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 
-const App: FC = () => <Pages />;
+const App: FC = () => {
+  const { loadBackendServices } = useBackendServiceHandlers();
+
+  useEffect(() => {
+    loadBackendServices();
+  }, [loadBackendServices]);
+
+  return <Pages />;
+};
 
 export const AppWithProviders: FC = () => (
   <BrowserRouter>
@@ -19,7 +28,9 @@ export const AppWithProviders: FC = () => (
           </Center>
         }
       >
-        <App />
+        <BackendServiceProvider>
+          <App />
+        </BackendServiceProvider>
       </Suspense>
     </MantineProvider>
   </BrowserRouter>
