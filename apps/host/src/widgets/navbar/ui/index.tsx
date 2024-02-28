@@ -1,10 +1,10 @@
 import { AppShell, Code, Group, Title, Skeleton, Tooltip, Text } from '@mantine/core';
 import { type FC } from 'react';
 import { NavLink, type To } from 'react-router-dom';
-import { remoteDefinitions } from '~/shared/lib/module-federation';
-import { useBackendServiceState } from '~/entities/backend-service';
 import { isUndefined } from '@simurg-microfrontends/shared/lib/typescript';
+import { useBackendServiceState } from '../../../entities/backend-service';
 import styles from './styles.module.css';
+import { remoteDefinitions } from '../../../shared/config/module-federation';
 
 const LinkListSkeleton: FC = () =>
   Array(5)
@@ -20,12 +20,10 @@ export const Navbar: FC = () => {
       label: 'Главная',
       to: '/',
     },
-    ...remoteDefinitions.map((definition) => ({
-      label: definition.name,
-      to: definition.path,
-      isActive: backendServices.some(
-        (service) => service.name === definition.backendName && service['status-code'] === 200,
-      ),
+    ...remoteDefinitions.map((d) => ({
+      label: d.name,
+      to: d.routePath,
+      isActive: backendServices.some((s) => s.name === d.backendName && s['status-code'] === 200),
     })),
   ];
 

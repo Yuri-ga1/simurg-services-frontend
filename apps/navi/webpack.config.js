@@ -6,15 +6,12 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const { DefinePlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { dependencies: deps } = require('./package.json');
 
 const NODE_ENV = process.env.NODE_ENV;
 
 const isDev = NODE_ENV === 'development';
 const isAnalyze = NODE_ENV === 'analyze';
-
-const envConfig = dotenv.config().parsed;
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -25,7 +22,7 @@ module.exports = {
   devServer: {
     hot: true,
     static: path.join(__dirname, 'dist'),
-    port: envConfig.PORT,
+    port: 9001,
   },
   output: {
     publicPath: 'auto',
@@ -84,7 +81,7 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin(),
     new ModuleFederationPlugin({
-      name: envConfig.APP_NAME,
+      name: 'Navi',
       filename: 'remoteEntry.js',
       exposes: {
         './Module': './src/remote-entry.ts',
@@ -118,13 +115,10 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      templateParameters: {
-        title: envConfig.APP_NAME,
-      },
       chunks: ['main'],
     }),
     new DefinePlugin({
-      'process.env': JSON.stringify(envConfig),
+      'process.env': JSON.stringify(dotenv.config().parsed),
       __DEV__: isDev,
     }),
     isDev &&
@@ -135,6 +129,5 @@ module.exports = {
   ].filter(Boolean),
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
-    plugins: [new TsconfigPathsPlugin()],
   },
 };

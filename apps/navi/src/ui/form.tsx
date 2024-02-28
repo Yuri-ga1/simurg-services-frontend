@@ -5,7 +5,7 @@ import { yupResolver } from 'mantine-form-yup-resolver';
 import { Box, Button, FileInput, Text } from '@mantine/core';
 import { assert } from '@simurg-microfrontends/shared/lib/typescript';
 import { notification } from '@simurg-microfrontends/shared/lib/notification';
-import { api, type CoordinateCalculationResult } from '~/api';
+import { api, type CoordinateCalculationResult } from '../api';
 
 type FormValues = {
   obsFile: Nullable<File>;

@@ -5,11 +5,11 @@ export const backendServiceReducer = (
   action: BackendServiceAction,
 ): BackendServiceState => {
   switch (action.type) {
-    case 'loading':
+    case 'FETCH_START':
       return { ...state, isLoaded: false };
-    case 'done':
+    case 'FETCH_DONE':
       return { ...state, backendServices: action.payload, isLoaded: true };
-    case 'fail':
+    case 'FETCH_FAIL':
       return { ...state, isLoaded: true };
     default:
       return state;

@@ -13,9 +13,9 @@ export class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundarySta
     return { hasError: true };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+  componentDidCatch(err: Error, errInfo: ErrorInfo): void {
     // eslint-disable-next-line no-console
-    console.error('ErrorBoundary', error, errorInfo);
+    console.error('ErrorBoundary', err, errInfo);
   }
 
   render(): ReactNode {

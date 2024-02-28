@@ -7,16 +7,12 @@ const { DefinePlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { dependencies: deps } = require('./package.json');
 
 const NODE_ENV = process.env.NODE_ENV;
 
 const isDev = NODE_ENV === 'development';
 const isAnalyze = NODE_ENV === 'analyze';
-
-const envConfig = dotenv.config().parsed;
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -27,7 +23,7 @@ module.exports = {
   devServer: {
     hot: false,
     static: path.join(__dirname, 'dist'),
-    port: envConfig.PORT,
+    port: 9000,
     historyApiFallback: true,
   },
   output: {
@@ -84,13 +80,10 @@ module.exports = {
     ],
   },
   plugins: [
-    new CopyPlugin({
-      patterns: [{ from: 'module-federation.manifest.json', to: 'assets' }],
-    }),
-    new NodePolyfillPlugin(),
     new MiniCssExtractPlugin(),
+    new NodePolyfillPlugin(),
     new ModuleFederationPlugin({
-      name: envConfig.APP_NAME,
+      name: 'Host',
       shared: {
         react: {
           singleton: true,
@@ -117,12 +110,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       templateParameters: {
-        title: envConfig.APP_NAME,
         isDev,
       },
     }),
     new DefinePlugin({
-      'process.env': JSON.stringify(envConfig),
+      'process.env': JSON.stringify(dotenv.config().parsed),
       __DEV__: isDev,
     }),
     isDev &&
@@ -133,6 +125,5 @@ module.exports = {
   ].filter(Boolean),
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
-    plugins: [new TsconfigPathsPlugin()],
   },
 };

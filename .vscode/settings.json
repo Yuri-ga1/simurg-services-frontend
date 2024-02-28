@@ -4,6 +4,6 @@
     "**/*.scss",
     "**/*.sass",
     "**/*.less",
-    "node_modules/@mantine/core/styles.css"
+    "node_modules/**/@mantine/core/styles.css"
   ]
 }

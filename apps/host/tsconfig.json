@@ -1,11 +1,7 @@
 {
   "extends": "@simurg-microfrontends/tsconfig/react-app.json",
   "compilerOptions": {
-    "types": ["node", "@simurg-microfrontends/shared/types/app.d.ts"],
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["src/*"]
-    }
+    "types": ["node", "@simurg-microfrontends/shared/types/app.d.ts"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]

@@ -6,10 +6,13 @@
     "fresh": "rm pnpm-lock.yaml && pnpm clean && pnpm i",
     "dev": "pnpm run -r --stream dev",
     "build": "pnpm run -r build",
-    "analyze": "pnpm run -r analyze",
+    "analyze": "pnpm run -r --stream analyze",
     "lint": "eslint . --max-warnings 0 --fix",
     "format": "prettier . --write",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docker": "docker-compose up -d",
+    "docker:host": "docker-compose up -d host",
+    "docker:navi": "docker-compose up -d navi"
   },
   "dependencies": {
     "@simurg-microfrontends/shared": "workspace:*"

@@ -14,8 +14,8 @@
     "./lib/time": {
       "default": "./src/lib/time/index.ts"
     },
-    "./api": {
-      "default": "./src/api/index.ts"
+    "./lib/fetch": {
+      "default": "./src/lib/fetch/index.ts"
     }
   },
   "dependencies": {

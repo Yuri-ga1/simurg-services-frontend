@@ -1,1 +1,1 @@
-export { Form as default } from './ui';
+export { Form as default } from './ui/form';

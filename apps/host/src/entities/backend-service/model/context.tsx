@@ -1,9 +1,16 @@
-import { type FC, type PropsWithChildren, createContext, useReducer, useMemo } from 'react';
-import { useStrictContext } from '~/shared/lib/react';
-import { api } from '~/shared/api';
+import {
+  type FC,
+  type PropsWithChildren,
+  createContext,
+  useReducer,
+  useCallback,
+  useEffect,
+} from 'react';
 import { notification } from '@simurg-microfrontends/shared/lib/notification';
-import { type BackendServiceHandlers, type BackendServiceState } from './types';
+import { type BackendServiceState } from './types';
 import { backendServiceReducer } from './reducer';
+import { useStrictContext } from '../../../shared/lib/react';
+import { api } from '../../../shared/api';
 
 const INITIAL_STATE: BackendServiceState = {
   backendServices: [],
@@ -16,41 +23,30 @@ BackendServiceStateContext.displayName = 'BackendServiceContext';
 export const useBackendServiceState = (): BackendServiceState =>
   useStrictContext(BackendServiceStateContext);
 
-const BackendServiceHandlersContext = createContext<BackendServiceHandlers>({
-  loadBackendServices: async () => {},
-});
-BackendServiceHandlersContext.displayName = 'BackendServiceHandlersContext';
-
-export const useBackendServiceHandlers = (): BackendServiceHandlers =>
-  useStrictContext(BackendServiceHandlersContext);
-
 export const BackendServiceProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(backendServiceReducer, INITIAL_STATE);
 
-  const handlers: BackendServiceHandlers = useMemo(
-    () => ({
-      loadBackendServices: async (): Promise<void> => {
-        try {
-          dispatch({ type: 'loading' });
-          const services = await api.getBackendServices();
-          dispatch({ type: 'done', payload: services });
-        } catch {
-          dispatch({ type: 'fail' });
-          notification.error({
-            title: 'Ошибка!',
-            message: 'Произошла ошибка при загрузке сервисов 😔',
-          });
-        }
-      },
-    }),
-    [],
-  );
+  const loadBackendServices = useCallback(async (): Promise<void> => {
+    try {
+      dispatch({ type: 'FETCH_START' });
+      const services = await api.getBackendServices();
+      dispatch({ type: 'FETCH_DONE', payload: services });
+    } catch {
+      dispatch({ type: 'FETCH_FAIL' });
+      notification.error({
+        title: 'Ошибка!',
+        message: 'Произошла ошибка при загрузке сервисов 😔',
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    loadBackendServices();
+  }, [loadBackendServices]);
 
   return (
     <BackendServiceStateContext.Provider value={state}>
-      <BackendServiceHandlersContext.Provider value={handlers}>
-        {children}
-      </BackendServiceHandlersContext.Provider>
+      {children}
     </BackendServiceStateContext.Provider>
   );
 };

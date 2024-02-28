@@ -1,8 +1,8 @@
 import { AppShell, Center, Loader } from '@mantine/core';
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useBackendServiceState } from '~/entities/backend-service';
-import { Navbar } from '~/widgets/navbar';
+import { useBackendServiceState } from '../../entities/backend-service';
+import { Navbar } from '../../widgets/navbar';
 
 export const BaseLayout: FC = () => {
   const { isLoaded } = useBackendServiceState();

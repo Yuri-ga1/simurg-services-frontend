@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import { sleep } from '../lib/time';
+import { sleep } from '../time';
 import {
   type ApiError,
   BadDataError,
@@ -39,17 +39,17 @@ export const createRequestClient = ({
       await sleep(delay);
     }
 
-    const response = await fetch(buildUrl(options.url, options.query), {
+    const res = await fetch(buildUrl(options.url, options.query), {
       method: options.method,
       headers,
       body,
       credentials: withCredentials ? 'include' : undefined,
     });
 
-    if ([200, 201].includes(response.status)) {
-      return parseResponse(response);
+    if ([200, 201].includes(res.status)) {
+      return parseResponse(res);
     }
-    throw parseErrorStatus(response.status);
+    throw parseErrorStatus(res.status);
   };
 
   return {
@@ -71,15 +71,15 @@ function queryToString(query: Record<string, any> | undefined): string {
   return query ? `?${queryString.stringify(query)}` : '';
 }
 
-async function parseResponse(response: Response): Promise<any> {
-  const contentType = response.headers.get('content-type') ?? 'json';
+async function parseResponse(res: Response): Promise<any> {
+  const contentType = res.headers.get('content-type') ?? 'json';
   if (contentType === 'stream') {
-    return response.text();
+    return res.text();
   }
   if (contentType === 'arraybuffer') {
-    return response.arrayBuffer();
+    return res.arrayBuffer();
   }
-  return response.json();
+  return res.json();
 }
 
 function parseErrorStatus(status: number): ApiError {

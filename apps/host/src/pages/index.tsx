@@ -1,15 +1,11 @@
-import { BaseLayout } from '~/layouts/base';
+import { type RouteObject, createBrowserRouter, Navigate } from 'react-router-dom';
+import { Title, Loader, Divider } from '@mantine/core';
 import { type FC } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import {
-  type RemoteDefinition,
-  RemoteModule,
-  remoteDefinitions,
-} from '~/shared/lib/module-federation';
-import { Title, Divider, Loader } from '@mantine/core';
-import { Page } from '~/shared/ui';
-import { BackendServiceAccessGuard } from '~/entities/backend-service';
+import { BackendServiceAccessGuard } from '../entities/backend-service';
+import { BaseLayout } from '../layouts/base';
 import { IndexPage } from './index/index';
+import { remoteDefinitions, type RemoteDefinition } from '../shared/config/module-federation';
+import { Page, RemoteModule } from '../shared/ui';
 
 const RemotePage: FC<{ definition: RemoteDefinition }> = ({ definition }) => (
   <Page title={`${definition.name}`}>
@@ -24,29 +20,29 @@ const RemotePage: FC<{ definition: RemoteDefinition }> = ({ definition }) => (
   </Page>
 );
 
-export const Pages: FC = () => {
-  const remoteRoutes = remoteDefinitions.map((definition) => (
-    <Route
-      key={definition.name}
-      path={definition.path}
-      element={<RemotePage definition={definition} />}
-    />
-  ));
-
-  return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <BackendServiceAccessGuard>
-            <BaseLayout />
-          </BackendServiceAccessGuard>
-        }
-      >
-        <Route index element={<IndexPage />} />
-        {remoteRoutes}
-      </Route>
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
-  );
-};
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <BackendServiceAccessGuard>
+        <BaseLayout />
+      </BackendServiceAccessGuard>
+    ),
+    children: [
+      {
+        index: true,
+        element: <IndexPage />,
+      },
+      ...remoteDefinitions.map(
+        (d): RouteObject => ({
+          path: d.routePath,
+          element: <RemotePage definition={d} />,
+        }),
+      ),
+    ],
+  },
+  {
+    path: '*',
+    element: <Navigate to="/" />,
+  },
+]);

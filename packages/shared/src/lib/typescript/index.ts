@@ -1,7 +1,7 @@
-export function assert(condition: any, message: string): asserts condition {
+export function assert(condition: any, msg: string): asserts condition {
   if (!condition) {
-    throw new Error(`Assertion Error ${message}`);
+    throw new Error(`Assertion Error ${msg}`);
   }
 }
 
-export const isUndefined = (value: any): value is undefined => typeof value === 'undefined';
+export const isUndefined = (val: any): val is undefined => typeof val === 'undefined';

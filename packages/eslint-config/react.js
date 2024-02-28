@@ -1,4 +1,4 @@
-const inherit = require('./_inherit.js');
+const inherit = require('./inherit.js');
 
 /** @type {import('eslint').Linter.Config} */
 module.exports = {

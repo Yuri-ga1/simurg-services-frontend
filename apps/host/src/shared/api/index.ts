@@ -1,9 +1,5 @@
-import { createRequestClient } from '@simurg-microfrontends/shared/api';
+import { createRequestClient } from '@simurg-microfrontends/shared/lib/fetch';
 import { BACKEND_URL } from '../config/env';
-
-export type GetBackendServicesResponse = {
-  services: BackendService[];
-};
 
 export type BackendService = {
   name: string;
@@ -16,7 +12,7 @@ const requestClient = createRequestClient({
 });
 
 const getBackendServices = async (): Promise<BackendService[]> => {
-  const data = await requestClient.send<void, GetBackendServicesResponse>({
+  const data = await requestClient.send<void, { services: BackendService[] }>({
     url: 'services',
     method: 'GET',
   });

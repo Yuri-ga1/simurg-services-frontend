@@ -1,5 +1,5 @@
-import { createRequestClient } from '@simurg-microfrontends/shared/api';
-import { BACKEND_URL } from '~/config/env';
+import { createRequestClient } from '@simurg-microfrontends/shared/lib/fetch';
+import { BACKEND_URL } from '../config/env';
 
 export type CoordinateCalculationResult = {
   valid: boolean;

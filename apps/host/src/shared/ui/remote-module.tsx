@@ -1,6 +1,6 @@
 import { importRemote } from '@module-federation/utilities';
 import { lazy, type ReactNode, Suspense, type FC } from 'react';
-import { ErrorBoundary } from '../react';
+import { ErrorBoundary } from './error-boundary';
 
 type RemoteModuleProps = {
   url: string;

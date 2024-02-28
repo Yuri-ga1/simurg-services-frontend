@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  host:
+    build:
+      context: .
+      target: host
+    image: host
+    container_name: host
+    ports:
+      - '9000:80'
+  navi:
+    build:
+      context: .
+      target: navi
+    image: navi
+    container_name: navi
+    ports:
+      - '9001:80'
