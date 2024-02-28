@@ -1,4 +1,4 @@
-import { assert } from '@simurg-microfrontends/shared/lib/typescript';
+import { assert } from '@internal/shared/lib/typescript';
 import { type Context, useContext } from 'react';
 
 export const useStrictContext = <T>(context: Context<T>): T => {

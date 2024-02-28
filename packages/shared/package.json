@@ -1,5 +1,5 @@
 {
-  "name": "@simurg-microfrontends/shared",
+  "name": "@internal/shared",
   "private": true,
   "exports": {
     "./types/app.d.ts": {

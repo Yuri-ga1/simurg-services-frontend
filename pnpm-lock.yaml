@@ -8,14 +8,14 @@ importers:
 
   .:
     dependencies:
-      '@simurg-microfrontends/shared':
+      '@internal/shared':
         specifier: workspace:*
         version: link:packages/shared
     devDependencies:
-      '@simurg-microfrontends/eslint-config':
+      '@internal/eslint-config':
         specifier: workspace:*
         version: link:packages/eslint-config
-      '@simurg-microfrontends/tsconfig':
+      '@internal/tsconfig':
         specifier: workspace:*
         version: link:packages/tsconfig
       eslint:

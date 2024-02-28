@@ -1,7 +1,7 @@
 import { AppShell, Code, Group, Title, Skeleton, Tooltip, Text } from '@mantine/core';
 import { type FC } from 'react';
 import { NavLink, type To } from 'react-router-dom';
-import { isUndefined } from '@simurg-microfrontends/shared/lib/typescript';
+import { isUndefined } from '@internal/shared/lib/typescript';
 import { useBackendServiceState } from '../../../entities/backend-service';
 import styles from './styles.module.css';
 import { remoteDefinitions } from '../../../shared/config/module-federation';

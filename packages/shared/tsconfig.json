@@ -1,5 +1,5 @@
 {
-  "extends": "@simurg-microfrontends/tsconfig/react-lib.json",
+  "extends": "@internal/tsconfig/react-lib.json",
   "include": ["src"],
   "exclude": ["node_modules"]
 }

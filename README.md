@@ -1,1 +1,1 @@
-# simurg-microfrontends
+# simurg-services-frontend

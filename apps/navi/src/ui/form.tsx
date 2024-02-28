@@ -3,8 +3,8 @@ import * as yup from 'yup';
 import { useForm } from '@mantine/form';
 import { yupResolver } from 'mantine-form-yup-resolver';
 import { Box, Button, FileInput, Text } from '@mantine/core';
-import { assert } from '@simurg-microfrontends/shared/lib/typescript';
-import { notification } from '@simurg-microfrontends/shared/lib/notification';
+import { assert } from '@internal/shared/lib/typescript';
+import { notification } from '@internal/shared/lib/notification';
 import { api, type CoordinateCalculationResult } from '../api';
 
 type FormValues = {

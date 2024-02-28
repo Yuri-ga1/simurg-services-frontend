@@ -1,5 +1,5 @@
 {
-  "name": "simurg-microfrontends",
+  "name": "simurg-services-frontend",
   "private": true,
   "scripts": {
     "clean": "rm -rf node_modules && pnpm -r exec rm -rf dist node_modules",
@@ -15,11 +15,11 @@
     "docker:navi": "docker-compose up -d navi"
   },
   "dependencies": {
-    "@simurg-microfrontends/shared": "workspace:*"
+    "@internal/shared": "workspace:*"
   },
   "devDependencies": {
-    "@simurg-microfrontends/eslint-config": "workspace:*",
-    "@simurg-microfrontends/tsconfig": "workspace:*",
+    "@internal/eslint-config": "workspace:*",
+    "@internal/tsconfig": "workspace:*",
     "eslint": "^8.56.0",
     "husky": "^9.0.11",
     "prettier": "^3.2.5",

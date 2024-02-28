@@ -1,5 +1,5 @@
 {
-  "name": "@simurg-microfrontends/eslint-config",
+  "name": "@internal/eslint-config",
   "private": true,
   "files": [
     "base.js",

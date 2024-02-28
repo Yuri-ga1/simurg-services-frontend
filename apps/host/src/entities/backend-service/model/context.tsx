@@ -6,7 +6,7 @@ import {
   useCallback,
   useEffect,
 } from 'react';
-import { notification } from '@simurg-microfrontends/shared/lib/notification';
+import { notification } from '@internal/shared/lib/notification';
 import { type BackendServiceState } from './types';
 import { backendServiceReducer } from './reducer';
 import { useStrictContext } from '../../../shared/lib/react';

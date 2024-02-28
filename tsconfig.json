@@ -1,3 +1,3 @@
 {
-  "extends": "@simurg-microfrontends/tsconfig/base.json"
+  "extends": "@internal/tsconfig/base.json"
 }
