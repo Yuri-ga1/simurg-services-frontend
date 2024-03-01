@@ -24,23 +24,23 @@ export const createRequestClient = ({
   const buildUrl = (url: string, query?: Record<string, any>): string =>
     [baseUrl, url].filter(Boolean).join('/') + queryToString(query);
 
-  const send: RequestClient['send'] = async (options) => {
-    const headers = new Headers(options.headers);
-    if (options.contentType !== 'multipart/form-data') {
-      contentDefault(headers, options.contentType ?? 'application/json');
+  const send: RequestClient['send'] = async (opts) => {
+    const headers = new Headers(opts.headers);
+    if (opts.contentType !== 'multipart/form-data') {
+      contentDefault(headers, opts.contentType ?? 'application/json');
     }
 
     const body =
-      contentIs(headers, 'application/json') && options.data
-        ? JSON.stringify(options.data)
-        : (options.data as BodyInit);
+      contentIs(headers, 'application/json') && opts.data
+        ? JSON.stringify(opts.data)
+        : (opts.data as BodyInit);
 
     if (delay) {
       await sleep(delay);
     }
 
-    const res = await fetch(buildUrl(options.url, options.query), {
-      method: options.method,
+    const res = await fetch(buildUrl(opts.url, opts.query), {
+      method: opts.method,
       headers,
       body,
       credentials: withCredentials ? 'include' : undefined,

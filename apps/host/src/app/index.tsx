@@ -3,7 +3,7 @@ import { Notifications } from '@mantine/notifications';
 import { Suspense, type FC } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { router } from '../pages';
-import { BackendServiceProvider } from '../entities/backend-service';
+import { ServiceProvider } from '../entities/service';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 
@@ -17,9 +17,9 @@ export const App: FC = () => (
         </Center>
       }
     >
-      <BackendServiceProvider>
+      <ServiceProvider>
         <RouterProvider router={router} />
-      </BackendServiceProvider>
+      </ServiceProvider>
     </Suspense>
   </MantineProvider>
 );

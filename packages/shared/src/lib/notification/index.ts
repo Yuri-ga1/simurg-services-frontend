@@ -19,8 +19,8 @@ const typeToColor = (type: NotificationType): Required<NotificationData>['color'
 
 const createNotification =
   (type: NotificationType) =>
-  (options: NotifyOptions): void => {
-    notifications.show({ ...options, color: typeToColor(type) });
+  (opts: NotifyOptions): void => {
+    notifications.show({ ...opts, color: typeToColor(type) });
   };
 
 const info = createNotification('info');

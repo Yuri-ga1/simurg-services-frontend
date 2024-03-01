@@ -14,7 +14,7 @@ declare global {
   declare const __DEV__: boolean;
 
   /**
-   * Recourses support
+   * Resources support
    */
   type CSSModule = Record<string, string>;
   declare module '*.module.css' {

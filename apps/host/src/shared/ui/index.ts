@@ -1,3 +1,2 @@
-export { ErrorBoundary } from './error-boundary';
 export { Page } from './page';
-export { RemoteModule } from './remote-module';
+export { SkeletonList } from './skeleton-list';

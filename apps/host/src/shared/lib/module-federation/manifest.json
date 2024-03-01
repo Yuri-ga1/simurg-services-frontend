@@ -1,0 +1,8 @@
+[
+  {
+    "url": "http://localhost:9001",
+    "name": "Navi",
+    "backendName": "navi",
+    "routePath": "/navi"
+  }
+]

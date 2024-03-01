@@ -13,8 +13,8 @@ type FormValues = {
 };
 
 const formSchema = yup.object({
-  obsFile: yup.mixed().required('Obs файл обязательный'),
-  navFile: yup.mixed().required('Nav файл обязательный'),
+  obsFile: yup.mixed().required('Obs is required'),
+  navFile: yup.mixed().required('Nav is required'),
 });
 
 export const Form: FC = () => {
@@ -26,36 +26,31 @@ export const Form: FC = () => {
     validate: yupResolver(formSchema),
   });
   const [result, setResult] = useState<Nullable<CoordinateCalculationResult>>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (values: FormValues): Promise<void> => {
-    const { obsFile, navFile } = values;
+  const handleSubmit = async ({ obsFile, navFile }: FormValues): Promise<void> => {
     assert(obsFile && navFile, 'Obs and nav files must be defined');
 
     const obsBuffer = await obsFile.arrayBuffer();
     const navBuffer = await navFile.arrayBuffer();
-    const obsBlob = new Blob([new Uint8Array(obsBuffer)], {
-      type: 'application/octet-stream',
-    });
-    const navBlob = new Blob([new Uint8Array(navBuffer)], {
-      type: 'application/octet-stream',
-    });
+    const obsBlob = new Blob([new Uint8Array(obsBuffer)], { type: 'application/octet-stream' });
+    const navBlob = new Blob([new Uint8Array(navBuffer)], { type: 'application/octet-stream' });
 
     const formData = new FormData();
     formData.append('obsfile', obsBlob, obsFile.name);
     formData.append('navfile', navBlob, navFile.name);
 
     try {
-      setIsLoading(true);
+      setLoading(true);
       const data = await api.calculateCoordinates(formData);
       setResult(data);
     } catch {
       notification.error({
-        title: 'Ошибка!',
-        message: 'Произошла ошибка при расчете координат 😔',
+        title: 'Error!',
+        message: 'There was an error in calculating coordinates 😔',
       });
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -63,24 +58,24 @@ export const Form: FC = () => {
     <Box maw={400}>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <FileInput
-          label="Obs файл"
-          placeholder="Загрузить файл"
+          label="Obs file"
+          placeholder="Upload file"
           withAsterisk
           accept=".17o"
-          disabled={isLoading}
+          disabled={loading}
           {...form.getInputProps('obsFile')}
         />
         <FileInput
-          label="Nav файл"
-          placeholder="Загрузить файл"
+          label="Nav file"
+          placeholder="Upload file"
           withAsterisk
           mt="md"
           accept=".17n"
-          disabled={isLoading}
+          disabled={loading}
           {...form.getInputProps('navFile')}
         />
-        <Button type="submit" mt="md" loading={isLoading}>
-          Рассчитать координаты
+        <Button type="submit" mt="md" loading={loading}>
+          Calculate coordinates
         </Button>
       </form>
       {result && <Text mt="md">{JSON.stringify(result)}</Text>}

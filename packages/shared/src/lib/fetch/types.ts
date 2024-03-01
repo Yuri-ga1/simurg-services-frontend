@@ -24,7 +24,7 @@ export type RequestOptions<T> = {
 };
 
 export type RequestClient = {
-  send: <TData, TResult>(options: RequestOptions<TData>) => Promise<TResult>;
+  send: <TData, TResult>(opts: RequestOptions<TData>) => Promise<TResult>;
 };
 
 export type CreateRequestClientOptions = {

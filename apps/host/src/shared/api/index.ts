@@ -1,7 +1,7 @@
 import { createRequestClient } from '@internal/shared/lib/fetch';
 import { BACKEND_URL } from '../config/env';
 
-export type BackendService = {
+export type Service = {
   name: string;
   'status-code': number;
 };
@@ -11,12 +11,12 @@ const requestClient = createRequestClient({
   delay: 3000,
 });
 
-const getBackendServices = async (): Promise<BackendService[]> => {
-  const data = await requestClient.send<void, { services: BackendService[] }>({
+const getServices = async (): Promise<Service[]> => {
+  const data = await requestClient.send<void, { services: Service[] }>({
     url: 'services',
     method: 'GET',
   });
   return data.services;
 };
 
-export const api = { getBackendServices };
+export const api = { getServices };
