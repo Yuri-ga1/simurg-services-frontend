@@ -1,10 +1,15 @@
 import { Component, type PropsWithChildren, type ErrorInfo, type ReactNode } from 'react';
 
+type ErrorBoundaryProps = PropsWithChildren<{
+  // eslint-disable-next-line react/no-unused-prop-types
+  error?: ReactNode;
+}>;
+
 type ErrorBoundaryState = {
   hasError: boolean;
 };
 
-export class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   state: ErrorBoundaryState = {
     hasError: false,
   };
@@ -20,7 +25,7 @@ export class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundarySta
 
   render(): ReactNode {
     if (this.state.hasError) {
-      return <div>Oops... Something went wrong &#9785;&#65039;</div>;
+      return this.props.error ?? 'Error!';
     }
     return this.props.children;
   }

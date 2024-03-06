@@ -1,3 +1,7 @@
+const { resolve } = require('node:path');
+
+const project = resolve(process.cwd(), 'tsconfig.json');
+
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
   env: { browser: true, node: true },
@@ -12,7 +16,7 @@ module.exports = {
     },
     'import/resolver': {
       typescript: {
-        project: ['tsconfig.json', 'packages/*/tsconfig.json', 'apps/*/tsconfig.json'],
+        project,
       },
     },
   },

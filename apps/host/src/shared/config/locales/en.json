@@ -1,0 +1,20 @@
+{
+  "translation": {
+    "common": {
+      "english": "English",
+      "russian": "Russian",
+      "empty": "Empty",
+      "error": "Error"
+    },
+    "home": {
+      "title": "Home"
+    },
+    "service": {
+      "loadServicesError": "There was an error while loading services",
+      "notAvailable": "Service is temporarily unavailable"
+    },
+    "remoteComponent": {
+      "error": "Oops... Something went wrong"
+    }
+  }
+}

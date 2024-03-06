@@ -1,36 +1,43 @@
 import { AppShell, Code, Group, Title, Tooltip, Text } from '@mantine/core';
 import { type PropsWithChildren, type FC } from 'react';
 import { NavLink, type To } from 'react-router-dom';
-import { isUndefined } from '@internal/shared/lib/typescript';
+import { isUndefined } from '@repo/lib/typescript';
 import { useServiceState } from '../../../entities/service';
 import styles from './styles.module.css';
 import { remoteDefinitions } from '../../../shared/lib/module-federation';
 import { SkeletonList } from '../../../shared/ui';
+import { PickLanguageSelect } from '../../../features/pick-language';
+import { useTranslation } from '../../../shared/lib/i18next';
 
-const NavbarLink: FC<PropsWithChildren<{ to: To }>> = ({ to, children }) => (
+type NavbarLinkProps = PropsWithChildren<{ to: To }>;
+
+const NavbarLink: FC<NavbarLinkProps> = ({ to, children }) => (
   <NavLink className={({ isActive }) => [styles.link, isActive && styles.active].join(' ')} to={to}>
     {children}
   </NavLink>
 );
 
 export const Navbar: FC = () => {
-  const { services, loaded } = useServiceState();
+  const { services, isLoaded } = useServiceState();
+  const { t } = useTranslation();
 
   const data: { label: string; to: To; isActive?: boolean }[] = [
     {
-      label: 'Home',
+      label: t('home.title'),
       to: '/',
     },
-    ...remoteDefinitions.map((d) => ({
-      label: d.name,
-      to: d.routePath,
-      isActive: services.some((s) => s.name === d.backendName && s['status-code'] === 200),
+    ...remoteDefinitions.map((definition) => ({
+      label: definition.name,
+      to: definition.routePath,
+      isActive: services.some(
+        (service) => service.name === definition.backendName && service['status-code'] === 200,
+      ),
     })),
   ];
 
   const links = data.map((item) =>
     !isUndefined(item.isActive) && !item.isActive ? (
-      <Tooltip key={item.label} label="Service is temporarily unavailable">
+      <Tooltip key={item.label} label={t('service.notAvailable')}>
         <Text className={styles.link}>{item.label}</Text>
       </Tooltip>
     ) : (
@@ -47,8 +54,9 @@ export const Navbar: FC = () => {
           <Title order={3}>SIMuRG Services</Title>
           <Code fw={700}>v0.0.1</Code>
         </Group>
-        {loaded ? links : <SkeletonList count={5} itemProps={{ h: 32, mt: 'sm' }} />}
+        {isLoaded ? links : <SkeletonList count={5} itemProps={{ h: 32, mt: 'sm' }} />}
       </div>
+      <PickLanguageSelect />
     </AppShell.Navbar>
   );
 };

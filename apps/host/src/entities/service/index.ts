@@ -1,2 +1,2 @@
 export { useServiceState, ServiceProvider } from './model/context';
-export { ServiceAccessGuard } from './ui/access-guard';
+export { withServiceAccessGuard } from './ui/with-access-guard';

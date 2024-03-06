@@ -9,6 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 const { dependencies: deps } = require('./package.json');
 
+const APP_NAME = 'Host';
 const NODE_ENV = process.env.NODE_ENV;
 
 const isDev = NODE_ENV === 'development';
@@ -83,7 +84,7 @@ module.exports = {
     new MiniCssExtractPlugin(),
     new NodePolyfillPlugin(),
     new ModuleFederationPlugin({
-      name: 'Host',
+      name: APP_NAME,
       shared: {
         react: {
           singleton: true,
@@ -95,27 +96,29 @@ module.exports = {
         },
         '@mantine/core': {
           singleton: true,
-          requiredVersion: deps['@mantine/core'],
         },
         '@mantine/hooks': {
           singleton: true,
-          requiredVersion: deps['@mantine/hooks'],
         },
         '@mantine/notifications': {
           singleton: true,
-          requiredVersion: deps['@mantine/notifications'],
+        },
+        '@repo/lib/': {
+          singleton: true,
         },
       },
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       templateParameters: {
+        title: APP_NAME,
         isDev,
       },
     }),
     new DefinePlugin({
       'process.env': JSON.stringify(dotenv.config().parsed),
-      __DEV__: isDev,
+      __DEV__: JSON.stringify(isDev),
+      APP_NAME: JSON.stringify(APP_NAME),
     }),
     isDev &&
       new LiveReloadPlugin({

@@ -11,10 +11,10 @@ RUN pnpm build
 
 FROM nginx:alpine AS host
 COPY --from=build /usr/src/app/apps/host/dist /usr/share/nginx/html
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 CMD ["nginx", "-g", "daemon off;"]
 
 FROM nginx:alpine AS navi
 COPY --from=build /usr/src/app/apps/navi/dist /usr/share/nginx/html
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 CMD ["nginx", "-g", "daemon off;"]

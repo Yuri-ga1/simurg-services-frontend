@@ -1,10 +1,10 @@
 {
-  "name": "@internal/eslint-config",
+  "name": "@repo/eslint-config",
   "private": true,
-  "files": [
-    "base.js",
-    "react.js"
-  ],
+  "exports": {
+    "./base": "./base.js",
+    "./react": "./react.js"
+  },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",

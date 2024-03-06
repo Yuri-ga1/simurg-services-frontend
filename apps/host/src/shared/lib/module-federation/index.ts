@@ -1,3 +1,7 @@
-export { default as remoteDefinitions } from './manifest.json';
-export { type RemoteDefinition } from './types';
+import remoteDefinitions from './manifest.json';
+
 export { RemoteComponent } from './remote-component';
+
+export type RemoteDefinition = (typeof remoteDefinitions)[0];
+
+export { remoteDefinitions };

@@ -8,6 +8,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { dependencies: deps } = require('./package.json');
 
+const APP_NAME = 'Navi';
 const NODE_ENV = process.env.NODE_ENV;
 
 const isDev = NODE_ENV === 'development';
@@ -81,7 +82,7 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin(),
     new ModuleFederationPlugin({
-      name: 'Navi',
+      name: APP_NAME,
       filename: 'remoteEntry.js',
       exposes: {
         './Module': './src/remote-entry.ts',
@@ -97,29 +98,29 @@ module.exports = {
         },
         '@mantine/core': {
           singleton: true,
-          requiredVersion: deps['@mantine/core'],
         },
         '@mantine/hooks': {
           singleton: true,
-          requiredVersion: deps['@mantine/hooks'],
         },
         '@mantine/notifications': {
           singleton: true,
-          requiredVersion: deps['@mantine/notifications'],
         },
-        '@mantine/form': {
+        '@repo/lib/': {
           singleton: true,
-          requiredVersion: deps['@mantine/form'],
         },
       },
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       chunks: ['main'],
+      templateParameters: {
+        title: APP_NAME,
+      },
     }),
     new DefinePlugin({
       'process.env': JSON.stringify(dotenv.config().parsed),
-      __DEV__: isDev,
+      __DEV__: JSON.stringify(isDev),
+      APP_NAME: JSON.stringify(APP_NAME),
     }),
     isDev &&
       new ReactRefreshWebpackPlugin({

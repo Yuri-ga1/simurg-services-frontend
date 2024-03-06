@@ -1,0 +1,29 @@
+{
+  "name": "@repo/lib",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./typescript": "./src/typescript/index.ts",
+    "./notification": "./src/notification/index.ts",
+    "./time": "./src/time/index.ts",
+    "./fetch": "./src/fetch/index.ts",
+    "./i18next": "./src/i18next/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0 --fix"
+  },
+  "devDependencies": {
+    "@mantine/notifications": "^7.6.1",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@types/react": "^18.2.63",
+    "eslint": "^8.57.0",
+    "i18next": "^23.10.0",
+    "i18next-browser-languagedetector": "^7.2.0",
+    "query-string": "^9.0.0",
+    "react": "^18.2.0",
+    "react-i18next": "^14.0.5",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,6 +1,7 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-  extends: ['@internal/eslint-config/react.js'],
+  root: true,
+  extends: ['@repo/eslint-config/react'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: true,

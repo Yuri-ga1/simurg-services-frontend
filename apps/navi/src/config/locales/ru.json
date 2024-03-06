@@ -1,0 +1,16 @@
+{
+  "translation": {
+    "common": {
+      "error": "Ошибка"
+    },
+    "form": {
+      "obsFile": "Obs файл",
+      "obsFileRequired": "Obs файл обязателен",
+      "navFile": "Nav файл",
+      "navFileRequired": "Nav файл обязателен",
+      "uploadFile": "Загрузить файл",
+      "calculateCoordinates": "Рассчитать координаты",
+      "calculateCoordinatesError": "Произошла ошибка при расчете координат"
+    }
+  }
+}

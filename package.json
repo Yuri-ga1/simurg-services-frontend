@@ -4,25 +4,18 @@
   "scripts": {
     "clean": "rm -rf node_modules && pnpm -r exec rm -rf dist node_modules",
     "fresh": "rm pnpm-lock.yaml && pnpm clean && pnpm i",
-    "dev": "pnpm run -r --stream dev",
-    "build": "pnpm run -r build",
-    "analyze": "pnpm run -r --stream analyze",
-    "lint": "eslint . --max-warnings 0 --fix",
+    "dev": "pnpm -r --stream --parallel dev",
+    "build": "pnpm -r --stream --parallel build",
+    "analyze": "pnpm -r --stream --parallel analyze",
+    "lint": "pnpm -r --stream --parallel lint",
     "format": "prettier . --write",
     "prepare": "husky",
-    "docker": "docker-compose up -d",
-    "docker:host": "docker-compose up -d host",
-    "docker:navi": "docker-compose up -d navi"
-  },
-  "dependencies": {
-    "@internal/shared": "workspace:*"
+    "docker": "docker-compose up -d"
   },
   "devDependencies": {
-    "@internal/eslint-config": "workspace:*",
-    "@internal/tsconfig": "workspace:*",
-    "eslint": "^8.56.0",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
     "husky": "^9.0.11",
-    "prettier": "^3.2.5",
-    "typescript": "^5.3.3"
+    "prettier": "^3.2.5"
   }
 }

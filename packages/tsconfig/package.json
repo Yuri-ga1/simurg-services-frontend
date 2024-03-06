@@ -1,12 +1,11 @@
 {
-  "name": "@internal/tsconfig",
+  "name": "@repo/tsconfig",
   "private": true,
-  "files": [
-    "base.json",
-    "react-app.json",
-    "react-lib.json"
-  ],
-  "dependencies": {
+  "exports": {
+    "./base": "./base.json",
+    "./react-app": "./react-app.json"
+  },
+  "devDependencies": {
     "typescript-plugin-css-modules": "^5.1.0"
   }
 }

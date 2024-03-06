@@ -1,4 +1,4 @@
-import { createRequestClient } from '@internal/shared/lib/fetch';
+import { createRequestClient } from '@repo/lib/fetch';
 import { BACKEND_URL } from '../config/env';
 
 export type Service = {
@@ -8,7 +8,6 @@ export type Service = {
 
 const requestClient = createRequestClient({
   baseUrl: BACKEND_URL,
-  delay: 3000,
 });
 
 const getServices = async (): Promise<Service[]> => {

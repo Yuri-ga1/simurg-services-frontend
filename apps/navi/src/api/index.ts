@@ -1,4 +1,4 @@
-import { createRequestClient } from '@internal/shared/lib/fetch';
+import { createRequestClient } from '@repo/lib/fetch';
 import { BACKEND_URL } from '../config/env';
 
 export type CoordinateCalculationResult = {

@@ -1,7 +1,7 @@
 {
-  "extends": "@internal/tsconfig/react-app.json",
+  "extends": "@repo/tsconfig/react-app",
   "compilerOptions": {
-    "types": ["node", "@internal/shared/types/app.d.ts"]
+    "types": ["node", "@repo/types/app"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]

@@ -14,5 +14,6 @@ module.exports = {
     'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
     'react/state-in-constructor': 'off',
     'react/destructuring-assignment': 'off',
+    'react/function-component-definition': 'off',
   },
 };

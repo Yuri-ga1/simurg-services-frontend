@@ -1,7 +1,6 @@
 import { type RouteObject, createBrowserRouter, Navigate } from 'react-router-dom';
 import { Title, Loader, Divider } from '@mantine/core';
 import { type FC } from 'react';
-import { ServiceAccessGuard } from '../entities/service';
 import { BaseLayout } from '../layouts/base';
 import { IndexPage } from './index/index';
 import {
@@ -10,8 +9,14 @@ import {
   RemoteComponent,
 } from '../shared/lib/module-federation';
 import { Page } from '../shared/ui';
+import { ServiceLayout } from '../layouts/service';
+import { routes } from '../shared/config/routes';
 
-const RemotePage: FC<{ definition: RemoteDefinition }> = ({ definition }) => (
+type RemoteModulePageProps = {
+  definition: RemoteDefinition;
+};
+
+const RemoteModulePage: FC<RemoteModulePageProps> = ({ definition }) => (
   <Page title={`${definition.name}`}>
     <Title>{definition.name}</Title>
     <Divider my="md" />
@@ -26,27 +31,27 @@ const RemotePage: FC<{ definition: RemoteDefinition }> = ({ definition }) => (
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    element: (
-      <ServiceAccessGuard>
-        <BaseLayout />
-      </ServiceAccessGuard>
-    ),
+    element: <BaseLayout />,
     children: [
       {
-        index: true,
+        path: routes.home,
         element: <IndexPage />,
       },
+    ],
+  },
+  {
+    element: <ServiceLayout />,
+    children: [
       ...remoteDefinitions.map(
-        (d): RouteObject => ({
-          path: d.routePath,
-          element: <RemotePage definition={d} />,
+        (definition): RouteObject => ({
+          path: definition.routePath,
+          element: <RemoteModulePage definition={definition} />,
         }),
       ),
     ],
   },
   {
     path: '*',
-    element: <Navigate to="/" />,
+    element: <Navigate to={routes.home} />,
   },
 ]);
