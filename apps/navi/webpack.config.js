@@ -6,9 +6,9 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const { DefinePlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { dependencies: deps } = require('./package.json');
+const pkgJson = require('./package.json');
 
-const APP_NAME = 'Navi';
+const APP_NAME = pkgJson.name;
 const NODE_ENV = process.env.NODE_ENV;
 
 const isDev = NODE_ENV === 'development';
@@ -90,11 +90,11 @@ module.exports = {
       shared: {
         react: {
           singleton: true,
-          requiredVersion: deps['react'],
+          requiredVersion: pkgJson.dependencies['react'],
         },
         'react-dom': {
           singleton: true,
-          requiredVersion: deps['react-dom'],
+          requiredVersion: pkgJson.dependencies['react-dom'],
         },
         '@mantine/core': {
           singleton: true,

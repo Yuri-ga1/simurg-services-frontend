@@ -7,14 +7,14 @@ import { useTranslation } from '../../../../shared/lib/i18next';
 import { images } from '../assets';
 import styles from './styles.module.css';
 
-const data: { locale: string; label: string; image: string }[] = [
+const data: { language: string; label: string; image: string }[] = [
   {
-    locale: 'en',
+    language: 'en',
     label: 'common.english',
     image: images.english,
   },
   {
-    locale: 'ru',
+    language: 'ru',
     label: 'common.russian',
     image: images.russian,
   },
@@ -24,14 +24,14 @@ export const PickLanguageSelect: FC = () => {
   const { t } = useTranslation();
   const [opened, setOpened] = useState(false);
 
-  const selected = data.find((item) => item.locale === i18nService.getCurrentLanguage());
-  assert(selected, 'Locale item must be defined');
+  const selected = data.find((item) => item.language === i18nService.getCurrentLanguage());
+  assert(selected, 'PickLanguageSelect item must be defined');
 
   const items = data.map((item) => (
     <Menu.Item
-      key={item.locale}
+      key={item.language}
       leftSection={<Image src={item.image} width={18} height={18} />}
-      onClick={() => i18nService.changeLanguage(item.locale)}
+      onClick={() => i18nService.changeLanguage(item.language)}
     >
       {t(item.label)}
     </Menu.Item>

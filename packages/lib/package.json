@@ -7,7 +7,9 @@
     "./notification": "./src/notification/index.ts",
     "./time": "./src/time/index.ts",
     "./fetch": "./src/fetch/index.ts",
-    "./i18next": "./src/i18next/index.ts"
+    "./i18next": "./src/i18next/index.ts",
+    "./string": "./src/string/index.ts",
+    "./react": "./src/react/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0 --fix"
@@ -17,6 +19,7 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/tsconfig": "workspace:*",
     "@repo/types": "workspace:*",
+    "@types/node": "^20.11.24",
     "@types/react": "^18.2.63",
     "eslint": "^8.57.0",
     "i18next": "^23.10.0",

@@ -1,37 +1,44 @@
-import { useState, type FC } from 'react';
+import { type FC } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
-import { Box, Button, FileInput, Text } from '@mantine/core';
+import { Box, Button, FileInput, Stack, Text } from '@mantine/core';
 import { assert, isFile } from '@repo/lib/typescript';
 import { notification } from '@repo/lib/notification';
-import { api, type CoordinateCalculationResult } from '../api';
+import { useAsyncCallback } from '@repo/lib/react';
+import { api } from '../api';
 import { useTranslation } from '../lib/i18next';
 
-type FormData = {
+type FormValues = {
   obsFile: Nullable<File>;
   navFile: Nullable<File>;
 };
 
-const schema = z.object({
+const formSchema = z.object({
   obsFile: z.any().refine(isFile, 'form.obsFileRequired'),
   navFile: z.any().refine(isFile, 'form.navFileRequired'),
 });
 
 export const Form: FC = () => {
-  const { control, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       obsFile: null,
       navFile: null,
     },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(formSchema),
   });
-  const [result, setResult] = useState<Nullable<CoordinateCalculationResult>>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
 
-  const onSubmit: SubmitHandler<FormData> = async ({ obsFile, navFile }): Promise<void> => {
-    assert(obsFile && navFile, 'Obs and nav files must be defined');
+  const [data, calculateCoordinates, { isLoading }] = useAsyncCallback(api.calculateCoordinates, {
+    onError: () =>
+      notification.error({
+        title: `${t('common.error')}!`,
+        message: `${t('form.calculateCoordinatesError')} 😔`,
+      }),
+  });
+
+  const submitHandler: SubmitHandler<FormValues> = async ({ obsFile, navFile }): Promise<void> => {
+    assert(obsFile && navFile, 'obs and nav files must be defined');
 
     const obsBuffer = await obsFile.arrayBuffer();
     const navBuffer = await navFile.arrayBuffer();
@@ -42,61 +49,51 @@ export const Form: FC = () => {
     formData.append('obsfile', obsBlob, obsFile.name);
     formData.append('navfile', navBlob, navFile.name);
 
-    try {
-      setIsLoading(true);
-      const data = await api.calculateCoordinates(formData);
-      setResult(data);
-    } catch {
-      notification.error({
-        title: `${t('common.error')}!`,
-        message: `${t('form.calculateCoordinatesError')} 😔`,
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    calculateCoordinates(formData);
   };
 
   return (
     <Box maw={400}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name="obsFile"
-          control={control}
-          render={({ field, fieldState: { error } }) => (
-            <FileInput
-              {...field}
-              label={t('form.obsFile')}
-              placeholder={t('form.uploadFile')}
-              withAsterisk
-              accept=".17o"
-              disabled={isLoading}
-              error={error?.message && t(error.message)}
-              clearable
-            />
-          )}
-        />
-        <Controller
-          name="navFile"
-          control={control}
-          render={({ field, fieldState: { error } }) => (
-            <FileInput
-              {...field}
-              label={t('form.navFile')}
-              placeholder={t('form.uploadFile')}
-              withAsterisk
-              mt="md"
-              accept=".17n"
-              disabled={isLoading}
-              error={error?.message && t(error.message)}
-              clearable
-            />
-          )}
-        />
-        <Button type="submit" mt="md" loading={isLoading}>
-          {t('form.calculateCoordinates')}
-        </Button>
+      <form onSubmit={handleSubmit(submitHandler)}>
+        <Stack>
+          <Controller
+            name="obsFile"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <FileInput
+                {...field}
+                label={t('form.obsFile')}
+                placeholder={t('form.uploadFile')}
+                withAsterisk
+                accept=".17o"
+                disabled={isLoading}
+                error={error?.message && t(error.message)}
+                clearable
+              />
+            )}
+          />
+          <Controller
+            name="navFile"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <FileInput
+                {...field}
+                label={t('form.navFile')}
+                placeholder={t('form.uploadFile')}
+                withAsterisk
+                accept=".17n"
+                disabled={isLoading}
+                error={error?.message && t(error.message)}
+                clearable
+              />
+            )}
+          />
+          <Button type="submit" loading={isLoading}>
+            {t('form.calculateCoordinates')}
+          </Button>
+        </Stack>
       </form>
-      {result && <Text mt="md">{JSON.stringify(result)}</Text>}
+      {data && <Text mt="md">{JSON.stringify(data)}</Text>}
     </Box>
   );
 };

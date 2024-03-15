@@ -1,11 +1,12 @@
 import { Center, Loader } from '@mantine/core';
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useServiceState, withServiceAccessGuard } from '../../entities/service';
+import { useServiceState, useServiceAccessGuard } from '../../entities/service';
 import { Navbar } from '../../widgets/navbar';
 import { AppShell } from '../../shared/ui';
 
-const InternalServiceLayout: FC = () => {
+export const ServiceLayout: FC = () => {
+  useServiceAccessGuard();
   const { isLoaded } = useServiceState();
 
   return (
@@ -20,5 +21,3 @@ const InternalServiceLayout: FC = () => {
     </AppShell>
   );
 };
-
-export const ServiceLayout = withServiceAccessGuard(InternalServiceLayout);

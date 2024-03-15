@@ -3,7 +3,8 @@
   "private": true,
   "exports": {
     "./base": "./base.js",
-    "./react": "./react.js"
+    "./react": "./react.js",
+    "./react-refresh": "./react-refresh.js"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "6.21.0",

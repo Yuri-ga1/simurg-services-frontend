@@ -1,19 +1,26 @@
 export {
   ApiError,
+  NetworkError,
+  PreparationError,
+  HttpError,
+  HttpErrorStatus,
   BadDataError,
   ServerError,
   UnauthorizedError,
   NotFoundError,
   ForbiddenError,
   ConflictError,
+  isApiError,
+  isHttpError,
+  isNetworkError,
+  isPreparationError,
 } from './api-error';
-export { createRequestClient } from './create-request-client';
 export {
-  ApiErrorStatus,
+  createHttpClient,
   type ContentType,
   type ResponseType,
   type RequestMethod,
-  type SendRequestOptions,
-  type RequestClient,
-  type RequestClientInitOptions,
-} from './types';
+  type RequestOptions,
+  type HttpClient,
+  type CreateHttpClientOptions,
+} from './create-http-client';

@@ -16,3 +16,11 @@ services:
     container_name: navi
     ports:
       - '9001:80'
+  rinex-to-csv:
+    build:
+      context: .
+      target: rinex-to-csv
+    image: rinex-to-csv
+    container_name: rinex-to-csv
+    ports:
+      - '9002:80'

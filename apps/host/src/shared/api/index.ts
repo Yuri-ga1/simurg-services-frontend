@@ -1,4 +1,4 @@
-import { createRequestClient } from '@repo/lib/fetch';
+import { createHttpClient } from '@repo/lib/fetch';
 import { BACKEND_URL } from '../config/env';
 
 export type Service = {
@@ -6,13 +6,13 @@ export type Service = {
   'status-code': number;
 };
 
-const requestClient = createRequestClient({
+const httpClient = createHttpClient({
   baseUrl: BACKEND_URL,
 });
 
 const getServices = async (): Promise<Service[]> => {
-  const data = await requestClient.send<void, { services: Service[] }>({
-    url: 'services',
+  const data = await httpClient.request<void, { services: Service[] }>({
+    path: 'services',
     method: 'GET',
   });
   return data.services;

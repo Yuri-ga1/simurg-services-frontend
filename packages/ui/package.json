@@ -1,0 +1,18 @@
+{
+  "name": "@repo/ui",
+  "version": "0.0.0",
+  "private": true,
+  "exports": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint . --max-warnings 0 --fix"
+  },
+  "devDependencies": {
+    "@mantine/core": "^7.6.1",
+    "@mantine/hooks": "^7.6.1",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@types/react": "^18.2.63",
+    "react": "^18.2.0"
+  }
+}

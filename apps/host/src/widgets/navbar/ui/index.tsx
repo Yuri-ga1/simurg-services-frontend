@@ -4,7 +4,7 @@ import { NavLink, type To } from 'react-router-dom';
 import { isUndefined } from '@repo/lib/typescript';
 import { useServiceState } from '../../../entities/service';
 import styles from './styles.module.css';
-import { remoteDefinitions } from '../../../shared/lib/module-federation';
+import { remoteDefinitions } from '../../../shared/config/remote-definitions';
 import { SkeletonList } from '../../../shared/ui';
 import { PickLanguageSelect } from '../../../features/pick-language';
 import { useTranslation } from '../../../shared/lib/i18next';

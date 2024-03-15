@@ -1,15 +1,8 @@
-import {
-  type FC,
-  type PropsWithChildren,
-  createContext,
-  useReducer,
-  useCallback,
-  useEffect,
-} from 'react';
+import { type FC, type PropsWithChildren, createContext, useReducer } from 'react';
 import { notification } from '@repo/lib/notification';
 import { type ServiceState } from './types';
 import { serviceReducer } from './reducer';
-import { useStrictContext } from '../../../shared/lib/react';
+import { useMount, useStrictContext } from '../../../shared/lib/react';
 import { api } from '../../../shared/api';
 import { useTranslation } from '../../../shared/lib/i18next';
 
@@ -27,7 +20,7 @@ export const ServiceProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(serviceReducer, INITIAL_STATE);
   const { t } = useTranslation();
 
-  const loadServices = useCallback(async (): Promise<void> => {
+  const loadServices = async (): Promise<void> => {
     try {
       dispatch({ type: 'FETCH' });
       const services = await api.getServices();
@@ -39,12 +32,11 @@ export const ServiceProvider: FC<PropsWithChildren> = ({ children }) => {
         message: `${t('service.loadServicesError')} 😔`,
       });
     }
-  }, [t]);
+  };
 
-  useEffect(() => {
+  useMount(() => {
     loadServices();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   return <ServiceStateContext.Provider value={state}>{children}</ServiceStateContext.Provider>;
 };

@@ -1,4 +1,4 @@
 import { createUseTranslation } from '@repo/lib/i18next';
-import { locales } from '../config/locales';
+import { translations } from '../config/translations';
 
-export const useTranslation = createUseTranslation(APP_NAME, locales);
+export const useTranslation = createUseTranslation(APP_NAME, translations);

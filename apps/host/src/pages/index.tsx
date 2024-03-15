@@ -3,17 +3,13 @@ import { Title, Loader, Divider } from '@mantine/core';
 import { type FC } from 'react';
 import { BaseLayout } from '../layouts/base';
 import { IndexPage } from './index/index';
-import {
-  remoteDefinitions,
-  type RemoteDefinition,
-  RemoteComponent,
-} from '../shared/lib/module-federation';
-import { Page } from '../shared/ui';
+import { remoteDefinitions } from '../shared/config/remote-definitions';
+import { Page, RemoteComponent } from '../shared/ui';
 import { ServiceLayout } from '../layouts/service';
 import { routes } from '../shared/config/routes';
 
 type RemoteModulePageProps = {
-  definition: RemoteDefinition;
+  definition: (typeof remoteDefinitions)[0];
 };
 
 const RemoteModulePage: FC<RemoteModulePageProps> = ({ definition }) => (
