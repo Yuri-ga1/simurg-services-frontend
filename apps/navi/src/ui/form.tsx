@@ -32,8 +32,8 @@ export const Form: FC = () => {
   const [data, calculateCoordinates, { isLoading }] = useAsyncCallback(api.calculateCoordinates, {
     onError: () =>
       notification.error({
-        title: `${t('common.error')}!`,
-        message: `${t('form.calculateCoordinatesError')} 😔`,
+        title: t('common.error'),
+        message: t('form.calculateCoordinatesError'),
       }),
   });
 

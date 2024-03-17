@@ -22,7 +22,7 @@ export const RemoteComponent: FC<RemoteComponentProps> = ({ url, scope, module, 
   );
 
   return (
-    <ErrorBoundary error={`${t('remoteComponent.error')} &#9785;&#65039;`}>
+    <ErrorBoundary error={`${t('remoteComponent.error')} 😔`}>
       <Suspense fallback={fallback}>
         <Component />
       </Suspense>

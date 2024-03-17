@@ -10,7 +10,7 @@ export const IndexPage: FC = () => {
     <Page title={t('home.title')}>
       <Title>{t('home.title')}</Title>
       <Divider my="md" />
-      <Text>{t('common.empty')} &#9785;&#65039;</Text>
+      <Text>{t('common.empty')} 😔</Text>
     </Page>
   );
 };

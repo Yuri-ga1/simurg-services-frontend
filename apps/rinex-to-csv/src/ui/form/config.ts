@@ -1,11 +1,14 @@
 import { NavigationMeasurement, NavigationSystem, NavigationType, type TimeStep } from '../../api';
 
-export const timeSteps: TimeStep[] = [10, 30, 60, 120];
+const timeSteps: TimeStep[] = [10, 30, 60, 120];
 
-export const timeStepData: { label: string; value: string }[] = timeSteps.map((timeStep) => ({
-  label: `${timeStep} сек.`,
-  value: `${timeStep}`,
-}));
+export const getTimeStepData = (
+  getLabel: (timeStep: number) => string,
+): { label: string; value: string }[] =>
+  timeSteps.map((timeStep) => ({
+    label: getLabel(timeStep),
+    value: `${timeStep}`,
+  }));
 
 export const navigationSystemMap: Record<NavigationType, NavigationSystem> = {
   [NavigationType.G_SIGNALS]: NavigationSystem.GPS,

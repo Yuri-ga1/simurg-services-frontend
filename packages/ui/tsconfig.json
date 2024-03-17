@@ -1,8 +1,7 @@
 {
   "extends": "@repo/tsconfig/react-lib",
   "compilerOptions": {
-    "types": ["@repo/types/custom"]
+    "types": ["@repo/types/util-types"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src"]
 }

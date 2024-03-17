@@ -1,3 +1,29 @@
 {
-  "translation": {}
+  "translation": {
+    "common": {
+      "success": "Успех",
+      "error": "Ошибка",
+      "seconds": "{{ value }} сек."
+    },
+    "form": {
+      "uploadFile": "Загрузить файл",
+      "rinexFile": "Rinex файл",
+      "rinexFileRequired": "Rinex файл обязателен",
+      "uploadRinexFileError": "Произошла ошибка при загрузке rinex файла",
+      "navFile": "Nav файл",
+      "navFileRequired": "Nav файл обязателен",
+      "uploadNavFileError": "Произошла ошибка при загрузке nav файла",
+      "calculationOptions": "Опции для расчета",
+      "calculationOptionsRequired": "Обязательно выбрать хотя бы одну опцию",
+      "timeStep": "Временной промежуток",
+      "timeStepPlaceholder": "Выберите временной промежуток",
+      "timeStepRequired": "Временный промежуток обязателен",
+      "calculate": "Рассчитать координаты",
+      "calculateSuccess": "Координаты успешно рассчитаны",
+      "calculateError": "Произошла ошибка при расчете результата",
+      "getResult": "Скачать результат",
+      "getResultTooltip": "Сперва нужно рассчитать координаты",
+      "getResultError": "Произошла ошибка при скачивании результата"
+    }
+  }
 }

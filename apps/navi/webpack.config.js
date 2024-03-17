@@ -24,6 +24,9 @@ module.exports = {
     hot: true,
     static: path.join(__dirname, 'dist'),
     port: 9001,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
   },
   output: {
     publicPath: 'auto',

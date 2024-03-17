@@ -7,6 +7,7 @@ const { DefinePlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const pkgJson = require('./package.json');
 
 const APP_NAME = pkgJson.name;
@@ -81,6 +82,14 @@ module.exports = {
     ],
   },
   plugins: [
+    new CopyPlugin({
+      patterns: [
+        {
+          from: './module-federation.manifest.json',
+          to: '',
+        },
+      ],
+    }),
     new MiniCssExtractPlugin(),
     new NodePolyfillPlugin(),
     new ModuleFederationPlugin({

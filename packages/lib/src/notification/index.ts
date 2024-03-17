@@ -21,10 +21,26 @@ const typeToColor = (type: NotificationType): Required<NotificationData>['color'
   return 'blue';
 };
 
+const getEmojiByType = (type: NotificationType): string => {
+  switch (type) {
+    case 'error':
+      return '😔';
+    case 'success':
+      return '🥳';
+    default:
+      return '';
+  }
+};
+
 const createNotification =
   (type: NotificationType) =>
   (options: NotifyOptions): void => {
-    notifications.show({ ...options, color: typeToColor(type) });
+    notifications.show({
+      ...options,
+      title: options.title ? `${options.title}!` : undefined,
+      message: options.message ? `${options.message} ${getEmojiByType(type)}` : undefined,
+      color: typeToColor(type),
+    });
   };
 
 const info = createNotification('info');

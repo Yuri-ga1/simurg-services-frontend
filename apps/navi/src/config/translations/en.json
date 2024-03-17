@@ -4,13 +4,13 @@
       "error": "Error"
     },
     "form": {
+      "uploadFile": "Upload file",
       "obsFile": "Obs file",
       "obsFileRequired": "Obs file is required",
       "navFile": "Nav file",
       "navFileRequired": "Nav file is required",
-      "uploadFile": "Upload file",
       "calculateCoordinates": "Calculate coordinates",
-      "calculateCoordinatesError": "There was an error in calculating coordinates"
+      "calculateCoordinatesError": "There was an error while calculating coordinates"
     }
   }
 }

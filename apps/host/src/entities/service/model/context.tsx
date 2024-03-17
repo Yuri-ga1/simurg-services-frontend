@@ -28,8 +28,8 @@ export const ServiceProvider: FC<PropsWithChildren> = ({ children }) => {
     } catch {
       dispatch({ type: 'FETCH_FAIL' });
       notification.error({
-        title: `${t('common.error')}!`,
-        message: `${t('service.loadServicesError')} 😔`,
+        title: t('common.error'),
+        message: t('service.loadServicesError'),
       });
     }
   };

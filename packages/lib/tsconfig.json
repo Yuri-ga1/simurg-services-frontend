@@ -1,10 +1,9 @@
 {
   "extends": "@repo/tsconfig/base",
   "compilerOptions": {
-    "types": ["node", "@repo/types/custom"],
+    "types": ["node", "@repo/types/util-types"],
     "module": "ESNext",
     "moduleResolution": "Bundler"
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src"]
 }

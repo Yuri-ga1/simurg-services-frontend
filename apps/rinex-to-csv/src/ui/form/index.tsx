@@ -18,7 +18,7 @@ import {
   FILE_ACCEPT,
   navigationMeasurementData,
   navigationSystemMap,
-  timeStepData,
+  getTimeStepData,
 } from './config';
 import {
   type NavigationOption,
@@ -28,6 +28,7 @@ import {
   type CalculateData,
 } from '../../api';
 import { downloadFile } from '../../lib/file';
+import { useTranslation } from '../../lib/i18next';
 
 type FormValues = {
   rinexFile: Nullable<File>;
@@ -38,6 +39,7 @@ type FormValues = {
 
 const FileFields: FC = () => {
   const { control, setValue, clearErrors } = useFormContext<FormValues>();
+  const { t } = useTranslation();
 
   const [, uploadRinexFile, { isLoading: isRinexFileLoading }] = useAsyncCallback(
     async ({ formData }: { formData: FormData; file: File }) => api.uploadRinexFile(formData),
@@ -48,8 +50,8 @@ const FileFields: FC = () => {
       },
       onError: () =>
         notification.error({
-          title: 'Ошибка!',
-          message: 'Произошла ошибка при загрузке rinex файла 😔',
+          title: t('common.error'),
+          message: t('form.uploadRinexFileError'),
         }),
     },
   );
@@ -63,8 +65,8 @@ const FileFields: FC = () => {
       },
       onError: () =>
         notification.error({
-          title: 'Ошибка!',
-          message: 'Произошла ошибка при загрузке nav файла 😔',
+          title: t('common.error'),
+          message: t('form.uploadNavFileError'),
         }),
     },
   );
@@ -96,11 +98,11 @@ const FileFields: FC = () => {
           <CustomFileInput
             {...field}
             onChange={fileChangeHandler('rinex')}
-            label="Rinex файл"
-            placeholder="Загрузить файл"
+            label={t('form.rinexFile')}
+            placeholder={t('form.uploadFile')}
             accept={FILE_ACCEPT}
             isLoading={isRinexFileLoading}
-            error={error?.message}
+            error={error?.message && t(error.message)}
             withAsterisk
             clearable
           />
@@ -113,11 +115,11 @@ const FileFields: FC = () => {
           <CustomFileInput
             {...field}
             onChange={fileChangeHandler('nav')}
-            label="Nav файл"
-            placeholder="Загрузить файл"
+            label={t('form.navFile')}
+            placeholder={t('form.uploadFile')}
             accept={FILE_ACCEPT}
             isLoading={isNavFileLoading}
-            error={error?.message}
+            error={error?.message && t(error.message)}
             withAsterisk
             clearable
           />
@@ -133,6 +135,7 @@ const NavigationOptionFields: FC = () => {
     formState: { errors },
   } = useFormContext<FormValues>();
   const { fields } = useFieldArray({ control, name: 'navigationOptions' });
+  const { t } = useTranslation();
 
   const checkboxGroups = fields.map((field, index) => (
     <Controller
@@ -156,17 +159,17 @@ const NavigationOptionFields: FC = () => {
     />
   ));
 
-  const error = errors.navigationOptions?.root?.message;
+  const errorMessage = errors.navigationOptions?.root?.message;
 
   return (
     <div>
       <Text size="sm" fw={500}>
-        Опции для расчета: <span style={{ color: 'red' }}>*</span>
+        {t('form.calculationOptions')}: <span style={{ color: 'red' }}>*</span>
       </Text>
       <Stack gap="xs">{checkboxGroups}</Stack>
-      {error && (
+      {errorMessage && (
         <Text size="xs" c="red" mt="xs">
-          {error}
+          {t(errorMessage)}
         </Text>
       )}
     </div>
@@ -175,6 +178,9 @@ const NavigationOptionFields: FC = () => {
 
 const TimeStepSelect: FC = () => {
   const { control } = useFormContext<FormValues>();
+  const { t } = useTranslation();
+
+  const timeStepData = getTimeStepData((timeStep) => t('common.seconds', { value: timeStep }));
 
   return (
     <Controller
@@ -187,10 +193,10 @@ const TimeStepSelect: FC = () => {
           onChange={(value) => {
             field.onChange(Number(value));
           }}
-          label="Временной промежуток"
-          placeholder="Выберите временной промежуток"
+          label={t('form.timeStep')}
+          placeholder={t('form.timeStepPlaceholder')}
           data={timeStepData}
-          error={error?.message}
+          error={error?.message && t(error.message)}
         />
       )}
     />
@@ -198,8 +204,8 @@ const TimeStepSelect: FC = () => {
 };
 
 const formSchema = z.object({
-  rinexFile: z.any().refine(isFile, 'Rinex файл обязателен'),
-  navFile: z.any().refine(isFile, 'Nav файл обязателен'),
+  rinexFile: z.any().refine(isFile, 'form.rinexFileRequired'),
+  navFile: z.any().refine(isFile, 'form.navFileRequired'),
   navigationOptions: z
     .array(
       z.object({
@@ -209,12 +215,12 @@ const formSchema = z.object({
     )
     .refine(
       (options) => options.some((option) => option.measurements.length > 0),
-      'Обязательно выбрать хотя бы одну опцию',
+      'form.calculationOptionsRequired',
     ),
   timeStep: z
     .number()
     .nullable()
-    .refine((value) => value !== null, 'Временный промежуток обязателен'),
+    .refine((value) => value !== null, 'form.timeStepRequired'),
 });
 
 export const Form: FC = () => {
@@ -227,14 +233,20 @@ export const Form: FC = () => {
     },
     resolver: zodResolver(formSchema),
   });
+  const { t } = useTranslation();
 
   const [, calculate, { isLoading: isCalculating, isLoaded: isCalculated }] = useAsyncCallback(
     api.calculate,
     {
+      onSuccess: () =>
+        notification.success({
+          title: t('common.success'),
+          message: t('form.calculateSuccess'),
+        }),
       onError: () =>
         notification.error({
-          title: 'Ошибка!',
-          message: 'Произошла ошибка при расчете результата 😔',
+          title: t('common.error'),
+          message: t('form.calculateError'),
         }),
     },
   );
@@ -243,8 +255,8 @@ export const Form: FC = () => {
     onSuccess: (data) => downloadFile({ output: 'rinex-to-csv.zip', content: data }),
     onError: () =>
       notification.error({
-        title: 'Ошибка!',
-        message: 'Произошла ошибка при получении результата 😔',
+        title: t('common.error'),
+        message: t('form.getResultError'),
       }),
   });
 
@@ -271,15 +283,15 @@ export const Form: FC = () => {
             <TimeStepSelect />
             <Group>
               <Button type="submit" loading={isCalculating}>
-                Рассчитать координаты
+                {t('form.calculate')}
               </Button>
               <CustomButton
-                tooltip="Сперва нужно рассчитать координаты"
+                tooltip={t('form.getResultTooltip')}
                 disabled={!isCalculated}
                 loading={isResultLoading}
                 onClick={getResult}
               >
-                Скачать результат
+                {t('form.getResult')}
               </CustomButton>
             </Group>
           </Stack>

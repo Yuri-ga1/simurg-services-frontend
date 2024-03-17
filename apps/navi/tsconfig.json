@@ -1,8 +1,4 @@
 {
   "extends": "@repo/tsconfig/react-app",
-  "compilerOptions": {
-    "types": ["node", "@repo/types/app"]
-  },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src"]
 }
