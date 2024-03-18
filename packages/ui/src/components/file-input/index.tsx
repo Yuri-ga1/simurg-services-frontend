@@ -6,17 +6,17 @@ export type CustomFileInputProps = Omit<FileInputProps, 'classNames' | 'styles'>
 };
 
 export const CustomFileInput = forwardRef<HTMLButtonElement, CustomFileInputProps>(
-  ({ isLoading, label, error, withAsterisk, ...rest }, ref) => (
+  ({ isLoading, label, error, withAsterisk, id, ...restProps }, ref) => (
     <div>
       {label && (
-        <Text fw={500} size="sm">
+        <Text fw={500} size="sm" component="label" htmlFor={id}>
           {label} {withAsterisk && <span style={{ color: 'red' }}>*</span>}
         </Text>
       )}
       <div style={{ position: 'relative' }}>
         <LoadingOverlay visible={Boolean(isLoading)} loaderProps={{ size: 'xs' }} />
         <FileInput
-          {...rest}
+          id={id}
           ref={ref}
           fileInputProps={{
             onClick: (e) => {
@@ -24,6 +24,7 @@ export const CustomFileInput = forwardRef<HTMLButtonElement, CustomFileInputProp
             },
           }}
           error={Boolean(error)}
+          {...restProps}
         />
       </div>
       {error && (

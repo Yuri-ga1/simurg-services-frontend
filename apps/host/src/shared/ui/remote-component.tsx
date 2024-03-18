@@ -1,7 +1,14 @@
-import { importRemote } from '@module-federation/utilities';
 import { lazy, type ReactNode, Suspense, type FC } from 'react';
-import { ErrorBoundary } from './error-boundary';
+import { Text } from '@mantine/core';
+import { importRemote } from '@module-federation/utilities';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from '../lib/i18next';
+
+const ErrorFallback: FC = () => {
+  const { t } = useTranslation();
+
+  return <Text>{t('remoteComponent.error')} 😔</Text>;
+};
 
 type RemoteComponentProps = {
   url: string;
@@ -11,18 +18,20 @@ type RemoteComponentProps = {
 };
 
 export const RemoteComponent: FC<RemoteComponentProps> = ({ url, scope, module, fallback }) => {
-  const { t } = useTranslation();
-
-  const Component = lazy(async () =>
-    importRemote({
-      url,
-      scope,
-      module,
-    }),
-  );
+  const Component = lazy(async () => {
+    try {
+      return await importRemote({
+        url,
+        scope,
+        module,
+      });
+    } catch {
+      return { default: ErrorFallback };
+    }
+  });
 
   return (
-    <ErrorBoundary error={`${t('remoteComponent.error')} 😔`}>
+    <ErrorBoundary fallback={<ErrorFallback />}>
       <Suspense fallback={fallback}>
         <Component />
       </Suspense>

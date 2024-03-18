@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/tsconfig/base",
+  "extends": "@repo/tsconfig/react-lib",
   "compilerOptions": {
     "types": ["node", "@repo/types/util-types"],
     "module": "ESNext",

@@ -23,3 +23,8 @@ FROM nginx:alpine AS rinex-to-csv
 COPY --from=build /usr/src/app/apps/rinex-to-csv/dist /usr/share/nginx/html
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 CMD ["nginx", "-g", "daemon off;"]
+
+FROM nginx:alpine AS gecrec
+COPY --from=build /usr/src/app/apps/gecrec/dist /usr/share/nginx/html
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+CMD ["nginx", "-g", "daemon off;"]

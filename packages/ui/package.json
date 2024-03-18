@@ -8,7 +8,9 @@
   },
   "devDependencies": {
     "@mantine/core": "^7.6.1",
+    "@mantine/dates": "^7.6.1",
     "@mantine/hooks": "^7.6.1",
+    "@mantine/notifications": "^7.6.1",
     "@repo/eslint-config": "workspace:*",
     "@repo/tsconfig": "workspace:*",
     "@repo/types": "workspace:*",

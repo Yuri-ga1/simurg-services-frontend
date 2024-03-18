@@ -8,7 +8,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const pkgJson = require('./package.json');
 
-const APP_NAME = pkgJson.name;
+const APP_NAME = pkgJson.name.replace(/-/g, '_');
 const NODE_ENV = process.env.NODE_ENV;
 
 const isDev = NODE_ENV === 'development';
@@ -105,10 +105,10 @@ module.exports = {
         '@mantine/hooks': {
           singleton: true,
         },
-        '@mantine/notifications': {
+        '@repo/lib/': {
           singleton: true,
         },
-        '@repo/lib/': {
+        '@repo/ui': {
           singleton: true,
         },
       },

@@ -6,16 +6,16 @@ export type CustomButtonProps = Omit<HTMLAttributes<HTMLButtonElement>, 'color'>
     tooltip?: string;
   };
 
-export const CustomButton: FC<CustomButtonProps> = ({ disabled, tooltip, ...rest }) => {
+export const CustomButton: FC<CustomButtonProps> = ({ disabled, tooltip, ...restProps }) => {
   if (disabled && tooltip) {
     return (
       <Tooltip label={tooltip}>
         <span>
-          <Button disabled={disabled} {...rest} />
+          <Button disabled={disabled} {...restProps} />
         </span>
       </Tooltip>
     );
   }
 
-  return <Button disabled={disabled} {...rest} />;
+  return <Button disabled={disabled} {...restProps} />;
 };

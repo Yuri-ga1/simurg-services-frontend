@@ -24,3 +24,11 @@ services:
     container_name: rinex-to-csv
     ports:
       - '9002:80'
+  gecrec:
+    build:
+      context: .
+      target: gecrec
+    image: gecrec
+    container_name: gecrec
+    ports:
+      - '9003:80'

@@ -38,7 +38,9 @@ export const Navbar: FC = () => {
   const links = data.map((item) =>
     !isUndefined(item.isActive) && !item.isActive ? (
       <Tooltip key={item.label} label={t('service.notAvailable')}>
-        <Text className={styles.link}>{item.label}</Text>
+        <Text className={styles.link} style={{ cursor: 'not-allowed' }}>
+          {item.label}
+        </Text>
       </Tooltip>
     ) : (
       <NavbarLink key={item.label} to={item.to}>

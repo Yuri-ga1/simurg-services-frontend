@@ -1,0 +1,9 @@
+.loaderWrapper {
+  position: absolute;
+  right: 0;
+  bottom: rem(9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: rem(36);
+}

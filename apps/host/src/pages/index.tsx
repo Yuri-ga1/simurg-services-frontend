@@ -1,5 +1,5 @@
 import { type RouteObject, createBrowserRouter, Navigate } from 'react-router-dom';
-import { Title, Loader, Divider } from '@mantine/core';
+import { Title, Divider, Loader } from '@mantine/core';
 import { type FC } from 'react';
 import { BaseLayout } from '../layouts/base';
 import { IndexPage } from './index/index';

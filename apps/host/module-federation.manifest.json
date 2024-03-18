@@ -10,5 +10,11 @@
     "name": "rinex_to_csv",
     "backendName": "rinex-to-csv",
     "routePath": "/rinex-to-csv"
+  },
+  {
+    "url": "http://localhost:9003",
+    "name": "gecrec",
+    "backendName": "gecrec",
+    "routePath": "/gecrec"
   }
 ]

@@ -105,9 +105,6 @@ module.exports = {
         '@mantine/hooks': {
           singleton: true,
         },
-        '@mantine/notifications': {
-          singleton: true,
-        },
         '@repo/lib/': {
           singleton: true,
         },

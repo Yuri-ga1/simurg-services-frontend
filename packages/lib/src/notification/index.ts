@@ -34,12 +34,12 @@ const getEmojiByType = (type: NotificationType): string => {
 
 const createNotification =
   (type: NotificationType) =>
-  (options: NotifyOptions): void => {
+  ({ title, message, ...restOptions }: NotifyOptions): void => {
     notifications.show({
-      ...options,
-      title: options.title ? `${options.title}!` : undefined,
-      message: options.message ? `${options.message} ${getEmojiByType(type)}` : undefined,
+      title: title ? `${title}!` : undefined,
+      message: message ? `${message} ${getEmojiByType(type)}` : undefined,
       color: typeToColor(type),
+      ...restOptions,
     });
   };
 

@@ -29,7 +29,11 @@ export const Form: FC = () => {
   });
   const { t } = useTranslation();
 
-  const [data, calculateCoordinates, { isLoading }] = useAsyncCallback(api.calculateCoordinates, {
+  const {
+    data,
+    callback: calculateCoordinates,
+    isLoading,
+  } = useAsyncCallback(api.calculateCoordinates, {
     onError: () =>
       notification.error({
         title: t('common.error'),

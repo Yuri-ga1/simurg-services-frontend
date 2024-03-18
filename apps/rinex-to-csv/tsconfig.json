@@ -1,4 +1,4 @@
 {
   "extends": "@repo/tsconfig/react-app",
-  "include": ["src"]
+  "include": ["src", "types"]
 }

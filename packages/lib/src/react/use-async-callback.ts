@@ -7,16 +7,14 @@ export type UseAsyncCallbackHandlers<TData, TError extends unknown, TArgs extend
   onError?: (error: TError, args: TArgs) => void;
 };
 
-export type UseAsyncCallbackReturn<TData, TError, TArgs extends any[]> = [
-  data: Nullable<TData>,
-  callback: (...args: TArgs) => Promise<void>,
-  {
-    error: Nullable<TError>;
-    isLoading: boolean;
-    isLoaded: boolean;
-    isFailed: boolean;
-  },
-];
+export type UseAsyncCallbackReturn<TData, TError, TArgs extends any[]> = {
+  data: Nullable<TData>;
+  callback: (...args: TArgs) => Promise<void>;
+  error: Nullable<TError>;
+  isLoading: boolean;
+  isFulfilled: boolean;
+  status: FetchStatus;
+};
 
 export const useAsyncCallback = <TData, TError extends unknown, TArgs extends any[]>(
   asyncFn: (...args: TArgs) => Promise<TData>,
@@ -46,8 +44,7 @@ export const useAsyncCallback = <TData, TError extends unknown, TArgs extends an
   );
 
   const isLoading = status === 'pending';
-  const isLoaded = status === 'fulfilled';
-  const isFailed = status === 'rejected';
+  const isFulfilled = status === 'fulfilled';
 
-  return [data, callback, { error, isLoading, isLoaded, isFailed }];
+  return { data, callback, error, isLoading, isFulfilled, status };
 };

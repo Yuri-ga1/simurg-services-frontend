@@ -41,7 +41,7 @@ const FileFields: FC = () => {
   const { control, setValue, clearErrors } = useFormContext<FormValues>();
   const { t } = useTranslation();
 
-  const [, uploadRinexFile, { isLoading: isRinexFileLoading }] = useAsyncCallback(
+  const { callback: uploadRinexFile, isLoading: isRinexFileLoading } = useAsyncCallback(
     async ({ formData }: { formData: FormData; file: File }) => api.uploadRinexFile(formData),
     {
       onSuccess: (_, [{ file }]) => {
@@ -56,7 +56,7 @@ const FileFields: FC = () => {
     },
   );
 
-  const [, uploadNavFile, { isLoading: isNavFileLoading }] = useAsyncCallback(
+  const { callback: uploadNavFile, isLoading: isNavFileLoading } = useAsyncCallback(
     async ({ formData }: { formData: FormData; file: File }) => api.uploadNavFile(formData),
     {
       onSuccess: (_, [{ file }]) => {
@@ -235,23 +235,24 @@ export const Form: FC = () => {
   });
   const { t } = useTranslation();
 
-  const [, calculate, { isLoading: isCalculating, isLoaded: isCalculated }] = useAsyncCallback(
-    api.calculate,
-    {
-      onSuccess: () =>
-        notification.success({
-          title: t('common.success'),
-          message: t('form.calculateSuccess'),
-        }),
-      onError: () =>
-        notification.error({
-          title: t('common.error'),
-          message: t('form.calculateError'),
-        }),
-    },
-  );
+  const {
+    callback: calculate,
+    isLoading: isCalculating,
+    isFulfilled: isCalculated,
+  } = useAsyncCallback(api.calculate, {
+    onSuccess: () =>
+      notification.success({
+        title: t('common.success'),
+        message: t('form.calculateSuccess'),
+      }),
+    onError: () =>
+      notification.error({
+        title: t('common.error'),
+        message: t('form.calculateError'),
+      }),
+  });
 
-  const [, getResult, { isLoading: isResultLoading }] = useAsyncCallback(api.getResult, {
+  const { callback: getResult, isLoading: isResultLoading } = useAsyncCallback(api.getResult, {
     onSuccess: (data) => downloadFile({ output: 'rinex-to-csv.zip', content: data }),
     onError: () =>
       notification.error({
