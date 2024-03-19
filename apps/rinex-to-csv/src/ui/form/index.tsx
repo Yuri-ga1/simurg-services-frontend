@@ -1,7 +1,7 @@
 import { Box, Button, Checkbox, Group, Select, Stack, Text } from '@mantine/core';
 import { type FC } from 'react';
 import { z } from 'zod';
-import { assert, isFile } from '@repo/lib/typescript';
+import { isFile } from '@repo/lib/typescript';
 import { useAsyncCallback } from '@repo/lib/react';
 import { notification } from '@repo/lib/notification';
 import {
@@ -14,6 +14,7 @@ import {
 } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CustomButton, CustomFileInput } from '@repo/ui';
+import { downloadFile } from '@repo/lib/file';
 import {
   FILE_ACCEPT,
   navigationMeasurementData,
@@ -24,24 +25,117 @@ import {
   type NavigationOption,
   NavigationType,
   api,
-  type TimeStep,
-  type CalculateData,
+  type CalculateCoordinatesData,
 } from '../../api';
-import { downloadFile } from '../../lib/file';
 import { useTranslation } from '../../lib/i18next';
 
-type FormValues = {
-  rinexFile: Nullable<File>;
-  navFile: Nullable<File>;
-  navigationOptions: NavigationOption[];
-  timeStep: Nullable<TimeStep>;
+const formSchema = z.object({
+  rinexFile: z.any().refine(isFile, 'form.fieldRequired'),
+  navFile: z.any().refine(isFile, 'form.fieldRequired'),
+  navigationOptions: z
+    .array(
+      z.object({
+        type: z.string(),
+        measurements: z.array(z.string()),
+      }),
+    )
+    .refine(
+      (options) => options.some((option) => option.measurements.length > 0),
+      'form.optionRequired',
+    ),
+  timeStep: z.number({ required_error: 'form.fieldRequired' }),
+});
+
+export type FormValues = z.infer<typeof formSchema>;
+
+export const Form: FC = () => {
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      navigationOptions: Object.values(NavigationType).map((type) => ({ type, measurements: [] })),
+    },
+    resolver: zodResolver(formSchema),
+  });
+  const { t } = useTranslation();
+
+  const {
+    callCallback: calculateCoordinates,
+    isLoading: isCoordinatesCalculating,
+    isFulfilled: isCoordinatesCalculated,
+  } = useAsyncCallback(api.calculateCoordinates, {
+    onSuccess: () =>
+      notification.success({
+        title: t('common.success'),
+        message: t('form.calculateCoordinatesSuccess'),
+      }),
+    onError: () =>
+      notification.error({
+        title: t('common.error'),
+        message: t('form.calculateCoordinatesError'),
+      }),
+  });
+
+  const { callCallback: getResult, isLoading: isResultLoading } = useAsyncCallback(api.getResult, {
+    onSuccess: (data) => downloadFile({ output: 'rinex-to-csv.zip', content: data }),
+    onError: () =>
+      notification.error({
+        title: t('common.error'),
+        message: t('form.getResultError'),
+      }),
+  });
+
+  const submitHandler: SubmitHandler<FormValues> = ({ navigationOptions, timeStep }) => {
+    const navigationMap = navigationOptions.reduce(
+      (acc, option) => ({ ...acc, [option.type]: option.measurements }),
+      {},
+    );
+    calculateCoordinates({
+      ...navigationMap,
+      timestep: timeStep,
+    } as CalculateCoordinatesData);
+  };
+
+  return (
+    <FormProvider {...methods}>
+      <Box maw={500}>
+        <form onSubmit={methods.handleSubmit(submitHandler)}>
+          <Stack>
+            <FileFields />
+            <NavigationOptionFields />
+            <TimeStepSelect />
+            <Group>
+              <Button type="submit" loading={isCoordinatesCalculating} style={{ flex: 1 }}>
+                {t('form.calculateCoordinates')}
+              </Button>
+              <CustomButton
+                tooltip={t('form.getResultTooltip')}
+                disabled={!isCoordinatesCalculated}
+                loading={isResultLoading}
+                onClick={getResult}
+                styles={{
+                  root: {
+                    flex: 1,
+                    width: '100%',
+                  },
+                  tooltipWrapper: {
+                    flex: 1,
+                  },
+                }}
+              >
+                {t('form.getResult')}
+              </CustomButton>
+            </Group>
+          </Stack>
+        </form>
+      </Box>
+    </FormProvider>
+  );
 };
 
 const FileFields: FC = () => {
   const { control, setValue, clearErrors } = useFormContext<FormValues>();
   const { t } = useTranslation();
 
-  const { callback: uploadRinexFile, isLoading: isRinexFileLoading } = useAsyncCallback(
+  const { callCallback: uploadRinexFile, isLoading: isRinexFileLoading } = useAsyncCallback(
     async ({ formData }: { formData: FormData; file: File }) => api.uploadRinexFile(formData),
     {
       onSuccess: (_, [{ file }]) => {
@@ -56,7 +150,7 @@ const FileFields: FC = () => {
     },
   );
 
-  const { callback: uploadNavFile, isLoading: isNavFileLoading } = useAsyncCallback(
+  const { callCallback: uploadNavFile, isLoading: isNavFileLoading } = useAsyncCallback(
     async ({ formData }: { formData: FormData; file: File }) => api.uploadNavFile(formData),
     {
       onSuccess: (_, [{ file }]) => {
@@ -73,7 +167,6 @@ const FileFields: FC = () => {
 
   const fileChangeHandler = (type: 'rinex' | 'nav') => async (file: Nullable<File>) => {
     if (!file) {
-      setValue(type === 'rinex' ? 'rinexFile' : 'navFile', file);
       return;
     }
 
@@ -98,13 +191,12 @@ const FileFields: FC = () => {
           <CustomFileInput
             {...field}
             onChange={fileChangeHandler('rinex')}
+            withAsterisk
             label={t('form.rinexFile')}
             placeholder={t('form.uploadFile')}
             accept={FILE_ACCEPT}
-            isLoading={isRinexFileLoading}
+            loading={isRinexFileLoading}
             error={error?.message && t(error.message)}
-            withAsterisk
-            clearable
           />
         )}
       />
@@ -115,13 +207,12 @@ const FileFields: FC = () => {
           <CustomFileInput
             {...field}
             onChange={fileChangeHandler('nav')}
+            withAsterisk
             label={t('form.navFile')}
             placeholder={t('form.uploadFile')}
             accept={FILE_ACCEPT}
-            isLoading={isNavFileLoading}
+            loading={isNavFileLoading}
             error={error?.message && t(error.message)}
-            withAsterisk
-            clearable
           />
         )}
       />
@@ -137,15 +228,14 @@ const NavigationOptionFields: FC = () => {
   const { fields } = useFieldArray({ control, name: 'navigationOptions' });
   const { t } = useTranslation();
 
-  const checkboxGroups = fields.map((field, index) => (
+  const checkboxGroups = fields.map((arrayField, index) => (
     <Controller
-      key={field.id}
+      key={arrayField.id}
       name={`navigationOptions.${index}`}
       control={control}
-      // eslint-disable-next-line @typescript-eslint/no-shadow
       render={({ field }) => (
         <Checkbox.Group
-          label={navigationSystemMap[field.value.type]}
+          label={navigationSystemMap[field.value.type as NavigationOption['type']]}
           value={field.value.measurements}
           onChange={(value) => field.onChange({ ...field.value, measurements: value })}
         >
@@ -189,10 +279,9 @@ const TimeStepSelect: FC = () => {
       render={({ field, fieldState: { error } }) => (
         <Select
           {...field}
+          withAsterisk
           value={String(field.value)}
-          onChange={(value) => {
-            field.onChange(Number(value));
-          }}
+          onChange={(value) => field.onChange(Number(value))}
           label={t('form.timeStep')}
           placeholder={t('form.timeStepPlaceholder')}
           data={timeStepData}
@@ -200,104 +289,5 @@ const TimeStepSelect: FC = () => {
         />
       )}
     />
-  );
-};
-
-const formSchema = z.object({
-  rinexFile: z.any().refine(isFile, 'form.rinexFileRequired'),
-  navFile: z.any().refine(isFile, 'form.navFileRequired'),
-  navigationOptions: z
-    .array(
-      z.object({
-        type: z.string(),
-        measurements: z.array(z.string()),
-      }),
-    )
-    .refine(
-      (options) => options.some((option) => option.measurements.length > 0),
-      'form.calculationOptionsRequired',
-    ),
-  timeStep: z
-    .number()
-    .nullable()
-    .refine((value) => value !== null, 'form.timeStepRequired'),
-});
-
-export const Form: FC = () => {
-  const methods = useForm<FormValues>({
-    defaultValues: {
-      rinexFile: null,
-      navFile: null,
-      navigationOptions: Object.values(NavigationType).map((type) => ({ type, measurements: [] })),
-      timeStep: null,
-    },
-    resolver: zodResolver(formSchema),
-  });
-  const { t } = useTranslation();
-
-  const {
-    callback: calculate,
-    isLoading: isCalculating,
-    isFulfilled: isCalculated,
-  } = useAsyncCallback(api.calculate, {
-    onSuccess: () =>
-      notification.success({
-        title: t('common.success'),
-        message: t('form.calculateSuccess'),
-      }),
-    onError: () =>
-      notification.error({
-        title: t('common.error'),
-        message: t('form.calculateError'),
-      }),
-  });
-
-  const { callback: getResult, isLoading: isResultLoading } = useAsyncCallback(api.getResult, {
-    onSuccess: (data) => downloadFile({ output: 'rinex-to-csv.zip', content: data }),
-    onError: () =>
-      notification.error({
-        title: t('common.error'),
-        message: t('form.getResultError'),
-      }),
-  });
-
-  const submitHandler: SubmitHandler<FormValues> = ({ navigationOptions, timeStep }) => {
-    assert(timeStep, 'timeStep must be defined');
-
-    const navigationMap = navigationOptions.reduce(
-      (acc, option) => ({ ...acc, [option.type]: option.measurements }),
-      {},
-    );
-    calculate({
-      ...navigationMap,
-      timestep: timeStep,
-    } as CalculateData);
-  };
-
-  return (
-    <FormProvider {...methods}>
-      <Box maw={400}>
-        <form onSubmit={methods.handleSubmit(submitHandler)}>
-          <Stack>
-            <FileFields />
-            <NavigationOptionFields />
-            <TimeStepSelect />
-            <Group>
-              <Button type="submit" loading={isCalculating}>
-                {t('form.calculate')}
-              </Button>
-              <CustomButton
-                tooltip={t('form.getResultTooltip')}
-                disabled={!isCalculated}
-                loading={isResultLoading}
-                onClick={getResult}
-              >
-                {t('form.getResult')}
-              </CustomButton>
-            </Group>
-          </Stack>
-        </form>
-      </Box>
-    </FormProvider>
   );
 };

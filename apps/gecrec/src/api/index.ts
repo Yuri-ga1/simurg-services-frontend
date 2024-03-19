@@ -27,6 +27,8 @@ export type GetResultQuery = {
   send_wmt: boolean;
 };
 
+export type DownloadResultQuery = GetResultQuery;
+
 export type GetResultResponse = {
   rec: number[];
   timestamps: number[];
@@ -37,11 +39,13 @@ const httpClient = createHttpClient({
   baseUrl: BACKEND_URL,
 });
 
-const getCenters = async (): Promise<GetCentersResponse> =>
-  httpClient.request({
+const getCenters = async (): Promise<string[]> => {
+  const data: GetCentersResponse = await httpClient.request({
     path: 'centers',
     method: 'GET',
   });
+  return data.available_centers;
+};
 
 const getCenterAvailability = async (
   query: GetCenterAvailabilityQuery,
@@ -59,4 +63,12 @@ const getResult = async (query: GetResultQuery): Promise<GetResultResponse> =>
     query,
   });
 
-export const api = { getCenters, getCenterAvailability, getResult };
+const downloadResult = async (query: DownloadResultQuery): Promise<ArrayBuffer> =>
+  httpClient.request({
+    path: 'csv',
+    method: 'GET',
+    responseType: 'arraybuffer',
+    query,
+  });
+
+export const api = { getCenters, getCenterAvailability, getResult, downloadResult };

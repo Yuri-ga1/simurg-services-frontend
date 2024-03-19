@@ -9,14 +9,6 @@ import { SkeletonList } from '../../../shared/ui';
 import { PickLanguageSelect } from '../../../features/pick-language';
 import { useTranslation } from '../../../shared/lib/i18next';
 
-type NavbarLinkProps = PropsWithChildren<{ to: To }>;
-
-const NavbarLink: FC<NavbarLinkProps> = ({ to, children }) => (
-  <NavLink className={({ isActive }) => [styles.link, isActive && styles.active].join(' ')} to={to}>
-    {children}
-  </NavLink>
-);
-
 export const Navbar: FC = () => {
   const { services, isLoaded } = useServiceState();
   const { t } = useTranslation();
@@ -62,3 +54,11 @@ export const Navbar: FC = () => {
     </AppShell.Navbar>
   );
 };
+
+type NavbarLinkProps = PropsWithChildren<{ to: To }>;
+
+const NavbarLink: FC<NavbarLinkProps> = ({ to, children }) => (
+  <NavLink className={({ isActive }) => [styles.link, isActive && styles.active].join(' ')} to={to}>
+    {children}
+  </NavLink>
+);

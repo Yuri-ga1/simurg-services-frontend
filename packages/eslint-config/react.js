@@ -13,5 +13,6 @@ module.exports = {
     'react/state-in-constructor': 'off',
     'react/destructuring-assignment': 'off',
     'react/function-component-definition': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
   },
 };

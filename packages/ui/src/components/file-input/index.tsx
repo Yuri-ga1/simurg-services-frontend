@@ -1,20 +1,20 @@
-import { FileInput, LoadingOverlay, Text, type FileInputProps } from '@mantine/core';
+import { FileInput, LoadingOverlay, Text, type FileInputProps, InputLabel } from '@mantine/core';
 import { forwardRef } from 'react';
 
 export type CustomFileInputProps = Omit<FileInputProps, 'classNames' | 'styles'> & {
-  isLoading?: boolean;
+  loading?: boolean;
 };
 
 export const CustomFileInput = forwardRef<HTMLButtonElement, CustomFileInputProps>(
-  ({ isLoading, label, error, withAsterisk, id, ...restProps }, ref) => (
+  ({ loading, label, error, withAsterisk, id, ...restProps }, ref) => (
     <div>
       {label && (
-        <Text fw={500} size="sm" component="label" htmlFor={id}>
+        <InputLabel htmlFor={id}>
           {label} {withAsterisk && <span style={{ color: 'red' }}>*</span>}
-        </Text>
+        </InputLabel>
       )}
       <div style={{ position: 'relative' }}>
-        <LoadingOverlay visible={Boolean(isLoading)} loaderProps={{ size: 'xs' }} />
+        <LoadingOverlay visible={loading} loaderProps={{ size: 'xs' }} />
         <FileInput
           id={id}
           ref={ref}
@@ -28,7 +28,7 @@ export const CustomFileInput = forwardRef<HTMLButtonElement, CustomFileInputProp
         />
       </div>
       {error && (
-        <Text size="xs" c="red">
+        <Text mt={4} size="xs" c="red">
           {error}
         </Text>
       )}

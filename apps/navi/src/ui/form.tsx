@@ -3,37 +3,26 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
 import { Box, Button, FileInput, Stack, Text } from '@mantine/core';
-import { assert, isFile } from '@repo/lib/typescript';
+import { isFile } from '@repo/lib/typescript';
 import { notification } from '@repo/lib/notification';
 import { useAsyncCallback } from '@repo/lib/react';
 import { api } from '../api';
 import { useTranslation } from '../lib/i18next';
 
-type FormValues = {
-  obsFile: Nullable<File>;
-  navFile: Nullable<File>;
-};
-
 const formSchema = z.object({
-  obsFile: z.any().refine(isFile, 'form.obsFileRequired'),
-  navFile: z.any().refine(isFile, 'form.navFileRequired'),
+  obsFile: z.any().refine(isFile, 'form.fieldRequired'),
+  navFile: z.any().refine(isFile, 'form.fieldRequired'),
 });
+
+type FormValues = z.infer<typeof formSchema>;
 
 export const Form: FC = () => {
   const { control, handleSubmit } = useForm<FormValues>({
-    defaultValues: {
-      obsFile: null,
-      navFile: null,
-    },
     resolver: zodResolver(formSchema),
   });
   const { t } = useTranslation();
 
-  const {
-    data,
-    callback: calculateCoordinates,
-    isLoading,
-  } = useAsyncCallback(api.calculateCoordinates, {
+  const { data, callCallback, isLoading } = useAsyncCallback(api.calculateCoordinates, {
     onError: () =>
       notification.error({
         title: t('common.error'),
@@ -42,8 +31,6 @@ export const Form: FC = () => {
   });
 
   const submitHandler: SubmitHandler<FormValues> = async ({ obsFile, navFile }): Promise<void> => {
-    assert(obsFile && navFile, 'obs and nav files must be defined');
-
     const obsBuffer = await obsFile.arrayBuffer();
     const navBuffer = await navFile.arrayBuffer();
     const obsBlob = new Blob([new Uint8Array(obsBuffer)], { type: 'application/octet-stream' });
@@ -52,12 +39,11 @@ export const Form: FC = () => {
     const formData = new FormData();
     formData.append('obsfile', obsBlob, obsFile.name);
     formData.append('navfile', navBlob, navFile.name);
-
-    calculateCoordinates(formData);
+    callCallback(formData);
   };
 
   return (
-    <Box maw={400}>
+    <Box maw={500}>
       <form onSubmit={handleSubmit(submitHandler)}>
         <Stack>
           <Controller

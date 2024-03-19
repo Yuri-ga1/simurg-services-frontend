@@ -1,5 +1,5 @@
-import { assert } from '@repo/lib/typescript';
 import { type Context, useContext } from 'react';
+import { assert } from '../typescript';
 
 export const useStrictContext = <T>(context: Context<T>): T => {
   const state = useContext(context);

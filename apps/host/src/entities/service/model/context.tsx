@@ -1,8 +1,8 @@
 import { type FC, type PropsWithChildren, createContext, useReducer } from 'react';
 import { notification } from '@repo/lib/notification';
+import { useMount, useStrictContext } from '@repo/lib/react';
 import { type ServiceState } from './types';
 import { serviceReducer } from './reducer';
-import { useMount, useStrictContext } from '../../../shared/lib/react';
 import { api } from '../../../shared/api';
 import { useTranslation } from '../../../shared/lib/i18next';
 

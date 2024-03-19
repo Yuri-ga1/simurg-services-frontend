@@ -9,7 +9,8 @@
     "./fetch": "./src/fetch/index.ts",
     "./i18next": "./src/i18next/index.ts",
     "./string": "./src/string/index.ts",
-    "./react": "./src/react/index.ts"
+    "./react": "./src/react/index.ts",
+    "./file": "./src/file/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0 --fix"
@@ -24,7 +25,6 @@
     "eslint": "^8.57.0",
     "i18next": "^23.10.0",
     "i18next-browser-languagedetector": "^7.2.0",
-    "query-string": "^9.0.0",
     "react": "^18.2.0",
     "react-i18next": "^14.0.5",
     "typescript": "^5.3.3"

@@ -38,7 +38,7 @@ export type UploadRinexResponse = {
 
 export type UploadNavResponse = UploadRinexResponse;
 
-export type CalculateData = {
+export type CalculateCoordinatesData = {
   [NavigationType.G_SIGNALS]: NavigationMeasurement[];
   [NavigationType.R_SIGNALS]: NavigationMeasurement[];
   [NavigationType.E_SIGNALS]: NavigationMeasurement[];
@@ -68,7 +68,7 @@ const uploadNavFile = async (data: FormData): Promise<UploadNavResponse> =>
     contentType: 'multipart/form-data',
   });
 
-const calculate = async (data: CalculateData): Promise<unknown> =>
+const calculateCoordinates = async (data: CalculateCoordinatesData): Promise<unknown> =>
   httpClient.request({
     path: 'run',
     method: 'POST',
@@ -83,4 +83,4 @@ const getResult = async (): Promise<ArrayBuffer> =>
     responseType: 'arraybuffer',
   });
 
-export const api = { uploadRinexFile, uploadNavFile, calculate, getResult };
+export const api = { uploadRinexFile, uploadNavFile, calculateCoordinates, getResult };

@@ -1,9 +1,9 @@
 import { createRoot } from 'react-dom/client';
 import { CustomThemeProvider } from '@repo/ui';
-import { Form } from './ui/form';
+import { Content } from './ui/content';
 
 createRoot(document.getElementById('root')!).render(
   <CustomThemeProvider>
-    <Form />
+    <Content />
   </CustomThemeProvider>,
 );

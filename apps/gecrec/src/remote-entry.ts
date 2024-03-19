@@ -1,1 +1,1 @@
-export { Form as default } from './ui/form';
+export { Content as default } from './ui/content';

@@ -1,4 +1,3 @@
-import queryString from 'query-string';
 import { sleep } from '../time';
 import {
   BadDataError,
@@ -36,13 +35,15 @@ export type HttpClient = {
 };
 
 export type CreateHttpClientOptions = {
-  baseUrl?: string;
+  baseUrl: string;
   withCredentials?: boolean;
 };
 
-export const createHttpClient = (createOptions: CreateHttpClientOptions = {}): HttpClient => {
-  const buildEndpoint = (path: string, query?: Record<string, any>): string =>
-    [createOptions.baseUrl, path].filter(Boolean).join('/') + queryToString(query);
+export const createHttpClient = (createOptions: CreateHttpClientOptions): HttpClient => {
+  const buildEndpoint = (path: string, query?: Record<string, any>): string => {
+    const params = query ? new URLSearchParams(query) : undefined;
+    return `${createOptions.baseUrl}/${path}${params ? `?${params}` : ''}`;
+  };
 
   const request: HttpClient['request'] = async (options) => {
     const headers = new Headers(options.headers);
@@ -93,10 +94,6 @@ function contentDefault(headers: Headers, type: ContentType): void {
   if (!headers.has('content-type')) {
     headers.set('content-type', type);
   }
-}
-
-function queryToString(query: Record<string, any> | undefined): string {
-  return query ? `?${queryString.stringify(query)}` : '';
 }
 
 async function parseResponse(res: Response, resType: ResponseType): Promise<any> {
