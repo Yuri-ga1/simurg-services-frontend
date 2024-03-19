@@ -1,1 +1,42 @@
-{}
+{
+  "common": {
+    "error": "Error",
+    "nothingFound": "Nothing found",
+    "dd.mm.yyyy": "dd.mm.yyyy"
+  },
+  "content": {
+    "resultChart": "Result chart"
+  },
+  "chart": {
+    "dateTime": "Date and time"
+  },
+  "form": {
+    "fieldRequired": "This field is required",
+    "optionRequired": "At least one option is required",
+    "showResult": "Show result",
+    "getResultError": "There was an error while loading result",
+    "downloadResult": "Download result",
+    "downloadResultError": "There was an error while downloading result",
+    "center": "Ionospheric center",
+    "centerPlaceholder": "Select a ionospheric center",
+    "getCentersError": "There was an error while loading centers",
+    "dateFrom": "Date from",
+    "dateTo": "Date to",
+    "dateTooltip": "First, you need to select an ionospheric center",
+    "getCenterAvailabilityError": "There was an error while loading center available dates",
+    "minLatitude": "Min latitude",
+    "minLatitudePlaceholder": "Enter min latitude",
+    "maxLatitude": "Max latitude",
+    "maxLatitudePlaceholder": "Enter max latitude",
+    "minLongitude": "Min longitude",
+    "minLongitudePlaceholder": "Enter min longitude",
+    "maxLongitude": "Max longitude",
+    "maxLongitudePlaceholder": "Enter max longitude",
+    "coordinateType": "Coordinate type",
+    "geographical": "Geographical",
+    "geomagnetic": "Geomagnetic",
+    "dataTransfer": "Data transfer",
+    "recDataTransfer": "Transfer REC data to GECu",
+    "tecDataTransfer": "Transfer TEC data to TECu"
+  }
+}

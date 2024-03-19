@@ -29,6 +29,7 @@ import dayjs from 'dayjs';
 import { downloadFile } from '@repo/lib/file';
 import { type GetResultQuery, api, type GetResultResponse } from '../../api';
 import { MAX_LATITUDE, MAX_LONGITUDE, MIN_LATITUDE, MIN_LONGITUDE } from './config';
+import { useTranslation } from '../../lib/i18next';
 
 enum GeoMagnitude {
   GEOGRAPHICAL = 'false',
@@ -36,13 +37,13 @@ enum GeoMagnitude {
 }
 
 const formSchema = z.object({
-  center: z.string().min(1, { message: 'Обязательно к заполнению' }),
-  dateFrom: z.date({ required_error: 'Обязательно к заполнению' }),
-  dateTo: z.date({ required_error: 'Обязательно к заполнению' }),
-  minLatitude: z.number({ invalid_type_error: 'Обязательно к заполнению' }),
-  maxLatitude: z.number({ invalid_type_error: 'Обязательно к заполнению' }),
-  minLongitude: z.number({ invalid_type_error: 'Обязательно к заполнению' }),
-  maxLongitude: z.number({ invalid_type_error: 'Обязательно к заполнению' }),
+  center: z.string().min(1, { message: 'form.fieldRequired' }),
+  dateFrom: z.date({ required_error: 'form.fieldRequired' }),
+  dateTo: z.date({ required_error: 'form.fieldRequired' }),
+  minLatitude: z.number({ invalid_type_error: 'form.fieldRequired' }),
+  maxLatitude: z.number({ invalid_type_error: 'form.fieldRequired' }),
+  minLongitude: z.number({ invalid_type_error: 'form.fieldRequired' }),
+  maxLongitude: z.number({ invalid_type_error: 'form.fieldRequired' }),
   geoMagnitude: z.string(),
   isNeedToSendRec: z.boolean(),
   isNeedToSendWmt: z.boolean(),
@@ -69,13 +70,14 @@ export const Form: FC<FormProps> = ({ onResultGet }) => {
     resolver: zodResolver(formSchema),
     shouldFocusError: false,
   });
+  const { t } = useTranslation();
 
   const { callCallback: getResult, isLoading: isResultLoading } = useAsyncCallback(api.getResult, {
     onSuccess: (data) => onResultGet(data),
     onError: () =>
       notification.error({
-        title: 'Ошибка!',
-        message: 'Произошла ошибка при получении результата',
+        title: t('common.error'),
+        message: t('form.getResultError'),
       }),
   });
 
@@ -85,8 +87,8 @@ export const Form: FC<FormProps> = ({ onResultGet }) => {
       onSuccess: (data) => downloadFile({ output: 'gecrec.csv', content: data }),
       onError: () =>
         notification.error({
-          title: 'Ошибка!',
-          message: 'Произошла ошибка при скачивании результата',
+          title: t('common.error'),
+          message: t('form.downloadResultError'),
         }),
     },
   );
@@ -133,7 +135,7 @@ export const Form: FC<FormProps> = ({ onResultGet }) => {
                   flex: 1,
                 }}
               >
-                Отобразить результат
+                {t('form.showResult')}
               </Button>
               <Button
                 loading={isResultDownloading}
@@ -142,7 +144,7 @@ export const Form: FC<FormProps> = ({ onResultGet }) => {
                   flex: 1,
                 }}
               >
-                Скачать результат
+                {t('form.downloadResult')}
               </Button>
             </Group>
           </Stack>
@@ -154,11 +156,13 @@ export const Form: FC<FormProps> = ({ onResultGet }) => {
 
 const CenterSelect: FC = () => {
   const { control } = useFormContext<FormValues>();
+  const { t } = useTranslation();
+
   const { data, callCallback, isLoading } = useAsyncCallback(api.getCenters, {
     onError: () =>
       notification.error({
-        title: 'Ошибка!',
-        message: 'Произошла ошибка при загрузке центров',
+        title: t('common.error'),
+        message: t('form.getCentersError'),
       }),
   });
 
@@ -175,12 +179,12 @@ const CenterSelect: FC = () => {
           {...field}
           searchable
           withAsterisk
-          label="Ионосферный центр"
-          placeholder="Выберите ионосферный центр"
+          label={t('form.center')}
+          placeholder={t('form.centerPlaceholder')}
           data={data ?? []}
-          error={error?.message}
+          error={error?.message && t(error.message)}
           maxDropdownHeight={200}
-          nothingFoundMessage="Ничего не найдено"
+          nothingFoundMessage={t('common.notFound')}
           rightSection={isLoading ? <Loader size="xs" /> : null}
         />
       )}
@@ -190,12 +194,13 @@ const CenterSelect: FC = () => {
 
 const DateRange: FC = () => {
   const { control, watch } = useFormContext<FormValues>();
+  const { t } = useTranslation();
 
   const { data, callCallback, isLoading } = useAsyncCallback(api.getCenterAvailability, {
     onError: () =>
       notification.error({
-        title: 'Ошибка!',
-        message: 'Произшола ошибка при получении свободных дат центра',
+        title: t('common.error'),
+        message: t('form.getCenterAvailabilityError'),
       }),
   });
 
@@ -220,11 +225,11 @@ const DateRange: FC = () => {
           <CustomDateInput
             {...field}
             withAsterisk
-            label="Дата начала"
-            placeholder="дд.мм.гггг"
-            tooltip="Сперва нужно выбрать ионосферный центр"
+            label={t('form.dateFrom')}
+            placeholder={t('common.dd.mm.yyyy')}
+            tooltip={t('form.dateTooltip')}
             defaultLevel="decade"
-            error={error?.message}
+            error={error?.message && t(error.message)}
             disabled={disabled}
             loading={isLoading}
             minDate={minDate}
@@ -247,11 +252,11 @@ const DateRange: FC = () => {
           <CustomDateInput
             {...field}
             withAsterisk
-            label="Дата конца"
-            placeholder="дд.мм.гггг"
-            tooltip="Сперва нужно выбрать ионосферный центр"
+            label={t('form.dateTo')}
+            placeholder={t('common.dd.mm.yyyy')}
+            tooltip={t('form.dateTooltip')}
             defaultLevel="decade"
-            error={error?.message}
+            error={error?.message && t(error.message)}
             disabled={disabled}
             loading={isLoading}
             minDate={minDate}
@@ -273,6 +278,7 @@ const DateRange: FC = () => {
 
 const LatitudeFields: FC = () => {
   const { control } = useFormContext<FormValues>();
+  const { t } = useTranslation();
 
   return (
     <Group align="flex-start">
@@ -287,9 +293,9 @@ const LatitudeFields: FC = () => {
             <NumberInput
               {...field}
               withAsterisk
-              label="Мин. широта"
-              placeholder="Введите мин. широту"
-              error={error?.message}
+              label={t('form.minLatitude')}
+              placeholder={t('form.minLatitudePlaceholder')}
+              error={error?.message && t(error.message)}
               min={MIN_LATITUDE}
               max={MAX_LATITUDE}
               decimalScale={1}
@@ -311,9 +317,9 @@ const LatitudeFields: FC = () => {
             <NumberInput
               {...field}
               withAsterisk
-              label="Макс. широта"
-              placeholder="Введите макс. широту"
-              error={error?.message}
+              label={t('form.maxLatitude')}
+              placeholder={t('form.maxLatitudePlaceholder')}
+              error={error?.message && t(error.message)}
               min={MIN_LATITUDE}
               max={MAX_LATITUDE}
               decimalScale={1}
@@ -330,6 +336,7 @@ const LatitudeFields: FC = () => {
 
 const LongitudeFields: FC = () => {
   const { control } = useFormContext<FormValues>();
+  const { t } = useTranslation();
 
   return (
     <Group align="flex-start">
@@ -344,9 +351,9 @@ const LongitudeFields: FC = () => {
             <NumberInput
               {...field}
               withAsterisk
-              label="Мин. долгота"
-              placeholder="Введите мин. долготу"
-              error={error?.message}
+              label={t('form.minLongitude')}
+              placeholder={t('form.minLongitudePlaceholder')}
+              error={error?.message && t(error.message)}
               min={MIN_LONGITUDE}
               max={MAX_LONGITUDE}
               decimalScale={1}
@@ -368,9 +375,9 @@ const LongitudeFields: FC = () => {
             <NumberInput
               {...field}
               withAsterisk
-              label="Макс. долгота"
-              placeholder="Введите макс. долготу"
-              error={error?.message}
+              label={t('form.maxLongitude')}
+              placeholder={t('form.maxLongitudePlaceholder')}
+              error={error?.message && t(error.message)}
               min={MIN_LONGITUDE}
               max={MAX_LONGITUDE}
               decimalScale={1}
@@ -387,16 +394,17 @@ const LongitudeFields: FC = () => {
 
 const GeoMagnitudeRadio: FC = () => {
   const { control } = useFormContext<FormValues>();
+  const { t } = useTranslation();
 
   return (
     <Controller
       name="geoMagnitude"
       control={control}
       render={({ field }) => (
-        <Radio.Group {...field} label="Тип координат">
+        <Radio.Group {...field} label={t('form.coordinateType')}>
           <Group mt={4}>
-            <Radio label="Географические" value={GeoMagnitude.GEOGRAPHICAL} />
-            <Radio label="Геомагнитные" value={GeoMagnitude.GEOMAGNETIC} />
+            <Radio label={t('form.geographical')} value={GeoMagnitude.GEOGRAPHICAL} />
+            <Radio label={t('form.geomagnetic')} value={GeoMagnitude.GEOMAGNETIC} />
           </Group>
         </Radio.Group>
       )}
@@ -410,13 +418,14 @@ const NeedToSendFields: FC = () => {
     watch,
     formState: { isSubmitted },
   } = useFormContext<FormValues>();
+  const { t } = useTranslation();
 
   const isNeedToSendRec = watch('isNeedToSendRec');
   const isNeedToSendWmt = watch('isNeedToSendWmt');
 
   return (
     <div>
-      <InputLabel mb={4}>Передеча данных</InputLabel>
+      <InputLabel mb={4}>{t('form.dataTransfer')}</InputLabel>
       <Stack>
         <Controller
           name="isNeedToSendRec"
@@ -424,7 +433,7 @@ const NeedToSendFields: FC = () => {
           render={({ field: { value, ...restField } }) => (
             <Checkbox
               {...restField}
-              label="Передача данных REC в GECu"
+              label={t('form.recDataTransfer')}
               checked={value}
               onChange={(e) => restField.onChange(e.currentTarget.checked)}
             />
@@ -436,7 +445,7 @@ const NeedToSendFields: FC = () => {
           render={({ field: { value, ...restField } }) => (
             <Checkbox
               {...restField}
-              label="Передача средневзвешенных данных TEC в TECu"
+              label={t('form.tecDataTransfer')}
               checked={value}
               onChange={(e) => restField.onChange(e.currentTarget.checked)}
             />
@@ -445,7 +454,7 @@ const NeedToSendFields: FC = () => {
       </Stack>
       {isSubmitted && !isNeedToSendRec && !isNeedToSendWmt && (
         <Text mt={4} size="xs" c="red">
-          Обязательно выбрать хотя бы одну опцию
+          {t('form.optionRequired')}
         </Text>
       )}
     </div>

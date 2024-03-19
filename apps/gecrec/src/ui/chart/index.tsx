@@ -2,6 +2,7 @@ import { useMantineTheme } from '@mantine/core';
 import { type FC, useMemo } from 'react';
 import { type ApexOptions } from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
+import { useTranslation } from '../../lib/i18next';
 
 const TEC_COLOR = '#008FFB';
 const REC_COLOR = '#00E396';
@@ -14,6 +15,8 @@ export type ChartProps = {
 
 export const Chart: FC<ChartProps> = ({ timestamps, tec, rec }) => {
   const theme = useMantineTheme();
+  const { t } = useTranslation();
+
   const options = useMemo<ApexOptions>(
     () => ({
       chart: {
@@ -34,7 +37,7 @@ export const Chart: FC<ChartProps> = ({ timestamps, tec, rec }) => {
       },
       xaxis: {
         title: {
-          text: 'Дата и время',
+          text: t('chart.dateTime'),
           style: {
             fontFamily: theme.fontFamily,
             fontSize: theme.fontSizes.md,
@@ -97,7 +100,7 @@ export const Chart: FC<ChartProps> = ({ timestamps, tec, rec }) => {
         },
       },
     }),
-    [theme, timestamps],
+    [t, theme, timestamps],
   );
 
   return (

@@ -1,1 +1,42 @@
-{}
+{
+  "common": {
+    "error": "Error",
+    "nothingFound": "Ничего не найдено",
+    "dd.mm.yyyy": "дд.мм.гггг"
+  },
+  "content": {
+    "resultChart": "График результата"
+  },
+  "chart": {
+    "dateTime": "Дата и время"
+  },
+  "form": {
+    "fieldRequired": "Обязательно к заполнению",
+    "optionRequired": "Обязательно выбрать хотя бы одну опцию",
+    "showResult": "Отобразить результат",
+    "getResultError": "Произошла ошибка при загрузке результата",
+    "downloadResult": "Скачать результат",
+    "downloadResultError": "Произошла ошибка при скачивании результата",
+    "center": "Ионосферный центр",
+    "centerPlaceholder": "Выберите ионосферный центр",
+    "getCentersError": "Произошла ошибка при загрузке центров",
+    "dateFrom": "Дата начала",
+    "dateTo": "Дата конца",
+    "dateTooltip": "Сперва нужно выбрать ионосферный центр",
+    "getCenterAvailabilityError": "Произошла ошибка при загрузке свободных дат центра",
+    "minLatitude": "Мин. широта",
+    "minLatitudePlaceholder": "Введите мин. широту",
+    "maxLatitude": "Макс. широта",
+    "maxLatitudePlaceholder": "Введите макс. широту",
+    "minLongitude": "Мин. долгота",
+    "minLongitudePlaceholder": "Введите мин. долготу",
+    "maxLongitude": "Макс. долгота",
+    "maxLongitudePlaceholder": "Введите макс. долготу",
+    "coordinateType": "Тип координат",
+    "geographical": "Географические",
+    "geomagnetic": "Геомагнитные",
+    "dataTransfer": "Передеча данных",
+    "recDataTransfer": "Передача данных REC в GECu",
+    "tecDataTransfer": "Передача данных TEC в TECu"
+  }
+}

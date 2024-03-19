@@ -19,7 +19,7 @@
     "calculateCoordinatesSuccess": "Coordinates successfully calculated",
     "calculateCoordinatesError": "There was an error while calculating coordinates",
     "getResult": "Download result",
-    "getResultTooltip": "First calculate coordinates",
+    "getResultTooltip": "First, you need to calculate coordinates",
     "getResultError": "There was an error while downloading result"
   }
 }
