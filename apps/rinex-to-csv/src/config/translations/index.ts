@@ -1,7 +1,11 @@
-import en from './en.json';
-import ru from './ru.json';
+import enTranslations from './en.json';
+import ruTranslations from './ru.json';
 
 export const translations = {
-  en,
-  ru,
+  en: {
+    translation: enTranslations,
+  },
+  ru: {
+    translation: ruTranslations,
+  },
 };

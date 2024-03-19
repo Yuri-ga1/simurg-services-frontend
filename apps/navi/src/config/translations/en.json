@@ -1,15 +1,13 @@
 {
-  "translation": {
-    "common": {
-      "error": "Error"
-    },
-    "form": {
-      "fieldRequired": "This field is required",
-      "uploadFile": "Upload file",
-      "obsFile": "Obs file",
-      "navFile": "Nav file",
-      "calculateCoordinates": "Calculate coordinates",
-      "calculateCoordinatesError": "There was an error while calculating coordinates"
-    }
+  "common": {
+    "error": "Error"
+  },
+  "form": {
+    "fieldRequired": "This field is required",
+    "uploadFile": "Upload file",
+    "obsFile": "Obs file",
+    "navFile": "Nav file",
+    "calculateCoordinates": "Calculate coordinates",
+    "calculateCoordinatesError": "There was an error while calculating coordinates"
   }
 }

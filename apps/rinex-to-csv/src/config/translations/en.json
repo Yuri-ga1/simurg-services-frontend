@@ -1,27 +1,25 @@
 {
-  "translation": {
-    "common": {
-      "success": "Success",
-      "error": "Error",
-      "seconds": "{{ value }} sec."
-    },
-    "form": {
-      "fieldRequired": "This field is required",
-      "optionRequired": "At least one option is required",
-      "uploadFile": "Upload file",
-      "rinexFile": "Rinex file",
-      "uploadRinexFileError": "There was an error while uploading rinex file",
-      "navFile": "Nav file",
-      "uploadNavFileError": "There was an error while uploading nav file",
-      "calculationOptions": "Calculation options",
-      "timeStep": "Time step",
-      "timeStepPlaceholder": "Select a time step",
-      "calculateCoordinates": "Calculate coordinates",
-      "calculateCoordinatesSuccess": "Coordinates successfully calculated",
-      "calculateCoordinatesError": "There was an error while calculating coordinates",
-      "getResult": "Download result",
-      "getResultTooltip": "First calculate coordinates",
-      "getResultError": "There was an error while downloading result"
-    }
+  "common": {
+    "success": "Success",
+    "error": "Error",
+    "seconds": "{{ value }} sec."
+  },
+  "form": {
+    "fieldRequired": "This field is required",
+    "optionRequired": "At least one option is required",
+    "uploadFile": "Upload file",
+    "rinexFile": "Rinex file",
+    "uploadRinexFileError": "There was an error while uploading rinex file",
+    "navFile": "Nav file",
+    "uploadNavFileError": "There was an error while uploading nav file",
+    "calculationOptions": "Calculation options",
+    "timeStep": "Time step",
+    "timeStepPlaceholder": "Select a time step",
+    "calculateCoordinates": "Calculate coordinates",
+    "calculateCoordinatesSuccess": "Coordinates successfully calculated",
+    "calculateCoordinatesError": "There was an error while calculating coordinates",
+    "getResult": "Download result",
+    "getResultTooltip": "First calculate coordinates",
+    "getResultError": "There was an error while downloading result"
   }
 }

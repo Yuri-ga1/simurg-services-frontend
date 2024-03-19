@@ -1,27 +1,25 @@
 {
-  "translation": {
-    "common": {
-      "success": "Успех",
-      "error": "Ошибка",
-      "seconds": "{{ value }} сек."
-    },
-    "form": {
-      "fieldRequired": "Обязательно к заполнению",
-      "optionRequired": "Обязательно выбрать хотя бы одну опцию",
-      "uploadFile": "Загрузить файл",
-      "rinexFile": "Rinex файл",
-      "uploadRinexFileError": "Произошла ошибка при загрузке rinex файла",
-      "navFile": "Nav файл",
-      "uploadNavFileError": "Произошла ошибка при загрузке nav файла",
-      "calculationOptions": "Опции для расчета",
-      "timeStep": "Временной промежуток",
-      "timeStepPlaceholder": "Выберите временной промежуток",
-      "calculateCoordinates": "Рассчитать координаты",
-      "calculateCoordinatesSuccess": "Координаты успешно рассчитаны",
-      "calculateCoordinatesError": "Произошла ошибка при расчете результата",
-      "getResult": "Скачать результат",
-      "getResultTooltip": "Сперва нужно рассчитать координаты",
-      "getResultError": "Произошла ошибка при скачивании результата"
-    }
+  "common": {
+    "success": "Успех",
+    "error": "Ошибка",
+    "seconds": "{{ value }} сек."
+  },
+  "form": {
+    "fieldRequired": "Обязательно к заполнению",
+    "optionRequired": "Обязательно выбрать хотя бы одну опцию",
+    "uploadFile": "Загрузить файл",
+    "rinexFile": "Rinex файл",
+    "uploadRinexFileError": "Произошла ошибка при загрузке rinex файла",
+    "navFile": "Nav файл",
+    "uploadNavFileError": "Произошла ошибка при загрузке nav файла",
+    "calculationOptions": "Опции для расчета",
+    "timeStep": "Временной промежуток",
+    "timeStepPlaceholder": "Выберите временной промежуток",
+    "calculateCoordinates": "Рассчитать координаты",
+    "calculateCoordinatesSuccess": "Координаты успешно рассчитаны",
+    "calculateCoordinatesError": "Произошла ошибка при расчете результата",
+    "getResult": "Скачать результат",
+    "getResultTooltip": "Сперва нужно рассчитать координаты",
+    "getResultError": "Произошла ошибка при скачивании результата"
   }
 }

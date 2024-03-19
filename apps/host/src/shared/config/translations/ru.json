@@ -1,20 +1,18 @@
 {
-  "translation": {
-    "common": {
-      "english": "Английский",
-      "russian": "Русский",
-      "empty": "Пусто",
-      "error": "Ошибка"
-    },
-    "home": {
-      "title": "Главная"
-    },
-    "service": {
-      "loadServicesError": "Произошла ошибка при загрузке сервисов",
-      "notAvailable": "Сервис временно не доступен"
-    },
-    "remoteComponent": {
-      "error": "Упс... Что то пошло не так"
-    }
+  "common": {
+    "english": "Английский",
+    "russian": "Русский",
+    "empty": "Пусто",
+    "error": "Ошибка"
+  },
+  "home": {
+    "title": "Главная"
+  },
+  "service": {
+    "loadServicesError": "Произошла ошибка при загрузке сервисов",
+    "notAvailable": "Сервис временно не доступен"
+  },
+  "remoteComponent": {
+    "error": "Упс... Что то пошло не так"
   }
 }
