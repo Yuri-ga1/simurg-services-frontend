@@ -1,10 +1,10 @@
 import { Loader, type MantineStyleProp, Tooltip, type TooltipProps } from '@mantine/core';
 import { type DateInputProps, DateInput } from '@mantine/dates';
-import { type CSSProperties, forwardRef } from 'react';
+import { type CSSProperties, forwardRef, type ReactNode } from 'react';
 import classes from './styles.module.css';
 
 export type CustomDateInputProps = Omit<DateInputProps, 'styles'> & {
-  tooltip?: string;
+  tooltip?: ReactNode;
   tooltipPosition?: TooltipProps['position'];
   loading?: boolean;
   styles?: {

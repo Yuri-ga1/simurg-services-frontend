@@ -9,6 +9,7 @@
     "optionRequired": "Обязательно выбрать хотя бы одну опцию",
     "uploadFile": "Загрузить файл",
     "rinexFile": "Rinex файл",
+    "rinexFilePlaceholder": "Сперва нужно загрузить rinex файл",
     "uploadRinexFileError": "Произошла ошибка при загрузке rinex файла",
     "navFile": "Nav файл",
     "uploadNavFileError": "Произошла ошибка при загрузке nav файла",

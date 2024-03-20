@@ -135,7 +135,11 @@ const FileFields: FC = () => {
   const { control, setValue, clearErrors } = useFormContext<FormValues>();
   const { t } = useTranslation();
 
-  const { callCallback: uploadRinexFile, isLoading: isRinexFileLoading } = useAsyncCallback(
+  const {
+    data: rinexFileData,
+    callCallback: uploadRinexFile,
+    isLoading: isRinexFileLoading,
+  } = useAsyncCallback(
     async ({ formData }: { formData: FormData; file: File }) => api.uploadRinexFile(formData),
     {
       onSuccess: (_, [{ file }]) => {
@@ -212,7 +216,9 @@ const FileFields: FC = () => {
             placeholder={t('form.uploadFile')}
             accept={FILE_ACCEPT}
             loading={isNavFileLoading}
+            disabled={!rinexFileData}
             error={error?.message && t(error.message)}
+            tooltip={t('form.rinexFilePlaceholder')}
           />
         )}
       />

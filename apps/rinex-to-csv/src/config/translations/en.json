@@ -9,6 +9,7 @@
     "optionRequired": "At least one option is required",
     "uploadFile": "Upload file",
     "rinexFile": "Rinex file",
+    "rinexFilePlaceholder": "First you need to upload rinex file",
     "uploadRinexFileError": "There was an error while uploading rinex file",
     "navFile": "Nav file",
     "uploadNavFileError": "There was an error while uploading nav file",
@@ -19,7 +20,7 @@
     "calculateCoordinatesSuccess": "Coordinates successfully calculated",
     "calculateCoordinatesError": "There was an error while calculating coordinates",
     "getResult": "Download result",
-    "getResultTooltip": "First, you need to calculate coordinates",
+    "getResultTooltip": "First you need to calculate coordinates",
     "getResultError": "There was an error while downloading result"
   }
 }

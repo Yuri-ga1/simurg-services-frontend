@@ -1,9 +1,9 @@
 import { Button, Tooltip, type ButtonProps } from '@mantine/core';
-import { type HTMLAttributes, type FC, type CSSProperties } from 'react';
+import { type HTMLAttributes, type FC, type CSSProperties, type ReactNode } from 'react';
 
 export type CustomButtonProps = Omit<HTMLAttributes<HTMLButtonElement>, 'color'> &
   Omit<ButtonProps, 'styles'> & {
-    tooltip?: string;
+    tooltip?: ReactNode;
     styles?: {
       root?: CSSProperties;
       tooltipWrapper?: CSSProperties;

@@ -1,11 +1,35 @@
-import { FileInput, LoadingOverlay, Text, type FileInputProps, InputLabel } from '@mantine/core';
-import { forwardRef } from 'react';
+import {
+  FileInput,
+  LoadingOverlay,
+  Text,
+  type FileInputProps,
+  InputLabel,
+  Tooltip,
+} from '@mantine/core';
+import { type ReactNode, forwardRef } from 'react';
 
 export type CustomFileInputProps = Omit<FileInputProps, 'classNames' | 'styles'> & {
+  tooltip?: ReactNode;
   loading?: boolean;
 };
 
 export const CustomFileInput = forwardRef<HTMLButtonElement, CustomFileInputProps>(
+  ({ tooltip, disabled, ...restProps }, ref) => {
+    if (disabled && tooltip) {
+      return (
+        <Tooltip label={tooltip}>
+          <span>
+            <BaseFileInput ref={ref} disabled={disabled} {...restProps} />
+          </span>
+        </Tooltip>
+      );
+    }
+
+    return <BaseFileInput ref={ref} disabled={disabled} {...restProps} />;
+  },
+);
+
+const BaseFileInput = forwardRef<HTMLButtonElement, CustomFileInputProps>(
   ({ loading, label, error, withAsterisk, id, ...restProps }, ref) => (
     <div>
       {label && (
