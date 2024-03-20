@@ -1,4 +1,4 @@
-import { AppShell, Code, Group, Title, Tooltip, Text } from '@mantine/core';
+import { AppShell, Code, Group, Title, Tooltip, Text, Space } from '@mantine/core';
 import { type PropsWithChildren, type FC } from 'react';
 import { NavLink, type To } from 'react-router-dom';
 import { isUndefined } from '@repo/lib/typescript';
@@ -8,24 +8,21 @@ import remoteDefinitions from '/module-federation.manifest.json';
 import { SkeletonList } from '../../../shared/ui';
 import { PickLanguageSelect } from '../../../features/pick-language';
 import { useTranslation } from '../../../shared/lib/i18next';
+import { routes } from '../../../shared/config/routes';
 
 export const Navbar: FC = () => {
   const { services, isLoaded } = useServiceState();
   const { t } = useTranslation();
 
-  const data: { label: string; to: To; isActive?: boolean }[] = [
-    {
-      label: t('home.title'),
-      to: '/',
-    },
-    ...remoteDefinitions.map((definition) => ({
+  const data: { label: string; to: To; isActive?: boolean }[] = remoteDefinitions.map(
+    (definition) => ({
       label: definition.name,
       to: definition.routePath,
       isActive: services.some(
         (service) => service.name === definition.backendName && service['status-code'] === 200,
       ),
-    })),
-  ];
+    }),
+  );
 
   const links = data.map((item) =>
     !isUndefined(item.isActive) && !item.isActive ? (
@@ -48,7 +45,15 @@ export const Navbar: FC = () => {
           <Title order={3}>SIMuRG Services</Title>
           <Code fw={700}>v0.0.1</Code>
         </Group>
-        {isLoaded ? links : <SkeletonList count={5} itemProps={{ h: 32, mt: 'sm' }} />}
+        <NavbarLink to={routes.home}>{t('home.title')}</NavbarLink>
+        {isLoaded ? (
+          links
+        ) : (
+          <>
+            <Space h="sm" />
+            <SkeletonList count={5} gap="sm" itemProps={{ h: 32 }} />
+          </>
+        )}
       </div>
       <PickLanguageSelect />
     </AppShell.Navbar>

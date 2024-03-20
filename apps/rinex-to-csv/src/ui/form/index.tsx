@@ -270,7 +270,7 @@ const TimeStepSelect: FC = () => {
   const { control } = useFormContext<FormValues>();
   const { t } = useTranslation();
 
-  const timeStepData = getTimeStepData((timeStep) => t('common.seconds', { value: timeStep }));
+  const timeStepData = getTimeStepData(t);
 
   return (
     <Controller

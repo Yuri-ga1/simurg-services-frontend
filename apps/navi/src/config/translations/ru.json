@@ -2,6 +2,9 @@
   "common": {
     "error": "Ошибка"
   },
+  "content": {
+    "jsonResult": "Результат в JSON"
+  },
   "form": {
     "fieldRequired": "Обязательно к заполнению",
     "uploadFile": "Загрузить файл",

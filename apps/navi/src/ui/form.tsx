@@ -2,11 +2,11 @@ import { type FC } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
-import { Box, Button, FileInput, Stack, Text } from '@mantine/core';
+import { Box, Button, FileInput, Stack } from '@mantine/core';
 import { isFile } from '@repo/lib/typescript';
 import { notification } from '@repo/lib/notification';
 import { useAsyncCallback } from '@repo/lib/react';
-import { api } from '../api';
+import { type CoordinateCalculationResponse, api } from '../api';
 import { useTranslation } from '../lib/i18next';
 
 const formSchema = z.object({
@@ -16,13 +16,18 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export const Form: FC = () => {
+type FormProps = {
+  onSubmit: (result: CoordinateCalculationResponse) => void;
+};
+
+export const Form: FC<FormProps> = ({ onSubmit }) => {
   const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
   });
   const { t } = useTranslation();
 
-  const { data, callCallback, isLoading } = useAsyncCallback(api.calculateCoordinates, {
+  const { callCallback, isLoading } = useAsyncCallback(api.calculateCoordinates, {
+    onSuccess: (data) => onSubmit(data),
     onError: () =>
       notification.error({
         title: t('common.error'),
@@ -83,7 +88,6 @@ export const Form: FC = () => {
           </Button>
         </Stack>
       </form>
-      {data && <Text mt="md">{JSON.stringify(data)}</Text>}
     </Box>
   );
 };

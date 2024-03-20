@@ -45,17 +45,21 @@ const formSchema = z.object({
   minLongitude: z.number({ invalid_type_error: 'form.fieldRequired' }),
   maxLongitude: z.number({ invalid_type_error: 'form.fieldRequired' }),
   geoMagnitude: z.string(),
-  isNeedToSendRec: z.boolean(),
-  isNeedToSendWmt: z.boolean(),
+  dataTransfer: z
+    .object({
+      isNeedToSendRec: z.boolean(),
+      isNeedToSendWmt: z.boolean(),
+    })
+    .refine((data) => data.isNeedToSendRec || data.isNeedToSendWmt, 'form.optionRequired'),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 type FormProps = {
-  onResultGet: (result: GetResultResponse) => void;
+  onSubmit: (result: GetResultResponse) => void;
 };
 
-export const Form: FC<FormProps> = ({ onResultGet }) => {
+export const Form: FC<FormProps> = ({ onSubmit }) => {
   const methods = useForm<FormValues>({
     defaultValues: {
       center: '',
@@ -64,8 +68,10 @@ export const Form: FC<FormProps> = ({ onResultGet }) => {
       minLongitude: 0,
       maxLongitude: 0,
       geoMagnitude: GeoMagnitude.GEOGRAPHICAL,
-      isNeedToSendRec: false,
-      isNeedToSendWmt: false,
+      dataTransfer: {
+        isNeedToSendRec: false,
+        isNeedToSendWmt: false,
+      },
     },
     resolver: zodResolver(formSchema),
     shouldFocusError: false,
@@ -73,7 +79,7 @@ export const Form: FC<FormProps> = ({ onResultGet }) => {
   const { t } = useTranslation();
 
   const { callCallback: getResult, isLoading: isResultLoading } = useAsyncCallback(api.getResult, {
-    onSuccess: (data) => onResultGet(data),
+    onSuccess: (data) => onSubmit(data),
     onError: () =>
       notification.error({
         title: t('common.error'),
@@ -105,8 +111,8 @@ export const Form: FC<FormProps> = ({ onResultGet }) => {
         min_lon: values.minLongitude,
         max_lon: values.maxLongitude,
         geomag: values.geoMagnitude,
-        send_rec: values.isNeedToSendRec,
-        send_wmt: values.isNeedToSendWmt,
+        send_rec: values.dataTransfer.isNeedToSendRec,
+        send_wmt: values.dataTransfer.isNeedToSendWmt,
       };
 
       if (type === 'show') {
@@ -415,20 +421,18 @@ const GeoMagnitudeRadio: FC = () => {
 const NeedToSendFields: FC = () => {
   const {
     control,
-    watch,
-    formState: { isSubmitted },
+    formState: { errors },
   } = useFormContext<FormValues>();
   const { t } = useTranslation();
 
-  const isNeedToSendRec = watch('isNeedToSendRec');
-  const isNeedToSendWmt = watch('isNeedToSendWmt');
+  const errorMessage = errors.dataTransfer?.root?.message;
 
   return (
     <div>
       <InputLabel mb={4}>{t('form.dataTransfer')}</InputLabel>
       <Stack>
         <Controller
-          name="isNeedToSendRec"
+          name="dataTransfer.isNeedToSendRec"
           control={control}
           render={({ field: { value, ...restField } }) => (
             <Checkbox
@@ -440,7 +444,7 @@ const NeedToSendFields: FC = () => {
           )}
         />
         <Controller
-          name="isNeedToSendWmt"
+          name="dataTransfer.isNeedToSendWmt"
           control={control}
           render={({ field: { value, ...restField } }) => (
             <Checkbox
@@ -452,9 +456,9 @@ const NeedToSendFields: FC = () => {
           )}
         />
       </Stack>
-      {isSubmitted && !isNeedToSendRec && !isNeedToSendWmt && (
+      {errorMessage && (
         <Text mt={4} size="xs" c="red">
-          {t('form.optionRequired')}
+          {t(errorMessage)}
         </Text>
       )}
     </div>

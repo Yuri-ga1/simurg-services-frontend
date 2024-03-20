@@ -30,9 +30,9 @@ export type GetResultQuery = {
 export type DownloadResultQuery = GetResultQuery;
 
 export type GetResultResponse = {
-  rec: number[];
+  rec?: number[];
   timestamps: number[];
-  average_mean_tec: number[];
+  average_mean_tec?: number[];
 };
 
 const httpClient = createHttpClient({

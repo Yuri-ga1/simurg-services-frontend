@@ -2,6 +2,8 @@ import i18next, { type i18n, type InitOptions as BaseInitOptions } from 'i18next
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
+export { type TFunction } from 'i18next';
+
 export type InitOptions = Omit<
   BaseInitOptions,
   'initImmediate' | 'debug' | 'fallbackLng' | 'supportedLngs' | 'interpolation' | 'detection'

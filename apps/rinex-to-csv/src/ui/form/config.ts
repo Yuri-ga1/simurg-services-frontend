@@ -1,12 +1,11 @@
+import { type TranslateFunction } from '@repo/lib/i18next';
 import { NavigationMeasurement, NavigationSystem, NavigationType, type TimeStep } from '../../api';
 
 const timeSteps: TimeStep[] = [10, 30, 60, 120];
 
-export const getTimeStepData = (
-  getLabel: (timeStep: number) => string,
-): { label: string; value: string }[] =>
+export const getTimeStepData = (t: TranslateFunction): { label: string; value: string }[] =>
   timeSteps.map((timeStep) => ({
-    label: getLabel(timeStep),
+    label: t('common.seconds', { value: timeStep }),
     value: `${timeStep}`,
   }));
 

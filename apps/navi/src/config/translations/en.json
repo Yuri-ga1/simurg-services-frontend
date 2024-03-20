@@ -2,6 +2,9 @@
   "common": {
     "error": "Error"
   },
+  "content": {
+    "jsonResult": "Result in JSON"
+  },
   "form": {
     "fieldRequired": "This field is required",
     "uploadFile": "Upload file",
