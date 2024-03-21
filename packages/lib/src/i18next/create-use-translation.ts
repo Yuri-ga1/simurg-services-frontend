@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { type Resource } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { i18nService } from './i18n-service';
 
 export const createUseTranslation =

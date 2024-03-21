@@ -1,5 +1,5 @@
 import { type FC, type PropsWithChildren } from 'react';
-import { useTitle } from '../lib/dom';
+import { useTitle } from '~/shared/lib/dom';
 
 type PageProps = PropsWithChildren<{ title: string }>;
 

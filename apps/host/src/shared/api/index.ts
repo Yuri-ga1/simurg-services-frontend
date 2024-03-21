@@ -1,5 +1,5 @@
 import { createHttpClient } from '@repo/lib/fetch';
-import { BACKEND_URL } from '../config/env';
+import { BACKEND_URL } from '~/shared/config/env';
 
 export type Service = {
   name: string;

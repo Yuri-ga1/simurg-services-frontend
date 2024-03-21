@@ -1,9 +1,11 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Checkbox, Group, Select, Stack, Text } from '@mantine/core';
-import { type FC } from 'react';
-import { z } from 'zod';
-import { isFile } from '@repo/lib/typescript';
-import { useAsyncCallback } from '@repo/lib/react';
+import { downloadFile } from '@repo/lib/file';
 import { notification } from '@repo/lib/notification';
+import { useAsyncCallback } from '@repo/lib/react';
+import { isFile } from '@repo/lib/typescript';
+import { CustomButton, CustomFileInput } from '@repo/ui';
+import { type FC } from 'react';
 import {
   type SubmitHandler,
   useForm,
@@ -12,15 +14,7 @@ import {
   FormProvider,
   useFormContext,
 } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { CustomButton, CustomFileInput } from '@repo/ui';
-import { downloadFile } from '@repo/lib/file';
-import {
-  FILE_ACCEPT,
-  navigationMeasurementData,
-  navigationSystemMap,
-  getTimeStepData,
-} from './config';
+import { z } from 'zod';
 import {
   type NavigationOption,
   NavigationType,
@@ -28,6 +22,12 @@ import {
   type CalculateCoordinatesData,
 } from '../../api';
 import { useTranslation } from '../../lib/i18next';
+import {
+  FILE_ACCEPT,
+  navigationMeasurementData,
+  navigationSystemMap,
+  getTimeStepData,
+} from './config';
 
 const formSchema = z.object({
   rinexFile: z.any().refine(isFile, 'form.fieldRequired'),

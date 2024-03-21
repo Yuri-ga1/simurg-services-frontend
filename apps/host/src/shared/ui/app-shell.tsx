@@ -1,5 +1,5 @@
-import { type ReactNode, type FC, type PropsWithChildren } from 'react';
 import { AppShell as MantineAppShell } from '@mantine/core';
+import { type ReactNode, type FC, type PropsWithChildren } from 'react';
 
 type AppShellProps = PropsWithChildren<{ navbar: ReactNode }>;
 

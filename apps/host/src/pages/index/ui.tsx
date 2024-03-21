@@ -1,7 +1,7 @@
-import { type FC } from 'react';
 import { Divider, Text, Title } from '@mantine/core';
-import { Page } from '../../shared/ui';
-import { useTranslation } from '../../shared/lib/i18next';
+import { type FC } from 'react';
+import { useTranslation } from '~/shared/lib/i18next';
+import { Page } from '~/shared/ui';
 
 export const IndexPage: FC = () => {
   const { t } = useTranslation();

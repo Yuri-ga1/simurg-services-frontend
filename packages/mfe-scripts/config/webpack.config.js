@@ -10,9 +10,14 @@ const { DefinePlugin } = require('webpack');
 const dotenv = require('dotenv');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const CopyPlugin = require('copy-webpack-plugin');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
+const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 
 const appConfig = fs.existsSync(paths.appConfig) ? require(paths.appConfig) : {};
 const appName = utils.prepareFederationName(appConfig.name ?? appPkgJson.name);
+const isHost = Boolean(appConfig.host);
 
 const getModuleRules = (isDev) => {
   return [
@@ -23,7 +28,7 @@ const getModuleRules = (isDev) => {
         {
           loader: 'babel-loader',
           options: {
-            plugins: [isDev && require.resolve('react-refresh/babel')].filter(Boolean),
+            plugins: [isDev && !isHost && require.resolve('react-refresh/babel')].filter(Boolean),
             presets: [
               ['@babel/preset-react', { runtime: 'automatic' }],
               '@babel/preset-typescript',
@@ -114,16 +119,27 @@ const getPlugins = (isDev, isAnalyze) => {
   const federationConfig = getFederationConfig();
 
   return [
+    isHost &&
+      new CopyPlugin({
+        patterns: [
+          {
+            from: paths.appFederationManifest,
+            to: '',
+          },
+        ],
+      }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[name].[contenthash:8].css',
     }),
+    new NodePolyfillPlugin(),
     new ModuleFederationPlugin(federationConfig),
     new HtmlWebpackPlugin({
       template: paths.appHtmlTemplate,
       chunks: isDev ? ['main'] : undefined,
       templateParameters: {
         title: appConfig.name,
+        isDev,
       },
       minify: !isDev,
     }),
@@ -132,9 +148,15 @@ const getPlugins = (isDev, isAnalyze) => {
       __DEV__: JSON.stringify(isDev),
       APP_NAME: JSON.stringify(appName),
     }),
-    isDev &&
+    !isHost &&
+      isDev &&
       new ReactRefreshWebpackPlugin({
         exclude: [/node_modules/, /bootstrap\.tsx$/],
+      }),
+    isHost &&
+      isDev &&
+      new LiveReloadPlugin({
+        port: 35729,
       }),
     isAnalyze && new BundleAnalyzerPlugin({ analyzerPort: 'auto' }),
   ].filter(Boolean);
@@ -151,12 +173,15 @@ module.exports = (mode) => {
     entry: paths.appEntry,
     devtool: isDev ? 'inline-source-map' : false,
     devServer: {
-      hot: true,
+      hot: !isHost,
       static: paths.appDist,
       port: appConfig.devPort ?? 3000,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
+      historyApiFallback: true,
+      headers: isHost
+        ? undefined
+        : {
+            'Access-Control-Allow-Origin': '*',
+          },
     },
     output: {
       path: paths.appDist,
@@ -170,6 +195,7 @@ module.exports = (mode) => {
     },
     plugins: getPlugins(isDev, isAnalyze),
     resolve: {
+      plugins: [new TsconfigPathsPlugin()],
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
   };

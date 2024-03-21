@@ -1,10 +1,10 @@
-import { type FC, type PropsWithChildren, createContext, useReducer } from 'react';
 import { notification } from '@repo/lib/notification';
 import { useMount, useStrictContext } from '@repo/lib/react';
-import { type ServiceState } from './types';
+import { type FC, type PropsWithChildren, createContext, useReducer } from 'react';
+import { api } from '~/shared/api';
+import { useTranslation } from '~/shared/lib/i18next';
 import { serviceReducer } from './reducer';
-import { api } from '../../../shared/api';
-import { useTranslation } from '../../../shared/lib/i18next';
+import { type ServiceState } from './types';
 
 const INITIAL_STATE: ServiceState = {
   services: [],

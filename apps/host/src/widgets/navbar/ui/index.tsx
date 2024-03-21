@@ -1,14 +1,14 @@
 import { AppShell, Code, Group, Title, Tooltip, Text, Space } from '@mantine/core';
-import { type PropsWithChildren, type FC } from 'react';
 import { NavLink, type To } from 'react-router-dom';
 import { isUndefined } from '@repo/lib/typescript';
-import { useServiceState } from '../../../entities/service';
+import { type PropsWithChildren, type FC } from 'react';
+import { SkeletonList } from '~/shared/ui';
+import { useServiceState } from '~/entities/service';
+import { PickLanguageSelect } from '~/features/pick-language';
+import { routes } from '~/shared/config/routes';
+import { useTranslation } from '~/shared/lib/i18next';
 import styles from './styles.module.css';
 import remoteDefinitions from '/module-federation.manifest.json';
-import { SkeletonList } from '../../../shared/ui';
-import { PickLanguageSelect } from '../../../features/pick-language';
-import { useTranslation } from '../../../shared/lib/i18next';
-import { routes } from '../../../shared/config/routes';
 
 export const Navbar: FC = () => {
   const { services, isLoaded } = useServiceState();

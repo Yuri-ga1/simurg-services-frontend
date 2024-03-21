@@ -1,3 +1,4 @@
+import { errorToString } from '../string';
 import { sleep } from '../time';
 import {
   BadDataError,
@@ -11,7 +12,6 @@ import {
   NetworkError,
   PreparationError,
 } from './api-error';
-import { errorToString } from '../string';
 
 export type ContentType = 'application/json' | 'multipart/form-data';
 

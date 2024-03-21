@@ -1,5 +1,5 @@
 import { createHttpClient } from '@repo/lib/fetch';
-import { BACKEND_URL } from '../config/env';
+import { BACKEND_URL } from '~/config/env';
 
 export type CoordinateCalculationResponse = {
   valid: boolean;

@@ -1,8 +1,8 @@
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import remoteDefinitions from '/module-federation.manifest.json';
+import { routes } from '~/shared/config/routes';
 import { useServiceState } from '../model/context';
-import { routes } from '../../../shared/config/routes';
 
 export const useServiceAccessGuard = (): void => {
   const { services, isLoaded } = useServiceState();

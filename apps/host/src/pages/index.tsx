@@ -1,12 +1,12 @@
-import { type RouteObject, createBrowserRouter, Navigate } from 'react-router-dom';
 import { Title, Divider, Loader } from '@mantine/core';
 import { type FC } from 'react';
-import { BaseLayout } from '../layouts/base';
-import { IndexPage } from './index/index';
+import { type RouteObject, createBrowserRouter, Navigate } from 'react-router-dom';
+import { BaseLayout } from '~/layouts/base';
+import { ServiceLayout } from '~/layouts/service';
+import { routes } from '~/shared/config/routes';
+import { Page, RemoteComponent } from '~/shared/ui';
 import remoteDefinitions from '/module-federation.manifest.json';
-import { Page, RemoteComponent } from '../shared/ui';
-import { ServiceLayout } from '../layouts/service';
-import { routes } from '../shared/config/routes';
+import { IndexPage } from './index/index';
 
 type RemoteModulePageProps = {
   definition: RemoteDefinition;
@@ -20,6 +20,7 @@ const RemoteModulePage: FC<RemoteModulePageProps> = ({ definition }) => (
       url={definition.url}
       scope={definition.name}
       module="./Module"
+      remoteEntryFileName="js/remoteEntry.js"
       fallback={<Loader />}
     />
   </Page>

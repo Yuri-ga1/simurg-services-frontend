@@ -11,7 +11,5 @@ compiler.run((error, stats) => {
   if (error || stats.hasErrors()) {
     console.error(stats.toString('errors-only'));
     process.exit(1);
-  } else {
-    console.log('Build succeeded!');
   }
 });

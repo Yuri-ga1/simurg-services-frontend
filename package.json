@@ -4,7 +4,7 @@
   "scripts": {
     "clean": "rm -rf node_modules && pnpm -r exec rm -rf dist node_modules",
     "fresh": "rm pnpm-lock.yaml && pnpm clean && pnpm i",
-    "dev": "pnpm -r --stream --parallel dev",
+    "start": "pnpm -r --stream --parallel start",
     "build": "pnpm -r --stream --parallel build",
     "analyze": "pnpm -r --stream --parallel analyze",
     "lint": "pnpm -r --stream --parallel lint",

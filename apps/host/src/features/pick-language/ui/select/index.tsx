@@ -1,9 +1,9 @@
-import { type FC, useState } from 'react';
 import { Group, Image, Menu, UnstyledButton } from '@mantine/core';
-import { IconChevronDown } from '@tabler/icons-react';
 import { i18nService } from '@repo/lib/i18next';
 import { assert } from '@repo/lib/typescript';
-import { useTranslation } from '../../../../shared/lib/i18next';
+import { IconChevronDown } from '@tabler/icons-react';
+import { type FC, useState } from 'react';
+import { useTranslation } from '~/shared/lib/i18next';
 import { images } from '../assets';
 import styles from './styles.module.css';
 

@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Box,
   Button,
@@ -13,6 +13,12 @@ import {
   Tooltip,
   Text,
 } from '@mantine/core';
+import { downloadFile } from '@repo/lib/file';
+import { notification } from '@repo/lib/notification';
+import { useAsyncCallback, useMount } from '@repo/lib/react';
+import { CustomDateInput } from '@repo/ui';
+import dayjs from 'dayjs';
+import { useEffect, type FC } from 'react';
 import {
   Controller,
   FormProvider,
@@ -20,16 +26,10 @@ import {
   useForm,
   useFormContext,
 } from 'react-hook-form';
-import { useAsyncCallback, useMount } from '@repo/lib/react';
-import { notification } from '@repo/lib/notification';
 import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { CustomDateInput } from '@repo/ui';
-import dayjs from 'dayjs';
-import { downloadFile } from '@repo/lib/file';
 import { type GetResultQuery, api, type GetResultResponse } from '../../api';
-import { MAX_LATITUDE, MAX_LONGITUDE, MIN_LATITUDE, MIN_LONGITUDE } from './config';
 import { useTranslation } from '../../lib/i18next';
+import { MAX_LATITUDE, MAX_LONGITUDE, MIN_LATITUDE, MIN_LONGITUDE } from './config';
 
 enum GeoMagnitude {
   GEOGRAPHICAL = 'false',

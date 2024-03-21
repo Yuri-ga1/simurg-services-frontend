@@ -1,13 +1,13 @@
-import { type FC } from 'react';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
 import { Box, Button, FileInput, Stack } from '@mantine/core';
-import { isFile } from '@repo/lib/typescript';
 import { notification } from '@repo/lib/notification';
 import { useAsyncCallback } from '@repo/lib/react';
-import { type CoordinateCalculationResponse, api } from '../api';
-import { useTranslation } from '../lib/i18next';
+import { isFile } from '@repo/lib/typescript';
+import { type FC } from 'react';
+import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
+import { type CoordinateCalculationResponse, api } from '~/api';
+import { useTranslation } from '~/lib/i18next';
 
 const formSchema = z.object({
   obsFile: z.any().refine(isFile, 'form.fieldRequired'),

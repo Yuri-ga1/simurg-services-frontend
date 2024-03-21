@@ -2,9 +2,9 @@
   "name": "host",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack serve",
-    "build": "cross-env NODE_ENV=production webpack build",
-    "analyze": "cross-env NODE_ENV=analyze webpack build",
+    "start": "mfe-scripts start",
+    "build": "mfe-scripts build",
+    "analyze": "mfe-scripts analyze",
     "lint": "eslint . --max-warnings 0 --fix"
   },
   "dependencies": {
@@ -21,35 +21,19 @@
     "react-router-dom": "^6.22.2"
   },
   "devDependencies": {
+    "@repo/mfe-scripts": "workspace:*",
     "@babel/core": "^7.24.0",
-    "@babel/preset-react": "^7.23.3",
-    "@babel/preset-typescript": "^7.23.3",
     "@repo/eslint-config": "workspace:*",
     "@repo/tsconfig": "workspace:*",
     "@repo/types": "workspace:*",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.63",
     "@types/react-dom": "^18.2.19",
-    "@types/webpack": "^5.28.5",
     "babel-loader": "^9.1.3",
-    "copy-webpack-plugin": "^12.0.2",
-    "cross-env": "^7.0.3",
     "css-loader": "^6.10.0",
-    "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
-    "html-webpack-plugin": "^5.6.0",
-    "mini-css-extract-plugin": "^2.8.1",
-    "node-polyfill-webpack-plugin": "2.0.1",
-    "postcss": "^8.4.35",
     "postcss-loader": "^8.1.1",
-    "postcss-preset-mantine": "^1.13.0",
-    "postcss-simple-vars": "^7.0.1",
     "style-loader": "^3.3.4",
-    "typescript": "^5.3.3",
-    "webpack": "^5.90.3",
-    "webpack-bundle-analyzer": "^4.10.1",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "4.15.1",
-    "webpack-livereload-plugin": "^3.0.2"
+    "typescript": "^5.3.3"
   }
 }

@@ -14,4 +14,5 @@ module.exports = {
   appConfig: resolveApp('mfe.config.js'),
   appPkgJson: resolveApp('package.json'),
   appHtmlTemplate: resolveApp('public/index.html'),
+  appFederationManifest: resolveApp('module-federation.manifest.json'),
 };

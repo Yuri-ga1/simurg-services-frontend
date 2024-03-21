@@ -1,7 +1,7 @@
-import { useState, type FC } from 'react';
 import { Code, Stack, Title } from '@mantine/core';
-import { type CoordinateCalculationResponse } from '../api';
-import { useTranslation } from '../lib/i18next';
+import { useState, type FC } from 'react';
+import { type CoordinateCalculationResponse } from '~/api';
+import { useTranslation } from '~/lib/i18next';
 import { Form } from './form';
 
 export const Content: FC = () => {

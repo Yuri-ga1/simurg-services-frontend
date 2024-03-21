@@ -22,6 +22,21 @@ module.exports = {
   },
   ignorePatterns: ['dist', 'node_modules', '**/*.js'],
   rules: {
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'never',
+        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
+        alphabetize: { order: 'asc', caseInsensitive: true },
+        pathGroups: [
+          {
+            group: 'internal',
+            pattern: '~/**',
+            position: 'before',
+          },
+        ],
+      },
+    ],
     'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/no-absolute-path': 'off',
@@ -54,5 +69,10 @@ module.exports = {
     'no-duplicate-imports': 'error',
     'max-classes-per-file': 'off',
     'no-restricted-exports': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
   },
 };

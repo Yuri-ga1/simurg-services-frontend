@@ -1,4 +1,4 @@
-import { type Service } from '../../../shared/api';
+import { type Service } from '~/shared/api';
 
 export type ServiceState = {
   services: Service[];
