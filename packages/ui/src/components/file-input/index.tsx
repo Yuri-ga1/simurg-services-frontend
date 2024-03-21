@@ -17,7 +17,7 @@ export const CustomFileInput = forwardRef<HTMLButtonElement, CustomFileInputProp
   ({ tooltip, disabled, ...restProps }, ref) => {
     if (disabled && tooltip) {
       return (
-        <Tooltip label={tooltip}>
+        <Tooltip label={tooltip} zIndex={999}>
           <span>
             <BaseFileInput ref={ref} disabled={disabled} {...restProps} />
           </span>
