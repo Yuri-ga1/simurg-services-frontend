@@ -61,7 +61,7 @@ export const createHttpClient = (createOptions: CreateHttpClientOptions): HttpCl
       await sleep(options.delay);
     }
 
-    const res = await fetch(endpoint, {
+    const response = await fetch(endpoint, {
       method: options.method,
       headers,
       body,
@@ -70,15 +70,15 @@ export const createHttpClient = (createOptions: CreateHttpClientOptions): HttpCl
       throw new NetworkError(errorToString(error));
     });
 
-    if (res.ok) {
+    if (response.ok) {
       try {
-        const data = await parseResponse(res, options.responseType ?? 'json');
+        const data = await parseResponse(response, options.responseType ?? 'json');
         return data;
       } catch (error) {
         throw new PreparationError(errorToString(error));
       }
     }
-    throw await parseHttpError(res);
+    throw await parseHttpError(response);
   };
 
   return {
@@ -86,29 +86,29 @@ export const createHttpClient = (createOptions: CreateHttpClientOptions): HttpCl
   };
 };
 
-function contentIs(headers: Headers, type: ContentType): boolean {
-  return Boolean(headers.get('content-type')?.includes(type));
+function contentIs(headers: Headers, contentType: ContentType): boolean {
+  return Boolean(headers.get('content-type')?.includes(contentType));
 }
 
-function contentDefault(headers: Headers, type: ContentType): void {
+function contentDefault(headers: Headers, contentType: ContentType): void {
   if (!headers.has('content-type')) {
-    headers.set('content-type', type);
+    headers.set('content-type', contentType);
   }
 }
 
-async function parseResponse(res: Response, resType: ResponseType): Promise<any> {
-  if (resType === 'stream') {
-    return res.text();
+async function parseResponse(response: Response, responseType: ResponseType): Promise<any> {
+  if (responseType === 'stream') {
+    return response.text();
   }
-  if (resType === 'arraybuffer') {
-    return res.arrayBuffer();
+  if (responseType === 'arraybuffer') {
+    return response.arrayBuffer();
   }
-  return res.json();
+  return response.json();
 }
 
-async function parseHttpError(res: Response): Promise<HttpError> {
-  const message = await res.text();
-  switch (res.status) {
+async function parseHttpError(response: Response): Promise<HttpError> {
+  const message = await response.text();
+  switch (response.status) {
     case HttpErrorStatus.BAD_DATA:
       return new BadDataError(message);
     case HttpErrorStatus.UNAUTHORIZED:

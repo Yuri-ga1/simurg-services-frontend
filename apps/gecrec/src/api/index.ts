@@ -40,11 +40,11 @@ const httpClient = createHttpClient({
 });
 
 const getCenters = async (): Promise<string[]> => {
-  const data: GetCentersResponse = await httpClient.request({
+  const response = await httpClient.request<void, GetCentersResponse>({
     path: 'centers',
     method: 'GET',
   });
-  return data.available_centers;
+  return response.available_centers;
 };
 
 const getCenterAvailability = async (

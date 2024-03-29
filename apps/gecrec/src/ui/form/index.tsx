@@ -125,7 +125,7 @@ export const Form: FC<FormProps> = ({ onSubmit }) => {
   return (
     <FormProvider {...methods}>
       <Box maw={500}>
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={(event) => event.preventDefault()}>
           <Stack>
             <CenterSelect />
             <DateRange />
@@ -439,7 +439,7 @@ const NeedToSendFields: FC = () => {
               {...restField}
               label={t('form.recDataTransfer')}
               checked={value}
-              onChange={(e) => restField.onChange(e.currentTarget.checked)}
+              onChange={(event) => restField.onChange(event.currentTarget.checked)}
             />
           )}
         />
@@ -451,7 +451,7 @@ const NeedToSendFields: FC = () => {
               {...restField}
               label={t('form.tecDataTransfer')}
               checked={value}
-              onChange={(e) => restField.onChange(e.currentTarget.checked)}
+              onChange={(event) => restField.onChange(event.currentTarget.checked)}
             />
           )}
         />

@@ -11,9 +11,9 @@ export const SkeletonList: FC<SkeletonListProps> = ({ count, gap, itemProps }) =
   <Group gap={gap}>
     {Array(count)
       .fill(0)
-      .map((_, idx) => (
+      .map((_, index) => (
         // eslint-disable-next-line react/no-array-index-key
-        <Skeleton key={idx} {...itemProps} />
+        <Skeleton key={index} {...itemProps} />
       ))}
   </Group>
 );

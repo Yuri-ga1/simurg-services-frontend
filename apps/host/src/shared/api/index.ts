@@ -11,11 +11,11 @@ const httpClient = createHttpClient({
 });
 
 const getServices = async (): Promise<Service[]> => {
-  const data = await httpClient.request<void, { services: Service[] }>({
+  const response = await httpClient.request<void, { services: Service[] }>({
     path: 'services',
     method: 'GET',
   });
-  return data.services;
+  return response.services;
 };
 
 export const api = { getServices };

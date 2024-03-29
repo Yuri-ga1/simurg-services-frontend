@@ -105,11 +105,9 @@ const getFederationConfig = () => {
       },
       '@repo/lib/': {
         singleton: true,
-        requiredVersion: localPkgJson.peerDependencies['@repo/lib/'],
       },
       '@repo/ui': {
         singleton: true,
-        requiredVersion: localPkgJson.peerDependencies['@repo/ui'],
       },
     },
   };

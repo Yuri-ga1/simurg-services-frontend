@@ -138,7 +138,7 @@ const FileFields: FC = () => {
   const {
     data: rinexFileData,
     callCallback: uploadRinexFile,
-    isLoading: isRinexFileLoading,
+    isLoading: isRinexFileUploading,
   } = useAsyncCallback(
     async ({ formData }: { formData: FormData; file: File }) => api.uploadRinexFile(formData),
     {
@@ -154,7 +154,7 @@ const FileFields: FC = () => {
     },
   );
 
-  const { callCallback: uploadNavFile, isLoading: isNavFileLoading } = useAsyncCallback(
+  const { callCallback: uploadNavFile, isLoading: isNavFileUploading } = useAsyncCallback(
     async ({ formData }: { formData: FormData; file: File }) => api.uploadNavFile(formData),
     {
       onSuccess: (_, [{ file }]) => {
@@ -199,7 +199,7 @@ const FileFields: FC = () => {
             label={t('form.rinexFile')}
             placeholder={t('form.uploadFile')}
             accept={FILE_ACCEPT}
-            loading={isRinexFileLoading}
+            loading={isRinexFileUploading}
             error={error?.message && t(error.message)}
           />
         )}
@@ -215,7 +215,7 @@ const FileFields: FC = () => {
             label={t('form.navFile')}
             placeholder={t('form.uploadFile')}
             accept={FILE_ACCEPT}
-            loading={isNavFileLoading}
+            loading={isNavFileUploading}
             disabled={!rinexFileData}
             error={error?.message && t(error.message)}
             tooltip={t('form.rinexFilePlaceholder')}

@@ -4,12 +4,6 @@ import { lazy, type ReactNode, Suspense, type FC } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from '~/shared/lib/i18next';
 
-const ErrorFallback: FC = () => {
-  const { t } = useTranslation();
-
-  return <Text>{t('remoteComponent.error')} 😔</Text>;
-};
-
 type RemoteComponentProps = {
   url: string;
   scope: string;
@@ -45,4 +39,10 @@ export const RemoteComponent: FC<RemoteComponentProps> = ({
       </Suspense>
     </ErrorBoundary>
   );
+};
+
+const ErrorFallback: FC = () => {
+  const { t } = useTranslation();
+
+  return <Text>{t('remoteComponent.error')} 😔</Text>;
 };

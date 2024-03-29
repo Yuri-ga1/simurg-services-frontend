@@ -31,6 +31,8 @@ module.exports = {
   output: {
     publicPath: 'auto',
     clean: true,
+    filename: 'js/bundle.[contenthash:8].js',
+    chunkFilename: 'js/[name].[contenthash:8].chunk.js',
   },
   module: {
     rules: [
@@ -86,7 +88,7 @@ module.exports = {
     new MiniCssExtractPlugin(),
     new ModuleFederationPlugin({
       name: APP_NAME,
-      filename: 'remoteEntry.js',
+      filename: 'js/remoteEntry.js',
       exposes: {
         './Module': './src/remote-entry.ts',
       },

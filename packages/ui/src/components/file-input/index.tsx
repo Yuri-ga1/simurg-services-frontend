@@ -43,8 +43,9 @@ const BaseFileInput = forwardRef<HTMLButtonElement, CustomFileInputProps>(
           id={id}
           ref={ref}
           fileInputProps={{
-            onClick: (e) => {
-              (e.target as HTMLInputElement).value = '';
+            onClick: (event) => {
+              // eslint-disable-next-line no-param-reassign
+              (event.target as HTMLInputElement).value = '';
             },
           }}
           error={Boolean(error)}

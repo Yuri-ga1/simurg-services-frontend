@@ -11,20 +11,20 @@ RUN pnpm build
 
 FROM nginx:alpine AS host
 COPY --from=build /usr/src/app/apps/host/dist /usr/share/nginx/html
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 CMD ["nginx", "-g", "daemon off;"]
 
 FROM nginx:alpine AS navi
 COPY --from=build /usr/src/app/apps/navi/dist /usr/share/nginx/html
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 CMD ["nginx", "-g", "daemon off;"]
 
 FROM nginx:alpine AS rinex-to-csv
 COPY --from=build /usr/src/app/apps/rinex-to-csv/dist /usr/share/nginx/html
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 CMD ["nginx", "-g", "daemon off;"]
 
 FROM nginx:alpine AS gecrec
 COPY --from=build /usr/src/app/apps/gecrec/dist /usr/share/nginx/html
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 CMD ["nginx", "-g", "daemon off;"]
