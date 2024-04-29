@@ -1,5 +1,5 @@
 module.exports = {
-  port: 9001,
+  port: 9003,
   federation: {
     exposes: {
       './Module': './src/remote-entry.ts',

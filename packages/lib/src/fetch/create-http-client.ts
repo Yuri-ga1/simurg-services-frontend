@@ -19,10 +19,10 @@ export type ResponseType = 'json' | 'arraybuffer' | 'stream';
 
 export type RequestMethod = 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH';
 
-export type RequestOptions<T> = {
+export type RequestOptions<TData> = {
   path: string;
   method: RequestMethod;
-  data?: T;
+  data?: TData;
   query?: Record<string, any>;
   headers?: Record<string, string>;
   contentType?: ContentType;
@@ -35,14 +35,15 @@ export type HttpClient = {
 };
 
 export type CreateHttpClientOptions = {
-  baseUrl: string;
+  baseUrl?: string;
   withCredentials?: boolean;
 };
 
 export const createHttpClient = (createOptions: CreateHttpClientOptions): HttpClient => {
   const buildEndpoint = (path: string, query?: Record<string, any>): string => {
     const params = query ? new URLSearchParams(query) : undefined;
-    return `${createOptions.baseUrl}/${path}${params ? `?${params}` : ''}`;
+    const prefix = createOptions.baseUrl ? `${createOptions.baseUrl}/` : '';
+    return `${prefix}${path}${params ? `?${params}` : ''}`;
   };
 
   const request: HttpClient['request'] = async (options) => {
@@ -86,17 +87,16 @@ export const createHttpClient = (createOptions: CreateHttpClientOptions): HttpCl
   };
 };
 
-function contentIs(headers: Headers, contentType: ContentType): boolean {
-  return Boolean(headers.get('content-type')?.includes(contentType));
-}
+const contentIs = (headers: Headers, contentType: ContentType): boolean =>
+  Boolean(headers.get('content-type')?.includes(contentType));
 
-function contentDefault(headers: Headers, contentType: ContentType): void {
+const contentDefault = (headers: Headers, contentType: ContentType): void => {
   if (!headers.has('content-type')) {
     headers.set('content-type', contentType);
   }
-}
+};
 
-async function parseResponse(response: Response, responseType: ResponseType): Promise<any> {
+const parseResponse = async (response: Response, responseType: ResponseType): Promise<any> => {
   if (responseType === 'stream') {
     return response.text();
   }
@@ -104,9 +104,9 @@ async function parseResponse(response: Response, responseType: ResponseType): Pr
     return response.arrayBuffer();
   }
   return response.json();
-}
+};
 
-async function parseHttpError(response: Response): Promise<HttpError> {
+const parseHttpError = async (response: Response): Promise<HttpError> => {
   const message = await response.text();
   switch (response.status) {
     case HttpErrorStatus.BAD_DATA:
@@ -122,4 +122,4 @@ async function parseHttpError(response: Response): Promise<HttpError> {
     default:
       return new ServerError(message);
   }
-}
+};

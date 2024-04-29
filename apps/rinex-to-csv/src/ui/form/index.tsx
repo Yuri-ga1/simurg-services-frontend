@@ -15,13 +15,8 @@ import {
   useFormContext,
 } from 'react-hook-form';
 import { z } from 'zod';
-import {
-  type NavigationOption,
-  NavigationType,
-  api,
-  type CalculateCoordinatesData,
-} from '../../api';
-import { useTranslation } from '../../lib/i18next';
+import { type NavigationOption, NavigationType, api, type CalculateCoordinatesData } from '~/api';
+import { useTranslation } from '~/lib/i18next';
 import {
   FILE_ACCEPT,
   navigationMeasurementData,

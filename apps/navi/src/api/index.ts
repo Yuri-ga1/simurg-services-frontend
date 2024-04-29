@@ -1,5 +1,5 @@
 import { createHttpClient } from '@repo/lib/fetch';
-import { BACKEND_URL } from '~/config/env';
+import { API_URL } from '~/config/env';
 
 export type CoordinateCalculationResponse = {
   valid: boolean;
@@ -7,7 +7,7 @@ export type CoordinateCalculationResponse = {
 };
 
 const httpClient = createHttpClient({
-  baseUrl: BACKEND_URL,
+  baseUrl: API_URL,
 });
 
 const calculateCoordinates = async (data: FormData): Promise<CoordinateCalculationResponse> =>

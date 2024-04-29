@@ -27,8 +27,8 @@ import {
   useFormContext,
 } from 'react-hook-form';
 import { z } from 'zod';
-import { type GetResultQuery, api, type GetResultResponse } from '../../api';
-import { useTranslation } from '../../lib/i18next';
+import { type GetResultQuery, api, type GetResultResponse } from '~/api';
+import { useTranslation } from '~/lib/i18next';
 import { MAX_LATITUDE, MAX_LONGITUDE, MIN_LATITUDE, MIN_LONGITUDE } from './config';
 
 enum GeoMagnitude {

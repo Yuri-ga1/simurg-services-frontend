@@ -1,5 +1,5 @@
 import { createHttpClient } from '@repo/lib/fetch';
-import { BACKEND_URL } from '../config/env';
+import { API_URL } from '~/config/env';
 
 export type TimeStep = 10 | 30 | 60 | 120;
 
@@ -48,7 +48,7 @@ export type CalculateCoordinatesData = {
 };
 
 const httpClient = createHttpClient({
-  baseUrl: BACKEND_URL,
+  baseUrl: API_URL,
   withCredentials: true,
 });
 

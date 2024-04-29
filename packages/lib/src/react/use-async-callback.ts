@@ -17,7 +17,7 @@ export type UseAsyncCallbackReturn<TData, TError, TArgs extends any[]> = {
 };
 
 export const useAsyncCallback = <TData, TError extends unknown, TArgs extends any[]>(
-  asyncFn: (...args: TArgs) => Promise<TData>,
+  asyncCallback: (...args: TArgs) => Promise<TData>,
   { onSuccess, onError }: UseAsyncCallbackHandlers<TData, TError, TArgs> = {},
   deps: DependencyList = [],
 ): UseAsyncCallbackReturn<TData, TError, TArgs> => {
@@ -29,7 +29,7 @@ export const useAsyncCallback = <TData, TError extends unknown, TArgs extends an
     async (...args: TArgs) => {
       setStatus('pending');
       try {
-        const newData = await asyncFn(...args);
+        const newData = await asyncCallback(...args);
         onSuccess?.(newData, args);
         setData(newData);
         setStatus('fulfilled');

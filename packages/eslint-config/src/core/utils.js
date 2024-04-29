@@ -1,5 +1,3 @@
-const prepareFederationName = (name) => name.replace(/-/g, '_');
-
 const isObject = (item) => item && typeof item === 'object' && !Array.isArray(item);
 
 const mergeDeep = (target, ...sources) => {
@@ -23,7 +21,6 @@ const mergeDeep = (target, ...sources) => {
 };
 
 module.exports = {
-  prepareFederationName,
   isObject,
   mergeDeep,
 };

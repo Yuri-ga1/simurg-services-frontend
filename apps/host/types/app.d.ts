@@ -1,13 +1,12 @@
 /// <reference types="@repo/types/react-app" />
 
-export {};
-
 declare global {
   export type RemoteDefinition = {
     url: string;
     name: string;
-    backendName: string;
+    serviceName: string;
     routePath: string;
+    module: string;
   };
 
   declare module '*/module-federation.manifest.json' {
@@ -15,3 +14,5 @@ declare global {
     export default remoteDefinitions;
   }
 }
+
+export {};

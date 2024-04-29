@@ -5,11 +5,12 @@
     "./*": "./src/*.d.ts"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0 --fix"
+    "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "npm run lint -- --fix"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
+    "@repo/eslint-config": "workspace:^",
+    "@repo/tsconfig": "workspace:^",
     "eslint": "^8.57.0",
     "typescript": "^5.3.3"
   }

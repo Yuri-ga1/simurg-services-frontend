@@ -1,7 +1,7 @@
 import { Stack, Title } from '@mantine/core';
 import { useState, type FC, type ReactNode, useMemo } from 'react';
-import { type GetResultResponse } from '../api';
-import { useTranslation } from '../lib/i18next';
+import { type GetResultResponse } from '~/api';
+import { useTranslation } from '~/lib/i18next';
 import { OneLineChart, TwoLineChart } from './chart';
 import { Form } from './form';
 

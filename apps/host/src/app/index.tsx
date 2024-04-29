@@ -1,22 +1,23 @@
-import { Center, Loader } from '@mantine/core';
 import { CustomThemeProvider } from '@repo/ui';
-import { Suspense, type FC } from 'react';
+import { useEffect, type FC } from 'react';
 import { RouterProvider } from 'react-router-dom';
-import { ServiceProvider } from '~/entities/service';
+import { useServiceFetch } from '~/entities/service';
 import { router } from '~/pages';
+
+const AppLoad: FC = () => {
+  const fetchServices = useServiceFetch();
+
+  useEffect(() => {
+    fetchServices();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return null;
+};
 
 export const App: FC = () => (
   <CustomThemeProvider>
-    <Suspense
-      fallback={
-        <Center maw="100%" mih="100vh">
-          <Loader />
-        </Center>
-      }
-    >
-      <ServiceProvider>
-        <RouterProvider router={router} />
-      </ServiceProvider>
-    </Suspense>
+    <AppLoad />
+    <RouterProvider router={router} />
   </CustomThemeProvider>
 );

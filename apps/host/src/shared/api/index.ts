@@ -1,5 +1,5 @@
 import { createHttpClient } from '@repo/lib/fetch';
-import { BACKEND_URL } from '~/shared/config/env';
+import { API_URL } from '~/shared/config/env';
 
 export type Service = {
   name: string;
@@ -7,7 +7,7 @@ export type Service = {
 };
 
 const httpClient = createHttpClient({
-  baseUrl: BACKEND_URL,
+  baseUrl: API_URL,
 });
 
 const getServices = async (): Promise<Service[]> => {

@@ -1,25 +1,25 @@
 import { AppShell, Code, Group, Title, Tooltip, Text, Space } from '@mantine/core';
-import { NavLink, type To } from 'react-router-dom';
 import { isUndefined } from '@repo/lib/typescript';
 import { type PropsWithChildren, type FC } from 'react';
-import { SkeletonList } from '~/shared/ui';
-import { useServiceState } from '~/entities/service';
+import { NavLink, type To } from 'react-router-dom';
+import { useServiceStore } from '~/entities/service';
 import { PickLanguageSelect } from '~/features/pick-language';
-import { routes } from '~/shared/config/routes';
+import { REMOTE_DEFINITIONS } from '~/shared/config/module-federation';
+import { ROUTES } from '~/shared/config/routes';
 import { useTranslation } from '~/shared/lib/i18next';
+import { SkeletonList } from '~/shared/ui';
 import styles from './styles.module.css';
-import remoteDefinitions from '/module-federation.manifest.json';
 
 export const Navbar: FC = () => {
-  const { services, isLoaded } = useServiceState();
+  const { services, isLoaded } = useServiceStore();
   const { t } = useTranslation();
 
-  const data: { label: string; to: To; isActive?: boolean }[] = remoteDefinitions.map(
+  const data: { label: string; to: To; isActive?: boolean }[] = REMOTE_DEFINITIONS.map(
     (definition) => ({
       label: definition.name,
       to: definition.routePath,
       isActive: services.some(
-        (service) => service.name === definition.backendName && service['status-code'] === 200,
+        (service) => service.name === definition.serviceName && service['status-code'] === 200,
       ),
     }),
   );
@@ -45,7 +45,7 @@ export const Navbar: FC = () => {
           <Title order={3}>SIMuRG Services</Title>
           <Code fw={700}>v0.0.1</Code>
         </Group>
-        <NavbarLink to={routes.home}>{t('home.title')}</NavbarLink>
+        <NavbarLink to={ROUTES.home}>{t('home.title')}</NavbarLink>
         {isLoaded ? (
           links
         ) : (

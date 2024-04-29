@@ -3,18 +3,19 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf node_modules && pnpm -r exec rm -rf dist node_modules",
-    "fresh": "rm pnpm-lock.yaml && pnpm clean && pnpm i",
+    "fresh": "rm -f pnpm-lock.yaml && pnpm clean && pnpm i",
     "start": "pnpm -r --stream --parallel start",
     "build": "pnpm -r --stream --parallel build",
     "analyze": "pnpm -r --stream --parallel analyze",
     "lint": "pnpm -r --stream --parallel lint",
-    "format": "prettier . --write",
+    "lint:fix": "pnpm -r --stream --parallel lint:fix",
+    "format": "prettier . --write --ignore-unknown",
     "prepare": "husky",
     "docker": "docker-compose up -d"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
+    "@repo/eslint-config": "workspace:^",
+    "@repo/tsconfig": "workspace:^",
     "husky": "^9.0.11",
     "prettier": "^3.2.5"
   }

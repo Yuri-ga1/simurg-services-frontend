@@ -10,6 +10,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  plugins: ['prefer-arrow-functions'],
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
@@ -20,8 +21,20 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['dist', 'node_modules', '**/*.js'],
+  ignorePatterns: ['dist', 'node_modules', '*.js'],
   rules: {
+    curly: ['error', 'all'],
+    'arrow-body-style': ['error', 'as-needed'],
+    'prefer-destructuring': 'off',
+    'no-duplicate-imports': 'error',
+    'max-classes-per-file': 'off',
+    'no-restricted-exports': 'off',
+    'prefer-arrow-functions/prefer-arrow-functions': [
+      'error',
+      {
+        returnStyle: 'implicit',
+      },
+    ],
     'import/order': [
       'error',
       {
@@ -63,16 +76,5 @@ module.exports = {
       'error',
       { caughtErrors: 'all', args: 'all', argsIgnorePattern: '^_' },
     ],
-    curly: ['error', 'all'],
-    'arrow-body-style': ['error', 'as-needed'],
-    'prefer-destructuring': 'off',
-    'no-duplicate-imports': 'error',
-    'max-classes-per-file': 'off',
-    'no-restricted-exports': 'off',
-  },
-  settings: {
-    'import/resolver': {
-      typescript: {},
-    },
   },
 };

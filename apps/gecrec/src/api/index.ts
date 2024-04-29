@@ -1,5 +1,5 @@
 import { createHttpClient } from '@repo/lib/fetch';
-import { BACKEND_URL } from '../config/env';
+import { API_URL } from '~/config/env';
 
 export type GetCentersResponse = {
   available_centers: string[];
@@ -36,7 +36,7 @@ export type GetResultResponse = {
 };
 
 const httpClient = createHttpClient({
-  baseUrl: BACKEND_URL,
+  baseUrl: API_URL,
 });
 
 const getCenters = async (): Promise<string[]> => {

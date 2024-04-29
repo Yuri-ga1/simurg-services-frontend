@@ -1,11 +1,11 @@
-import enTranslations from './en.json';
-import ruTranslations from './ru.json';
+import TranslationEn from './en.json';
+import TranslationRu from './ru.json';
 
 export const translations = {
   en: {
-    translation: enTranslations,
+    translation: TranslationEn,
   },
   ru: {
-    translation: ruTranslations,
+    translation: TranslationRu,
   },
 };

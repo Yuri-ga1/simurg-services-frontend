@@ -1,0 +1,23 @@
+[
+  {
+    "url": "http://localhost:9001",
+    "name": "navi",
+    "serviceName": "navi",
+    "routePath": "/navi",
+    "module": "./Module"
+  },
+  {
+    "url": "http://localhost:9002",
+    "name": "rinex_to_csv",
+    "serviceName": "rinex-to-csv",
+    "routePath": "/rinex-to-csv",
+    "module": "./Module"
+  },
+  {
+    "url": "http://localhost:9003",
+    "name": "gecrec",
+    "serviceName": "gecrec",
+    "routePath": "/gecrec",
+    "module": "./Module"
+  }
+]

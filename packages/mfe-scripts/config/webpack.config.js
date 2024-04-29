@@ -14,6 +14,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
+const { mergeDeep } = require('./utils');
 
 const appConfig = fs.existsSync(paths.appConfig) ? require(paths.appConfig) : {};
 const appName = utils.prepareFederationName(appConfig.name ?? appPkgJson.name);
@@ -82,35 +83,37 @@ const getModuleRules = (isDev) => {
 };
 
 const getFederationConfig = () => {
-  return {
-    name: appName,
-    filename: 'js/remoteEntry.js',
-    exposes: appConfig.exposes ?? {},
-    shared: {
-      react: {
-        singleton: true,
-        requiredVersion: localPkgJson.peerDependencies['react'],
-      },
-      'react-dom': {
-        singleton: true,
-        requiredVersion: localPkgJson.peerDependencies['react-dom'],
-      },
-      '@mantine/core': {
-        singleton: true,
-        requiredVersion: localPkgJson.peerDependencies['@mantine/core'],
-      },
-      '@mantine/hooks': {
-        singleton: true,
-        requiredVersion: localPkgJson.peerDependencies['@mantine/hooks'],
-      },
-      '@repo/lib/': {
-        singleton: true,
-      },
-      '@repo/ui': {
-        singleton: true,
+  return mergeDeep(
+    {
+      name: appName,
+      filename: 'js/remoteEntry.js',
+      shared: {
+        react: {
+          singleton: true,
+          requiredVersion: localPkgJson.peerDependencies['react'],
+        },
+        'react-dom': {
+          singleton: true,
+          requiredVersion: localPkgJson.peerDependencies['react-dom'],
+        },
+        '@mantine/core': {
+          singleton: true,
+          requiredVersion: localPkgJson.peerDependencies['@mantine/core'],
+        },
+        '@mantine/hooks': {
+          singleton: true,
+          requiredVersion: localPkgJson.peerDependencies['@mantine/hooks'],
+        },
+        '@repo/lib/': {
+          singleton: true,
+        },
+        '@repo/ui': {
+          singleton: true,
+        },
       },
     },
-  };
+    appConfig.federation,
+  );
 };
 
 const getPlugins = (isDev, isAnalyze) => {
@@ -121,7 +124,7 @@ const getPlugins = (isDev, isAnalyze) => {
       new CopyPlugin({
         patterns: [
           {
-            from: paths.appFederationManifest,
+            from: paths.appMfManifest,
             to: '',
           },
         ],
@@ -173,7 +176,7 @@ module.exports = (mode) => {
     devServer: {
       hot: !isHost,
       static: paths.appDist,
-      port: appConfig.devPort ?? 3000,
+      port: appConfig.port ?? 3000,
       historyApiFallback: true,
       headers: isHost
         ? undefined
@@ -184,6 +187,7 @@ module.exports = (mode) => {
     output: {
       path: paths.appDist,
       filename: 'js/bundle.[contenthash:8].js',
+      assetModuleFilename: 'images/[hash][ext][query]',
       chunkFilename: 'js/[name].[contenthash:8].chunk.js',
       publicPath: 'auto',
       clean: true,

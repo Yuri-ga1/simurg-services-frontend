@@ -12,4 +12,6 @@ declare global {
     const styles: CSSModule;
     export default styles;
   }
+
+  declare module '*.png';
 }

@@ -4,16 +4,17 @@
   "private": true,
   "exports": "./src/index.ts",
   "scripts": {
-    "lint": "eslint . --max-warnings 0 --fix"
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "npm run lint -- --fix"
   },
   "devDependencies": {
     "@mantine/core": "^7.6.1",
     "@mantine/dates": "^7.6.1",
     "@mantine/hooks": "^7.6.1",
     "@mantine/notifications": "^7.6.1",
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
-    "@repo/types": "workspace:*",
+    "@repo/eslint-config": "workspace:^",
+    "@repo/tsconfig": "workspace:^",
+    "@repo/types": "workspace:^",
     "@types/react": "^18.2.63",
     "react": "^18.2.0"
   }

@@ -1,5 +1,5 @@
 import { type TranslateFunction } from '@repo/lib/i18next';
-import { NavigationMeasurement, NavigationSystem, NavigationType, type TimeStep } from '../../api';
+import { NavigationMeasurement, NavigationSystem, NavigationType, type TimeStep } from '~/api';
 
 const timeSteps: TimeStep[] = [10, 30, 60, 120];
 
