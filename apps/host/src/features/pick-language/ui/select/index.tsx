@@ -4,19 +4,20 @@ import { assert } from '@repo/lib/typescript';
 import { IconChevronDown } from '@tabler/icons-react';
 import { type FC, useState } from 'react';
 import { useTranslation } from '~/shared/lib/i18next';
-import { images } from '../assets';
+import englishImage from './assets/english.png';
+import russianImage from './assets/russian.png';
 import styles from './styles.module.css';
 
 const data: { language: string; label: string; image: string }[] = [
   {
     language: 'en',
     label: 'common.english',
-    image: images.english,
+    image: englishImage,
   },
   {
     language: 'ru',
     label: 'common.russian',
-    image: images.russian,
+    image: russianImage,
   },
 ];
 

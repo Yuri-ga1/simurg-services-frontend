@@ -13,6 +13,7 @@ module.exports = {
   appDist: resolveApp('dist'),
   appConfig: resolveApp('mfe.config.js'),
   appPkgJson: resolveApp('package.json'),
-  appHtmlTemplate: resolveApp('public/index.html'),
+  appHtmlTemplate: resolveApp('index.html'),
   appMfManifest: resolveApp('mf-manifest.json'),
+  appPublic: resolveApp('public'),
 };

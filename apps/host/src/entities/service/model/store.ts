@@ -14,7 +14,7 @@ export const useServiceStore = create<ServiceState>((set) => ({
   },
 }));
 
-export const useServiceFetch = (): (() => Promise<void>) => {
+export const useFetchServices = (): (() => Promise<void>) => {
   const { t } = useTranslation();
   const { fetchServices, setIsLoaded } = useServiceStore();
 

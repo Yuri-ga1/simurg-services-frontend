@@ -3,13 +3,6 @@
 /// <reference path="util-types.d.ts" />
 /// <reference path="react-lib.d.ts" />
 
-export {};
+declare const __DEV__: boolean;
 
-declare global {
-  /**
-   * Constants
-   */
-  export const __DEV__: boolean;
-
-  export const APP_NAME: string;
-}
+declare const APP_NAME: string;

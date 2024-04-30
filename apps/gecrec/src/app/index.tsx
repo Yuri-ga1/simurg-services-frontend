@@ -2,10 +2,9 @@ import { Stack, Title } from '@mantine/core';
 import { useState, type FC, type ReactNode, useMemo } from 'react';
 import { type GetResultResponse } from '~/api';
 import { useTranslation } from '~/lib/i18next';
-import { OneLineChart, TwoLineChart } from './chart';
-import { Form } from './form';
+import { Form, TwoLineChart, OneLineChart } from '~/ui';
 
-export const Content: FC = () => {
+const App: FC = () => {
   const [result, setResult] = useState<Nullable<GetResultResponse>>(null);
   const { t } = useTranslation();
 
@@ -60,3 +59,5 @@ export const Content: FC = () => {
     </Stack>
   );
 };
+
+export default App;

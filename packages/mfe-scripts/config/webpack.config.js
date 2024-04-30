@@ -123,11 +123,15 @@ const getPlugins = (isDev, isAnalyze) => {
     isHost &&
       new CopyPlugin({
         patterns: [
-          {
+          isHost && {
             from: paths.appMfManifest,
             to: '',
           },
-        ],
+          {
+            from: paths.appPublic,
+            to: '',
+          },
+        ].filter(Boolean),
       }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash:8].css',

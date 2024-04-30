@@ -1,9 +1,9 @@
 import { CustomThemeProvider } from '@repo/ui';
 import { createRoot } from 'react-dom/client';
-import { Content } from './ui/content';
+import App from './app';
 
 createRoot(document.getElementById('root')!).render(
   <CustomThemeProvider>
-    <Content />
+    <App />
   </CustomThemeProvider>,
 );

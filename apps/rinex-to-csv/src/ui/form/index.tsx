@@ -41,7 +41,7 @@ const formSchema = z.object({
   timeStep: z.number({ required_error: 'form.fieldRequired' }),
 });
 
-export type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.infer<typeof formSchema>;
 
 export const Form: FC = () => {
   const methods = useForm<FormValues>({

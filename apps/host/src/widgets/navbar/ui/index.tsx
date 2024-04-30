@@ -43,7 +43,7 @@ export const Navbar: FC = () => {
       <div className={styles.navbarMain}>
         <Group className={styles.header} justify="space-between">
           <Title order={3}>SIMuRG Services</Title>
-          <Code fw={700}>v0.0.1</Code>
+          <Code fw={700}>v1.0.0</Code>
         </Group>
         <NavbarLink to={ROUTES.home}>{t('home.title')}</NavbarLink>
         {isLoaded ? (

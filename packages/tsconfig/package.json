@@ -6,7 +6,7 @@
     "./react-app": "./react-app.json",
     "./react-lib": "./react-lib.json"
   },
-  "devDependencies": {
+  "dependencies": {
     "typescript-plugin-css-modules": "^5.1.0"
   }
 }

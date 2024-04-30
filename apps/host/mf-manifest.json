@@ -4,20 +4,20 @@
     "name": "navi",
     "serviceName": "navi",
     "routePath": "/navi",
-    "module": "./Module"
+    "module": "./App"
   },
   {
     "url": "http://localhost:9002",
     "name": "rinex_to_csv",
     "serviceName": "rinex-to-csv",
     "routePath": "/rinex-to-csv",
-    "module": "./Module"
+    "module": "./App"
   },
   {
     "url": "http://localhost:9003",
     "name": "gecrec",
     "serviceName": "gecrec",
     "routePath": "/gecrec",
-    "module": "./Module"
+    "module": "./App"
   }
 ]
