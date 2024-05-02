@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { REMOTE_DEFINITIONS } from '~/shared/config/module-federation';
+import { remoteDefinitions } from '~/shared/config/module-federation';
 import { ROUTES } from '~/shared/config/routes';
 import { useServiceStore } from '../model/store';
 
@@ -9,7 +9,7 @@ export const useServiceAccessGuard = (): void => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const existingDefinition = REMOTE_DEFINITIONS.find((definition) =>
+  const existingDefinition = remoteDefinitions.find((definition) =>
     location.pathname.includes(definition.routePath),
   );
 

@@ -3,7 +3,7 @@ import { type RouteObject, createBrowserRouter, Navigate, Outlet } from 'react-r
 import { useFetchServices } from '~/entities/service';
 import { BaseLayout } from '~/layouts/base';
 import { ServiceLayout } from '~/layouts/service';
-import { REMOTE_DEFINITIONS } from '~/shared/config/module-federation';
+import { remoteDefinitions } from '~/shared/config/module-federation';
 import { ROUTES } from '~/shared/config/routes';
 import { RemoteModulePage } from '~/shared/ui';
 import { IndexPage } from './index/index';
@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
       {
         element: <ServiceLayout />,
         children: [
-          ...REMOTE_DEFINITIONS.map(
+          ...remoteDefinitions.map(
             (definition): RouteObject => ({
               path: definition.routePath,
               element: <RemoteModulePage definition={definition} />,

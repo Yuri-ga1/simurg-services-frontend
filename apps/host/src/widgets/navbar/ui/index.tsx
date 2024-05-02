@@ -4,7 +4,7 @@ import { type PropsWithChildren, type FC } from 'react';
 import { NavLink, type To } from 'react-router-dom';
 import { useServiceStore } from '~/entities/service';
 import { PickLanguageSelect } from '~/features/pick-language';
-import { REMOTE_DEFINITIONS } from '~/shared/config/module-federation';
+import { remoteDefinitions } from '~/shared/config/module-federation';
 import { ROUTES } from '~/shared/config/routes';
 import { useTranslation } from '~/shared/lib/i18next';
 import { SkeletonList } from '~/shared/ui';
@@ -14,7 +14,7 @@ export const Navbar: FC = () => {
   const { services, isLoaded } = useServiceStore();
   const { t } = useTranslation();
 
-  const data: { label: string; to: To; isActive?: boolean }[] = REMOTE_DEFINITIONS.map(
+  const data: { label: string; to: To; isActive?: boolean }[] = remoteDefinitions.map(
     (definition) => ({
       label: definition.name,
       to: definition.routePath,

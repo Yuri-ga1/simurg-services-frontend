@@ -13,4 +13,4 @@ const setupRemoteDefinitions = async (): Promise<RemoteDefinition[]> => {
   }
 };
 
-export const REMOTE_DEFINITIONS = await setupRemoteDefinitions();
+export const remoteDefinitions = await setupRemoteDefinitions();
