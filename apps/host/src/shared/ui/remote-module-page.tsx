@@ -4,17 +4,17 @@ import { PageShell } from './page-shell';
 import { RemoteComponent } from './remote-component';
 
 type RemoteModulePageProps = {
-  definition: RemoteDefinition;
+  remote: RemoteDefinition;
 };
 
-export const RemoteModulePage: FC<RemoteModulePageProps> = ({ definition }) => (
-  <PageShell documentTitle={`${definition.name}`}>
-    <Title>{definition.name}</Title>
+export const RemoteModulePage: FC<RemoteModulePageProps> = ({ remote }) => (
+  <PageShell documentTitle={`${remote.name}`}>
+    <Title>{remote.name}</Title>
     <Divider my="md" />
     <RemoteComponent
-      url={definition.url}
-      scope={definition.name}
-      module={definition.module}
+      url={remote.url}
+      scope={remote.name}
+      module={remote.module}
       remoteEntryFileName="js/remoteEntry.js"
       fallback={<Loader />}
     />

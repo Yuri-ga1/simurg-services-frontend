@@ -2,9 +2,9 @@
   "name": "rinex-to-csv",
   "private": true,
   "scripts": {
-    "start": "mfe-scripts start",
-    "build": "mfe-scripts build",
-    "analyze": "mfe-scripts analyze",
+    "start": "mf-scripts start",
+    "build": "mf-scripts build",
+    "analyze": "mf-scripts analyze",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:^",
-    "@repo/mfe-scripts": "workspace:^",
+    "@repo/mf-scripts": "workspace:^",
     "@repo/tsconfig": "workspace:^",
     "@repo/types": "workspace:^",
     "@types/node": "^20.11.24",

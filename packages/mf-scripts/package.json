@@ -1,9 +1,9 @@
 {
-  "name": "@repo/mfe-scripts",
+  "name": "@repo/mf-scripts",
   "version": "0.0.0",
   "private": true,
   "bin": {
-    "mfe-scripts": "./bin/scripts.js"
+    "mf-scripts": "./bin/scripts.js"
   },
   "peerDependencies": {
     "@mantine/core": "^7.6.1",

@@ -2,7 +2,7 @@ const fs = require('fs');
 const paths = require('./paths');
 const utils = require('./utils');
 const appPkgJson = require(paths.appPkgJson);
-const localPkgJson = require(paths.localPkgJson);
+const { peerDependencies: deps } = require(paths.localPkgJson);
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -90,19 +90,19 @@ const getFederationConfig = () => {
       shared: {
         react: {
           singleton: true,
-          requiredVersion: localPkgJson.peerDependencies['react'],
+          requiredVersion: deps['react'],
         },
         'react-dom': {
           singleton: true,
-          requiredVersion: localPkgJson.peerDependencies['react-dom'],
+          requiredVersion: deps['react-dom'],
         },
         '@mantine/core': {
           singleton: true,
-          requiredVersion: localPkgJson.peerDependencies['@mantine/core'],
+          requiredVersion: deps['@mantine/core'],
         },
         '@mantine/hooks': {
           singleton: true,
-          requiredVersion: localPkgJson.peerDependencies['@mantine/hooks'],
+          requiredVersion: deps['@mantine/hooks'],
         },
         '@repo/lib/': {
           singleton: true,
@@ -128,7 +128,7 @@ const getPlugins = (isDev, isAnalyze) => {
             to: '',
           },
           {
-            from: paths.appPublic,
+            from: paths.appAssets,
             to: '',
           },
         ].filter(Boolean),

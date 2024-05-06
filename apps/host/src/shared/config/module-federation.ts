@@ -1,16 +1,16 @@
-const setupRemoteDefinitions = async (): Promise<RemoteDefinition[]> => {
+const setupMfManifest = async (): Promise<MfManifest> => {
   try {
     const response = await fetch('/mf-manifest.json');
     if (!response.ok) {
-      throw new Error('Failed to load remote definitions');
+      throw new Error('Failed to load mf-manifest.json');
     }
-    const remoteDefinitions: RemoteDefinition[] = await response.json();
-    return remoteDefinitions;
+    const remotes: RemoteDefinition[] = await response.json();
+    return { remotes };
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
-    return [];
+    return { remotes: [] };
   }
 };
 
-export const remoteDefinitions = await setupRemoteDefinitions();
+export const mfManifest = await setupMfManifest();

@@ -11,9 +11,9 @@ module.exports = {
   appEnvConfig: resolveApp('.env'),
   appEntry: resolveApp('src/index.ts'),
   appDist: resolveApp('dist'),
-  appConfig: resolveApp('mfe.config.js'),
+  appConfig: resolveApp('mf.config.js'),
   appPkgJson: resolveApp('package.json'),
-  appHtmlTemplate: resolveApp('index.html'),
+  appHtmlTemplate: resolveApp('public/index.html'),
   appMfManifest: resolveApp('mf-manifest.json'),
-  appPublic: resolveApp('public'),
+  appAssets: resolveApp('public/assets'),
 };
