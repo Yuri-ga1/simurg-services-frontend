@@ -1,7 +1,7 @@
 {
   "extends": "@repo/tsconfig/react-lib",
   "compilerOptions": {
-    "types": ["node", "@repo/types/util-types"],
+    "types": ["node", "@repo/types/declarations/util-types"],
     "module": "ESNext",
     "moduleResolution": "Bundler"
   },

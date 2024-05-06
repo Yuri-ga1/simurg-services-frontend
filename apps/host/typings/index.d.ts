@@ -1,10 +1,10 @@
-/// <reference types="@repo/types/react-app" />
+/// <reference types="@repo/types/declarations/react-app" />
 
-type MfManifest = {
+declare type MfManifest = {
   remotes: RemoteDefinition[];
 };
 
-type RemoteDefinition = {
+declare type RemoteDefinition = {
   url: string;
   name: string;
   serviceName: string;

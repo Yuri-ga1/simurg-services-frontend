@@ -2,7 +2,7 @@
   "name": "@repo/types",
   "private": true,
   "exports": {
-    "./*": "./src/*.d.ts"
+    "./declarations/*": "./src/*.d.ts"
   },
   "scripts": {
     "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
