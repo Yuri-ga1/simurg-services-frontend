@@ -2,7 +2,7 @@ import { Code, Stack, Title } from '@mantine/core';
 import { useState, type FC } from 'react';
 import { type CoordinateCalculationResponse } from '~/api';
 import { useTranslation } from '~/lib/i18next';
-import { Form } from '~/ui';
+import { Form } from '~/ui/form';
 
 const App: FC = () => {
   const [result, setResult] = useState<Nullable<CoordinateCalculationResponse>>(null);

@@ -1,0 +1,37 @@
+{
+  "name": "@repo/create-mf-app",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "create-mf-app": "bin/create-mf-app.js"
+  },
+  "scripts": {
+    "build": "rm -rf dist && rollup -c",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "dependencies": {
+    "chalk": "5.3.0",
+    "execa": "9.1.0",
+    "inquirer": "9.2.22",
+    "listr2": "8.2.1",
+    "ncp": "2.0.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:^",
+    "@repo/tsconfig": "workspace:^",
+    "@rollup/plugin-node-resolve": "15.2.3",
+    "@rollup/plugin-terser": "0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/inquirer": "9.0.7",
+    "@types/ncp": "2.0.8",
+    "@types/node": "^20.12.12",
+    "@types/yargs": "17.0.32",
+    "eslint": "^8.57.0",
+    "rollup": "^4.17.2",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.5"
+  }
+}

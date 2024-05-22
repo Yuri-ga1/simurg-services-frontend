@@ -21,7 +21,7 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['dist', 'node_modules', '*.js'],
+  ignorePatterns: ['dist', 'node_modules', '*.js', '*.cjs', 'templates'],
   rules: {
     curly: ['error', 'all'],
     'arrow-body-style': ['error', 'as-needed'],

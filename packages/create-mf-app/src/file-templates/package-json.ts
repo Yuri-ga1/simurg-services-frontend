@@ -1,5 +1,9 @@
-{
-  "name": "navi",
+type PackageJsonTemplateVariables = {
+  name: string;
+};
+
+export const packageJsonTemplate = ({ name }: PackageJsonTemplateVariables): string => `{
+  "name": "${name}",
   "private": true,
   "scripts": {
     "start": "mf-scripts start",
@@ -34,4 +38,4 @@
     "style-loader": "^3.3.4",
     "typescript": "^5.3.3"
   }
-}
+}`;

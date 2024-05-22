@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import { Form } from '~/ui';
+import { Form } from '~/ui/form';
 
 const App: FC = () => <Form />;
 

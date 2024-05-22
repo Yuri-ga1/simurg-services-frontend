@@ -3,11 +3,11 @@
   "display": "React Library",
   "extends": "./base.json",
   "compilerOptions": {
-    "lib": ["dom", "ES2015"],
     "module": "ESNext",
+
     "moduleResolution": "Bundler",
     "jsx": "react-jsx",
-    "target": "es6",
+
     "plugins": [
       {
         "name": "typescript-plugin-css-modules"

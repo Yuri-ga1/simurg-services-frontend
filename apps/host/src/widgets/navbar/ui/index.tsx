@@ -7,7 +7,7 @@ import { PickLanguageSelect } from '~/features/pick-language';
 import { mfManifest } from '~/shared/config/module-federation';
 import { ROUTES } from '~/shared/config/routes';
 import { useTranslation } from '~/shared/lib/i18next';
-import { SkeletonList } from '~/shared/ui';
+import { SkeletonList } from '~/shared/ui/skeleton-list';
 import styles from './styles.module.css';
 
 export const Navbar: FC = () => {

@@ -5,7 +5,7 @@ import { BaseLayout } from '~/layouts/base';
 import { ServiceLayout } from '~/layouts/service';
 import { mfManifest } from '~/shared/config/module-federation';
 import { ROUTES } from '~/shared/config/routes';
-import { RemoteModulePage } from '~/shared/ui';
+import { RemoteModulePage } from '~/shared/ui/remote-module-page';
 import { IndexPage } from './index/index';
 
 const OnInit: FC = () => {

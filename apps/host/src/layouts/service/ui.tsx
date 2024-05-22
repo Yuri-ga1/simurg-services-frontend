@@ -2,7 +2,7 @@ import { Center, Loader } from '@mantine/core';
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useServiceStore, useServiceAccessGuard } from '~/entities/service';
-import { AppShell } from '~/shared/ui';
+import { AppShell } from '~/shared/ui/app-shell';
 import { Navbar } from '~/widgets/navbar';
 
 export const ServiceLayout: FC = () => {
