@@ -10,6 +10,7 @@ import { createFileByTemplate } from './utils/create-file-by-template';
 import { installDeps } from './utils/install-deps';
 
 export const createMfApp = async (options: Options): Promise<void> => {
+  const targetDir = options.mfName;
   const currentFileUrl = import.meta.url;
   const templateDir = path.resolve(
     decodeURI(fileURLToPath(currentFileUrl)),
@@ -21,7 +22,7 @@ export const createMfApp = async (options: Options): Promise<void> => {
     [
       {
         title: 'Copy template files',
-        task: async () => copyTemplateFiles(templateDir, options.targetDir),
+        task: async () => copyTemplateFiles(templateDir, targetDir),
       },
       {
         title: 'Create other config files',
@@ -29,23 +30,23 @@ export const createMfApp = async (options: Options): Promise<void> => {
           Promise.all([
             createFileByTemplate(packageJsonTemplate, {
               variables: {
-                name: options.targetDir,
+                name: options.mfName,
               },
-              targetDir: options.targetDir,
+              targetDir,
               filename: 'package.json',
             }),
             createFileByTemplate(readmeTemplate, {
               variables: {
-                name: options.targetDir.split('/').slice(-1)[0] as string,
+                name: options.mfName,
               },
-              targetDir: options.targetDir,
+              targetDir,
               filename: 'README.md',
             }),
           ]),
       },
       {
         title: 'Install dependencies',
-        task: async () => installDeps(options.targetDir),
+        task: async () => installDeps(targetDir),
         skip: options.install
           ? false
           : 'Pass --install or -i to automatically install dependencies',

@@ -3,13 +3,12 @@ import path from 'path';
 import inquirer from 'inquirer';
 import { templates, type Options, type RawOptions } from '../types';
 
-const defaultOptions: Options = {
+const defaultOptions: Partial<Options> = {
   install: true,
   template: 'react-ts',
-  targetDir: '.',
 };
 
-const skipOptions: Omit<Options, 'template' | 'targetDir'> = {
+const skipOptions: Omit<Options, 'template' | 'mfName'> = {
   install: true,
 };
 
@@ -21,20 +20,19 @@ export const promptForMissingOptions = async (rawOptions: RawOptions): Promise<O
 
   const questions = [];
 
-  if (!options.targetDir) {
+  if (!options.mfName) {
     questions.push({
       type: 'input',
-      name: 'targetDir',
-      message: 'Please enter the directory where you want to create the microfrontend:',
-      default: defaultOptions.targetDir,
+      name: 'mfName',
+      message: 'Please enter the microfrontend name:',
       validate: (input: string) => {
         if (!input.trim()) {
-          return 'Please enter a directory name.';
+          return 'Please enter a microfrontend name.';
         }
-        if (input !== defaultOptions.targetDir) {
+        if (input !== defaultOptions.mfName) {
           const targetPath = path.join(process.cwd(), input);
           if (existsSync(targetPath) && statSync(targetPath).isDirectory()) {
-            return 'The directory already exists. Please choose another directory name or clear it.';
+            return 'The microfrontend already exists. Please choose another name.';
           }
         }
         return true;
@@ -46,7 +44,7 @@ export const promptForMissingOptions = async (rawOptions: RawOptions): Promise<O
     questions.push({
       type: 'list',
       name: 'template',
-      message: 'Please choose which microfrontend template to use',
+      message: 'Please choose which microfrontend template to use:',
       choices: templates,
       default: defaultOptions.template,
     });
@@ -64,7 +62,7 @@ export const promptForMissingOptions = async (rawOptions: RawOptions): Promise<O
   const answers = await inquirer.prompt(questions);
 
   return {
-    targetDir: options.targetDir ?? answers.targetDir,
+    mfName: options.mfName ?? answers.mfName,
     install: options.install || answers.install,
     template: options.template ?? answers.template,
   };

@@ -8,7 +8,6 @@
     "skipLibCheck": true,
 
     "moduleResolution": "Node",
-    "allowJs": true,
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,

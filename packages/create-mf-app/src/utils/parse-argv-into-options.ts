@@ -36,7 +36,7 @@ export const parseArgvIntoOptions = async (argv: Argv): Promise<RawOptions> => {
   }
 
   return {
-    targetDir: typeof options._[0] === 'undefined' ? options._[0] : `${options._[0]}`,
+    mfName: typeof options._[0] === 'undefined' ? options._[0] : `${options._[0]}`,
     skipPrompts: options.yes ?? false,
     install: options.install ?? false,
     template: isTemplateValid ? template : undefined,
