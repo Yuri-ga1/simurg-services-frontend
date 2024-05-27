@@ -8,6 +8,7 @@ const resolveLocal = (relativePath) => path.resolve(__dirname, '..', relativePat
 
 module.exports = {
   localPkgJson: resolveLocal('package.json'),
+  localMfManifestGen: resolveLocal('scripts/mf-manifest.gen.json'),
   appEnvConfig: resolveApp('.env'),
   appEntry: resolveApp('src/index.ts'),
   appDist: resolveApp('dist'),

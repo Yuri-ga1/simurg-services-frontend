@@ -8,27 +8,35 @@ services:
     container_name: host
     ports:
       - '9000:80'
+    networks:
+      - app-network
+
   navi:
     build:
       context: .
       target: navi
     image: navi
     container_name: navi
-    ports:
-      - '9001:80'
+    networks:
+      - app-network
+
   rinex-to-csv:
     build:
       context: .
       target: rinex-to-csv
     image: rinex-to-csv
     container_name: rinex-to-csv
-    ports:
-      - '9002:80'
+    networks:
+      - app-network
+
   gecrec:
     build:
       context: .
       target: gecrec
     image: gecrec
     container_name: gecrec
-    ports:
-      - '9003:80'
+    networks:
+      - app-network
+
+networks:
+  app-network:

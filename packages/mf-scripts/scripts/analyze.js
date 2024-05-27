@@ -1,10 +1,10 @@
 const webpack = require('webpack');
-const webpackConfig = require('../config/webpack.config');
+const webpackConfig = require('../src/webpack-config');
 
 process.env.BABEL_ENV = 'production';
 process.env.NODE_ENV = 'analyze';
 
-const config = webpackConfig(process.env.NODE_ENV);
+const config = webpackConfig({ mode: process.env.NODE_ENV });
 const compiler = webpack(config);
 
 compiler.run((error, stats) => {

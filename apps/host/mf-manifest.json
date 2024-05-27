@@ -1,20 +1,20 @@
 [
   {
-    "url": "http://localhost:9001",
+    "url": ["http://localhost:9001", "http://localhost:9000/mf-navi"],
     "name": "navi",
     "serviceName": "navi",
     "routePath": "/navi",
     "module": "./App"
   },
   {
-    "url": "http://localhost:9002",
+    "url": ["http://localhost:9002", "http://localhost:9000/mf-rinex-to-csv"],
     "name": "rinex_to_csv",
     "serviceName": "rinex-to-csv",
     "routePath": "/rinex-to-csv",
     "module": "./App"
   },
   {
-    "url": "http://localhost:9003",
+    "url": ["http://localhost:9003", "http://localhost:9000/mf-gecrec"],
     "name": "gecrec",
     "serviceName": "gecrec",
     "routePath": "/gecrec",

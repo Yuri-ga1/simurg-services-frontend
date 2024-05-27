@@ -6,6 +6,7 @@
     "fresh": "rm -f pnpm-lock.yaml && pnpm clean && pnpm i",
     "start": "pnpm -r --stream --parallel start",
     "build": "pnpm -r --stream --parallel build",
+    "build:apps": "pnpm --filter \"./apps/**\" build",
     "analyze": "pnpm -r --stream --parallel analyze",
     "lint": "pnpm -r --stream --parallel lint",
     "lint:fix": "pnpm -r --stream --parallel lint:fix",

@@ -58,7 +58,7 @@ export const createMfApp = async (options: Options): Promise<void> => {
   try {
     await tasks.run();
     console.log(`${chalk.green.bold('DONE')} Microfrontend is ready`);
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
   }
 };
