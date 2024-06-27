@@ -4,10 +4,6 @@ import type { GraphDataItem } from '~/ui/graph/config';
 
 export type GraphTS = 10 | 15 | 20 | 30;
 
-export type BuildGraphResponseFake = {
-  filename: string;
-};
-
 const httpClient = createHttpClient({
   baseUrl: API_URL,
 });
@@ -20,9 +16,9 @@ const buildGraph = async (data: FormData): Promise<GraphDataItem[]> =>
     contentType: 'multipart/form-data',
   });
 
-const getDatasForDetailedGraphs = async (data: FormData): Promise<BuildGraphResponseFake> =>
+const getDatasForDetailedGraphs = async (data: FormData): Promise<GraphDataItem[]> =>
   httpClient.request({
-    path: 'upload_data',
+    path: 'create_graph_json',
     method: 'POST',
     data,
     contentType: 'multipart/form-data',

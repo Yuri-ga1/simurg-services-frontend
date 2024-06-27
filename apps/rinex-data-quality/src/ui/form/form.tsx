@@ -9,7 +9,7 @@ import {
   useFormContext,
   type SubmitHandler,
 } from 'react-hook-form';
-import { type BuildGraphResponseFake, api } from '~/api';
+import { api } from '~/api';
 import { useTranslation } from '~/lib/i18next';
 import { type FormValues, formSchema, getGraphTSData } from './config';
 import { RinexFileInput } from './RinexFileInput';
@@ -17,7 +17,7 @@ import type { GraphDataItem } from '../graph/config';
 import type { FC } from 'react';
 
 type FormProps = {
-  onSubmit: (result: BuildGraphResponseFake) => void;
+  onSubmit: (result: GraphDataItem[]) => void;
   setGraphData: (graphData: GraphDataItem[]) => void;
 };
 
@@ -37,15 +37,8 @@ export const Form: FC<FormProps> = ({ onSubmit, setGraphData }) => {
       }),
   });
 
-  const submitHandler: SubmitHandler<FormValues> = async ({
-    rinexFile,
-    data_period,
-  }): Promise<void> => {
-    const rinexBuffer = await rinexFile.arrayBuffer();
-    const rinexBlob = new Blob([new Uint8Array(rinexBuffer)], { type: 'application/octet-stream' });
-
+  const submitHandler: SubmitHandler<FormValues> = async ({ data_period }): Promise<void> => {
     const formData = new FormData();
-    formData.append('rinexFile', rinexBlob, rinexFile.name);
     formData.append('data_period', data_period.toString());
     callCallback(formData);
   };

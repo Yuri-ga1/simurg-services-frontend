@@ -28,7 +28,7 @@ export const RinexFileInput: FC<RinexFileInputProps> = ({ updateGraph }) => {
       onError: () =>
         notification.error({
           title: t('common.error'),
-          message: t('form.uploadRinexFileError'),
+          message: t('form.rinexUploadError'),
         }),
     },
   );
