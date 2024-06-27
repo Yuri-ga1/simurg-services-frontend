@@ -1,15 +1,12 @@
 import { Code, Grid, Title, Box } from '@mantine/core';
 import { useState, type FC } from 'react';
-import type { BuildGraphResponseFake } from '~/api';
 import { useTranslation } from '~/lib/i18next';
 import { Form } from '~/ui/form/form';
 import type { GraphDataItem } from '~/ui/graph/config';
 import GraphSignalTypesData from '~/ui/graph/graphs';
 
-// import { graphData } from '~/ui/graph/config';
-
 const App: FC = () => {
-  const [result, setResult] = useState<Nullable<BuildGraphResponseFake>>(null);
+  const [result, setResult] = useState<GraphDataItem[]>([]);
   const [graphData, setGraphData] = useState<GraphDataItem[]>([]);
   const { t } = useTranslation();
 
@@ -20,7 +17,29 @@ const App: FC = () => {
       </Grid.Col>
       <Grid.Col span={8}>
         <Box style={{ height: '100%' }}>
-          <GraphSignalTypesData graphData={graphData} />
+          <GraphSignalTypesData
+            height="300px"
+            margin_top={0}
+            topLegendOffset={-35}
+            leftLegendOffset={-40}
+            graphData={graphData}
+          />
+        </Box>
+      </Grid.Col>
+      <Grid.Col span={12}>
+        <Box style={{ height: '100%' }}>
+          <GraphSignalTypesData
+            topTickRotation={-90}
+            // transform ='rotate(-90deg)'
+            height="550px"
+            margin_top={70}
+            margin_bottom={30}
+            margin_right={30}
+            margin_left={30}
+            topLegendOffset={-50}
+            leftLegendOffset={-40}
+            graphData={result}
+          />
         </Box>
       </Grid.Col>
       {result && (

@@ -1,41 +1,86 @@
 /* eslint-disable react/prop-types */
 import { ResponsiveHeatMap } from '@nivo/heatmap';
-import type { GraphDataItem } from './config';
+import { completeData, DataStatus, type GraphDataItem } from './config';
 
 type GraphSignalTypesDataProps = {
+  transform?: string;
+  height?: string;
+  width?: string;
+  margin_top?: number;
+  margin_bottom?: number;
+  margin_left?: number;
+  margin_right?: number;
+  topLegendOffset?: number;
+  leftLegendOffset?: number;
+  topTickRotation?: number;
   graphData: GraphDataItem[];
 };
 
-const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({ graphData }) => (
-  <div style={{ height: '300px' }}>
-    <ResponsiveHeatMap
-      data={graphData}
-      margin={{ right: 30, bottom: 60, left: 30 }}
-      colors={({ value }) => (value === 1 ? 'green' : '#555555')}
-      borderWidth={2}
-      borderColor="gray"
-      emptyColor="#FFFFFF"
-      labelTextColor="transparent"
-      inactiveOpacity={0.5}
-      forceSquare
-      axisTop={{
-        tickSize: 5,
-        tickPadding: 5,
-        legend: '',
-        legendOffset: 46,
-        truncateTickAt: 0,
-      }}
-      axisLeft={{
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-        legend: 'Signals',
-        legendPosition: 'middle',
-        legendOffset: -40,
-        truncateTickAt: 0,
-      }}
-    />
-  </div>
-);
+// Функция для преобразования DataStatus в цвет
+const statusToColor = (status: DataStatus): string => {
+  switch (status) {
+    case DataStatus.NO_WRITE:
+      return '#FFFFFF'; // white
+    case DataStatus.NO_DATA:
+      return '#000000'; // black
+    case DataStatus.NO_SIGNAL:
+      return '#cccccc'; // grey
+    case DataStatus.COMPLETE:
+      return '#00FF00'; // green
+    case DataStatus.MINOR_HOLES:
+      return '#FFA500'; // orange
+    case DataStatus.MAJOR_HOLES:
+      return '#FF0000'; // red
+    default:
+      return '#0000FF'; // blue
+  }
+};
+
+const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({
+  topTickRotation = 0,
+  transform = '0',
+  height = '100%',
+  width = '100%',
+  margin_top = 30,
+  margin_bottom = 30,
+  margin_left = 30,
+  margin_right = 30,
+  topLegendOffset = -50,
+  leftLegendOffset = -40,
+  graphData,
+}) => {
+  const completedGraphData = completeData(graphData);
+
+  return (
+    <div style={{ height, width, transform }}>
+      <ResponsiveHeatMap
+        data={completedGraphData}
+        margin={{ top: margin_top, right: margin_right, bottom: margin_bottom, left: margin_left }}
+        colors={({ value }) => statusToColor(value)}
+        borderWidth={2}
+        enableLabels={false}
+        borderColor="#666666"
+        inactiveOpacity={0.5}
+        forceSquare
+        axisTop={{
+          tickSize: 5,
+          tickPadding: 5,
+          legend: 'Signals',
+          legendPosition: 'middle',
+          legendOffset: topLegendOffset,
+          tickRotation: topTickRotation,
+        }}
+        axisLeft={{
+          tickSize: 5,
+          tickPadding: 5,
+          tickRotation: 0,
+          legend: 'Satellite',
+          legendPosition: 'middle',
+          legendOffset: leftLegendOffset,
+        }}
+      />
+    </div>
+  );
+};
 
 export default GraphSignalTypesData;
