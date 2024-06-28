@@ -15,5 +15,8 @@
     "rinexUploadError": "Произошла ошибка при загрузке rinex файла",
     "graphTS": "Временной промежуток",
     "graphTSPlaceholder": "Выберите временной промежуток"
+  },
+  "graph": {
+    "alertSendRequestToServer": "Нет данных для построения графика"
   }
 }

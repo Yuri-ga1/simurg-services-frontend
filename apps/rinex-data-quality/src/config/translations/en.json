@@ -15,5 +15,8 @@
     "rinexUploadError": "There was an error while uploading rinex file",
     "graphTS": "Time steps in graph",
     "graphTSPlaceholder": "Select a time step"
+  },
+  "graph": {
+    "alertNoData": "No data to plot"
   }
 }

@@ -6,4 +6,7 @@ module.exports = {
   parserOptions: {
     project: true,
   },
+  rules: {
+    'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
+  },
 };
