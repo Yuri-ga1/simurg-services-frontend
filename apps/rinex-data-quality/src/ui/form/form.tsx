@@ -18,10 +18,10 @@ import type { FC } from 'react';
 
 type FormProps = {
   onSubmit: (result: GraphDataItem[]) => void;
-  setGraphData: (graphData: GraphDataItem[]) => void;
+  setMainGraphData: (graphData: GraphDataItem[]) => void;
 };
 
-export const Form: FC<FormProps> = ({ onSubmit, setGraphData }) => {
+export const Form: FC<FormProps> = ({ onSubmit, setMainGraphData }) => {
   const methods = useForm<FormValues>({
     resolver: zodResolver(formSchema),
   });
@@ -48,10 +48,10 @@ export const Form: FC<FormProps> = ({ onSubmit, setGraphData }) => {
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(submitHandler)}>
           <Stack>
-            <RinexFileInput updateGraph={setGraphData} />
+            <RinexFileInput updateGraph={setMainGraphData} />
             <TimeStepSelect />
             <Button type="submit" loading={isLoading}>
-              {t('form.buildGraph')}
+              {t('form.uploadNavFile')}
             </Button>
           </Stack>
         </form>

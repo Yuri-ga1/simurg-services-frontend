@@ -7,13 +7,14 @@ import type { GraphDataItem } from '~/ui/graph/config';
 import GraphSignalTypesData from '~/ui/graph/graphs';
 
 const App: FC = () => {
-  const [result, setResult] = useState<GraphDataItem[]>([]);
-  const [graphData, setGraphData] = useState<GraphDataItem[]>([]);
-  const [yAxisData, setYAxisData] = useState<GraphDataItem[]>([]);
+  const [holesData, setHolesData] = useState<GraphDataItem[]>([]);
+  const [mainGraphData, setMainGraphData] = useState<GraphDataItem[]>([]);
+  const [satSigData, setSatSigData] = useState<GraphDataItem[]>([]);
+  // const [satSigData, setSatSigData] = useState<GraphDataItem[]>([]);
   const { t } = useTranslation();
 
   const buildSatelliteSignalGraph = (id: string): void => {
-    const filteredData = result.filter((item) => item.id.startsWith(id));
+    const filteredData = holesData.filter((item) => item.id.startsWith(id));
 
     if (filteredData.length === 0) {
       notification.error({
@@ -25,17 +26,17 @@ const App: FC = () => {
         ...item,
         data: item.data.map((d) => ({
           ...d,
-          y: Array.isArray(d.y) && d.y.includes(-1) ? 'No signal' : 'Complete',
+          y: Array.isArray(d.y) && d.y.every(val => val === -1) ? 'No signal' : 'Complete',
         })),
       }));
-      setYAxisData(transformedData);
+      setSatSigData(transformedData);
     }
   };
 
   return (
     <Grid gutter="lg">
       <Grid.Col span={4}>
-        <Form onSubmit={setResult} setGraphData={setGraphData} />
+        <Form onSubmit={setHolesData} setMainGraphData={setMainGraphData} />
       </Grid.Col>
       <Grid.Col span={8}>
         <Box style={{ height: '100%' }}>
@@ -45,7 +46,7 @@ const App: FC = () => {
             margin_left={35}
             topLegendOffset={-35}
             leftLegendOffset={-30}
-            graphData={graphData}
+            graphData={mainGraphData}
             onYAxisClick={buildSatelliteSignalGraph}
           />
         </Box>
@@ -60,15 +61,29 @@ const App: FC = () => {
             margin_left={30}
             topLegendOffset={-30}
             leftLegendOffset={-45}
-            graphData={yAxisData}
+            graphData={satSigData}
           />
         </Box>
       </Grid.Col>
-      {result && (
+      <Grid.Col span={8}>
+        <Box style={{ height: '100%' }}>
+          <GraphSignalTypesData
+            height="700px"
+            margin_top={60}
+            margin_bottom={30}
+            margin_right={30}
+            margin_left={30}
+            topLegendOffset={-30}
+            leftLegendOffset={-45}
+            graphData={satSigData}
+          />
+        </Box>
+      </Grid.Col>
+      {holesData && (
         <div>
           <Title order={3}>{t('content.jsonResult')}</Title>
           <Code mt="xs" block style={{ display: 'inline-block' }}>
-            {JSON.stringify(result, null, 2)}
+            {JSON.stringify(holesData, null, 2)}
           </Code>
         </div>
       )}

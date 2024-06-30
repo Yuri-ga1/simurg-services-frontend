@@ -8,7 +8,7 @@ const httpClient = createHttpClient({
   baseUrl: API_URL,
 });
 
-const buildGraph = async (data: FormData): Promise<GraphDataItem[]> =>
+const uploadNavFile = async (data: FormData): Promise<GraphDataItem[]> =>
   httpClient.request({
     path: 'upload_data',
     method: 'POST',
@@ -24,4 +24,4 @@ const getDatasForDetailedGraphs = async (data: FormData): Promise<GraphDataItem[
     contentType: 'multipart/form-data',
   });
 
-export const api = { getDatasForDetailedGraphs, buildGraph };
+export const api = { getDatasForDetailedGraphs, uploadNavFile };

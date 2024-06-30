@@ -16,8 +16,8 @@ export const RinexFileInput: FC<RinexFileInputProps> = ({ updateGraph }) => {
   const { control, setValue, clearErrors } = useFormContext<FormValues>();
   const { t } = useTranslation();
 
-  const { callCallback: buildGraph, isLoading: isRinexFileUploading } = useAsyncCallback(
-    async ({ formData }: { formData: FormData; file: File }) => api.buildGraph(formData),
+  const { callCallback: uploadNavFile, isLoading: isRinexFileUploading } = useAsyncCallback(
+    async ({ formData }: { formData: FormData; file: File }) => api.uploadNavFile(formData),
     {
       onSuccess: (data, [{ file }]) => {
         setValue('rinexFile', file);
@@ -43,7 +43,7 @@ export const RinexFileInput: FC<RinexFileInputProps> = ({ updateGraph }) => {
     const formData = new FormData();
     formData.append('rinexFile', rinexBlob, file.name);
 
-    buildGraph({ formData, file });
+    uploadNavFile({ formData, file });
   };
 
   return (

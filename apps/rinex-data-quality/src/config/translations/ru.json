@@ -10,7 +10,7 @@
     "fieldRequired": "Обязательно к заполнению",
     "uploadFile": "Загрузить файл",
     "archive": "Архив",
-    "buildGraph": "Построить график",
+    "uploadNavFile": "Построить график",
     "buildGraphError": "Произошла ошибка при построении графика",
     "rinexUploadError": "Произошла ошибка при загрузке rinex файла",
     "graphTS": "Временной промежуток",
