@@ -21,7 +21,14 @@ const App: FC = () => {
         message: t('graph.alertNoData'),
       });
     } else {
-      setYAxisData(filteredData);
+      const transformedData = filteredData.map((item) => ({
+        ...item,
+        data: item.data.map((d) => ({
+          ...d,
+          y: Array.isArray(d.y) && d.y.includes(-1) ? 'No signal' : 'Complete',
+        })),
+      }));
+      setYAxisData(transformedData);
     }
   };
 
