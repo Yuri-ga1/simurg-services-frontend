@@ -43,7 +43,7 @@ const CustomTickYAxis = ({ tick, onYAxisClick }: any): JSX.Element => {
   const theme = useTheme();
 
   const handleClick = (id: string): void => {
-    onYAxisClick(id.charAt(0));
+    onYAxisClick(id);
   };
 
   return (

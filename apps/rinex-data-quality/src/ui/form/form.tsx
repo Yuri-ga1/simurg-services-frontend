@@ -18,10 +18,11 @@ import type { FC } from 'react';
 
 type FormProps = {
   onSubmit: (result: GraphDataItem[]) => void;
+  setDataPeriod: (dataPeriod: number) => void;
   setMainGraphData: (graphData: GraphDataItem[]) => void;
 };
 
-export const Form: FC<FormProps> = ({ onSubmit, setMainGraphData }) => {
+export const Form: FC<FormProps> = ({ onSubmit, setMainGraphData, setDataPeriod }) => {
   const methods = useForm<FormValues>({
     resolver: zodResolver(formSchema),
   });
@@ -40,6 +41,7 @@ export const Form: FC<FormProps> = ({ onSubmit, setMainGraphData }) => {
   const submitHandler: SubmitHandler<FormValues> = async ({ data_period }): Promise<void> => {
     const formData = new FormData();
     formData.append('data_period', data_period.toString());
+    setDataPeriod(data_period);
     callCallback(formData);
   };
 

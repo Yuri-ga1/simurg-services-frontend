@@ -12,6 +12,29 @@ export type GraphDataItem = {
   data: Array<{ x: string; y: DataStatus }>;
 };
 
+export const getStatus = (val: number): string => {
+  const statusMap: Record<number, string> = {
+    '-1': DataStatus.NO_DATA,
+    '0': DataStatus.COMPLETE,
+    '1': DataStatus.MINOR_HOLES,
+    '2': DataStatus.MINOR_HOLES,
+    '3': DataStatus.MINOR_HOLES,
+  };
+
+  // Если значение val больше или равно 4, возвращаем MAJOR_HOLES
+  if (val >= 4) {
+    return DataStatus.MAJOR_HOLES;
+  }
+
+  // Если значение есть в объекте statusMap, возвращаем соответствующий статус
+  if (statusMap[val.toString()]) {
+    return statusMap[val.toString()];
+  }
+
+  // Возвращаем 'undefined' по умолчанию
+  return 'undefined';
+};
+
 export const completeData = (data: GraphDataItem[]): GraphDataItem[] => {
   // Получаем все уникальные значения 'x' из всех элементов данных
   const uniqueXValues = Array.from(new Set(data.flatMap((item) => item.data.map((d) => d.x))));
