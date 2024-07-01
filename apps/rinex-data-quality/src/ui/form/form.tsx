@@ -13,7 +13,7 @@ import { api } from '~/api';
 import { useTranslation } from '~/lib/i18next';
 import { type FormValues, formSchema, getGraphTSData } from './config';
 import { RinexFileInput } from './RinexFileInput';
-import type { GraphDataItem } from '../graph/config';
+import type { GraphDataItem } from '../graphs/heatmap/config';
 import type { FC } from 'react';
 
 type FormProps = {

@@ -4,6 +4,8 @@ import React from 'react';
 import { completeData, DataStatus, type GraphDataItem } from './config';
 
 type GraphSignalTypesDataProps = {
+  topAxisname?: string;
+  leftAxisname?: string;
   transform?: string;
   height?: string;
   width?: string;
@@ -16,6 +18,7 @@ type GraphSignalTypesDataProps = {
   topTickRotation?: number;
   graphData: GraphDataItem[];
   onYAxisClick?: (id: string) => void;
+  cellOnClickEvent?: (cell: any) => void;
 };
 
 // Функция для преобразования DataStatus в цвет
@@ -24,9 +27,9 @@ const statusToColor = (status: DataStatus): string => {
     case DataStatus.NO_WRITE:
       return '#FFFFFF'; // white
     case DataStatus.NO_DATA:
-      return '#000000'; // black
+      return '#cccccc'; // black
     case DataStatus.NO_SIGNAL:
-      return '#cccccc'; // grey
+      return '#FFFFFF'; // grey
     case DataStatus.COMPLETE:
       return '#00FF00'; // green
     case DataStatus.MINOR_HOLES:
@@ -39,7 +42,7 @@ const statusToColor = (status: DataStatus): string => {
 };
 
 // Кастомный компонент для меток оси
-const CustomTickYAxis = ({ tick, onYAxisClick }: any): JSX.Element => {
+const CustomTick = ({ tick, onYAxisClick }: any): JSX.Element => {
   const theme = useTheme();
 
   const handleClick = (id: string): void => {
@@ -69,6 +72,8 @@ const CustomTickYAxis = ({ tick, onYAxisClick }: any): JSX.Element => {
 };
 
 const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({
+  topAxisname = 'Signals',
+  leftAxisname = 'Satellite',
   topTickRotation = 0,
   transform = '0',
   height = '100%',
@@ -81,6 +86,7 @@ const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({
   leftLegendOffset = -40,
   graphData,
   onYAxisClick,
+  cellOnClickEvent,
 }) => {
   const completedGraphData = completeData(graphData);
 
@@ -95,10 +101,11 @@ const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({
         borderColor="#666666"
         inactiveOpacity={0.3}
         forceSquare
+        onClick={cellOnClickEvent}
         axisTop={{
           tickSize: 5,
           tickPadding: 5,
-          legend: 'Signals',
+          legend: topAxisname,
           legendPosition: 'middle',
           legendOffset: topLegendOffset,
           tickRotation: topTickRotation,
@@ -107,11 +114,11 @@ const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Satellite',
+          legend: leftAxisname,
           legendPosition: 'middle',
           legendOffset: leftLegendOffset,
           renderTick: onYAxisClick
-            ? (tick): JSX.Element => <CustomTickYAxis tick={tick} onYAxisClick={onYAxisClick} />
+            ? (tick): JSX.Element => <CustomTick tick={tick} onYAxisClick={onYAxisClick} />
             : undefined,
         }}
       />

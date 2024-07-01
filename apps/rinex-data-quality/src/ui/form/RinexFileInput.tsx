@@ -5,7 +5,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { api } from '~/api';
 import { useTranslation } from '~/lib/i18next';
 import type { FormValues } from './config';
-import type { GraphDataItem } from '../graph/config';
+import type { GraphDataItem } from '../graphs/heatmap/config';
 import type { FC } from 'react';
 
 type RinexFileInputProps = {

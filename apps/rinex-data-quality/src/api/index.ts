@@ -1,6 +1,6 @@
 import { createHttpClient } from '@repo/lib/fetch';
 import { API_URL } from '~/config/env';
-import type { GraphDataItem } from '~/ui/graph/config';
+import type { GraphDataItem } from '~/ui/graphs/heatmap/config';
 
 export type GraphTS = 10 | 15 | 20 | 30;
 
@@ -24,4 +24,12 @@ const getDatasForDetailedGraphs = async (data: FormData): Promise<GraphDataItem[
     contentType: 'multipart/form-data',
   });
 
-export const api = { getDatasForDetailedGraphs, uploadNavFile };
+const getSatelliteData = async (data: FormData): Promise<GraphDataItem[]> =>
+  httpClient.request({
+    path: 'get_satellite_data',
+    method: 'POST',
+    data,
+    contentType: 'multipart/form-data',
+  });
+
+export const api = { getDatasForDetailedGraphs, uploadNavFile, getSatelliteData };
