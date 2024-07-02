@@ -1,7 +1,14 @@
 import { useTheme } from '@nivo/core';
 import { ResponsiveHeatMap } from '@nivo/heatmap';
-import React from 'react';
-import { completeData, DataStatus, type GraphDataItem } from './config';
+import React, { useState, useEffect } from 'react';
+import {
+  testMainGraphData,
+  testSatSigData,
+  testSigTimeData,
+  completeData,
+  DataStatus,
+  type GraphDataItem,
+} from './config';
 
 type GraphSignalTypesDataProps = {
   topAxisname?: string;
@@ -17,6 +24,7 @@ type GraphSignalTypesDataProps = {
   leftLegendOffset?: number;
   topTickRotation?: number;
   graphData: GraphDataItem[];
+  displayTestData?: string;
   onYAxisClick?: (id: string) => void;
   cellOnClickEvent?: (cell: any) => void;
 };
@@ -84,14 +92,28 @@ const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({
   margin_right = 30,
   topLegendOffset = -50,
   leftLegendOffset = -40,
+  displayTestData = 'block',
   graphData,
   onYAxisClick,
   cellOnClickEvent,
 }) => {
   const completedGraphData = completeData(graphData);
+  const [localDisplayTestData, setLocalDisplayTestData] = useState(displayTestData);
+
+  useEffect(() => {
+    if (
+      graphData !== testMainGraphData &&
+      graphData !== testSatSigData &&
+      graphData !== testSigTimeData
+    ) {
+      setLocalDisplayTestData('none');
+    } else {
+      setLocalDisplayTestData('block');
+    }
+  }, [graphData]);
 
   return (
-    <div style={{ height, width, transform }}>
+    <div style={{ height, width, transform, position: 'relative' }}>
       <ResponsiveHeatMap
         data={completedGraphData}
         margin={{ top: margin_top, right: margin_right, bottom: margin_bottom, left: margin_left }}
@@ -122,6 +144,21 @@ const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({
             : undefined,
         }}
       />
+      <div
+        style={{
+          display: localDisplayTestData,
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          pointerEvents: 'none',
+          opacity: 1,
+          fontSize: '6rem',
+          color: 'red',
+        }}
+      >
+        Test Data
+      </div>
     </div>
   );
 };

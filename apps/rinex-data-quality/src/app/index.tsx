@@ -4,9 +4,18 @@ import { useState, type FC } from 'react';
 import { api } from '~/api';
 import { useTranslation } from '~/lib/i18next';
 import { Form } from '~/ui/form/form';
-import { DataStatus, getStatus, type GraphDataItem } from '~/ui/graphs/heatmap/config';
+import {
+  testMainGraphData,
+  testSatSigData,
+  testSigTimeData,
+  DataStatus,
+  getStatus,
+  type GraphDataItem,
+} from '~/ui/graphs/heatmap/config';
 import GraphSignalTypesData from '~/ui/graphs/heatmap/graph';
 import {
+  testLinearData,
+  testElevationData,
   formatSignalDataForNivo,
   type SignalData,
   type LinearGraphData,
@@ -15,11 +24,12 @@ import LinearGraph from '~/ui/graphs/linear/graph';
 
 const App: FC = () => {
   const [holesData, setHolesData] = useState<GraphDataItem[]>([]);
-  const [mainGraphData, setMainGraphData] = useState<GraphDataItem[]>([]);
-  const [satSigData, setSatSigData] = useState<GraphDataItem[]>([]);
-  const [sigTimeData, setSigTimeData] = useState<GraphDataItem[]>([]);
+  const [mainGraphData, setMainGraphData] = useState<GraphDataItem[]>(testMainGraphData);
+  const [satSigData, setSatSigData] = useState<GraphDataItem[]>(testSatSigData);
+  const [sigTimeData, setSigTimeData] = useState<GraphDataItem[]>(testSigTimeData);
   const [satelliteData, setSatelliteData] = useState<SignalData>();
-  const [linearData, setLinearData] = useState<LinearGraphData[]>([]);
+  const [linearData, setLinearData] = useState<LinearGraphData[]>(testLinearData);
+  const [elevationData, setElevationData] = useState<LinearGraphData[]>(testElevationData);
 
   const [dataPeriod, setDataPeriod] = useState<number>(0);
   const [topAxisLabel, setTopAxisLabel] = useState<string>('');
@@ -110,7 +120,7 @@ const App: FC = () => {
 
       fetchSatelliteData(id);
 
-      setTopAxisLabel('Time');
+      setTopAxisLabel(`${id}\nTime`);
       setLeftAxisLabel('Signals');
       setSigTimeData(transformedData);
     }
@@ -123,7 +133,14 @@ const App: FC = () => {
     if (
       [DataStatus.COMPLETE, DataStatus.MINOR_HOLES, DataStatus.MAJOR_HOLES].includes(cell.value)
     ) {
-      setLinearData(formatSignalDataForNivo(signal, satelliteData, dataPeriod, time));
+      const [formattedSignalData, formattedElevationData] = formatSignalDataForNivo(
+        signal,
+        satelliteData,
+        dataPeriod,
+        time,
+      );
+      setLinearData([formattedSignalData]);
+      setElevationData([formattedElevationData]);
     } else {
       notification.error({
         title: t('common.error'),
@@ -188,6 +205,7 @@ const App: FC = () => {
           />
           <LinearGraph
             data={linearData}
+            // elevationData={elevationData}
             margin_left={100}
             margin_bottom={70}
             bottomLegendOffset={65}
@@ -196,11 +214,11 @@ const App: FC = () => {
           />
         </Box>
       </Grid.Col>
-      {linearData && (
+      {elevationData && (
         <div>
           <Title order={3}>{t('content.jsonResult')}</Title>
           <Code mt="xs" block style={{ display: 'inline-block' }}>
-            {JSON.stringify(linearData, null, 2)}
+            {JSON.stringify(elevationData, null, 2)}
           </Code>
         </div>
       )}
