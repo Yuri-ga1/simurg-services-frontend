@@ -1,6 +1,7 @@
 import { useTheme } from '@nivo/core';
 import { ResponsiveHeatMap } from '@nivo/heatmap';
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from '~/lib/i18next';
 import {
   testMainGraphData,
   testSatSigData,
@@ -24,7 +25,7 @@ type GraphSignalTypesDataProps = {
   leftLegendOffset?: number;
   topTickRotation?: number;
   graphData: GraphDataItem[];
-  displayTestData?: string;
+  displayTestData?: boolean;
   onYAxisClick?: (id: string) => void;
   cellOnClickEvent?: (cell: any) => void;
 };
@@ -80,8 +81,8 @@ const CustomTick = ({ tick, onYAxisClick }: any): JSX.Element => {
 };
 
 const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({
-  topAxisname = 'Signals',
-  leftAxisname = 'Satellite',
+  topAxisname = '',
+  leftAxisname = '',
   topTickRotation = 0,
   transform = '0',
   height = '100%',
@@ -92,7 +93,7 @@ const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({
   margin_right = 30,
   topLegendOffset = -50,
   leftLegendOffset = -40,
-  displayTestData = 'block',
+  displayTestData = true,
   graphData,
   onYAxisClick,
   cellOnClickEvent,
@@ -100,15 +101,17 @@ const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({
   const completedGraphData = completeData(graphData);
   const [localDisplayTestData, setLocalDisplayTestData] = useState(displayTestData);
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (
       graphData !== testMainGraphData &&
       graphData !== testSatSigData &&
       graphData !== testSigTimeData
     ) {
-      setLocalDisplayTestData('none');
+      setLocalDisplayTestData(false);
     } else {
-      setLocalDisplayTestData('block');
+      setLocalDisplayTestData(true);
     }
   }, [graphData]);
 
@@ -146,18 +149,23 @@ const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({
       />
       <div
         style={{
-          display: localDisplayTestData,
+          display: localDisplayTestData ? 'flex' : 'none',
           position: 'absolute',
+          height: '100%',
+          width: '100%',
+          backgroundColor: 'black',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          pointerEvents: 'none',
-          opacity: 1,
-          fontSize: '6rem',
+          opacity: 0.6,
+          fontSize: '5vw',
+          textAlign: 'center',
           color: 'red',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        Test Data
+        {t('graph.graphExample')}
       </div>
     </div>
   );

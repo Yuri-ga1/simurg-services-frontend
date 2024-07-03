@@ -53,7 +53,7 @@ export const Form: FC<FormProps> = ({ onSubmit, setMainGraphData, setDataPeriod 
             <RinexFileInput updateGraph={setMainGraphData} />
             <TimeStepSelect />
             <Button type="submit" loading={isLoading}>
-              {t('form.uploadNavFile')}
+              {t('form.submitButton')}
             </Button>
           </Stack>
         </form>

@@ -1,10 +1,12 @@
 import { ResponsiveLine } from '@nivo/line';
 import PropTypes from 'prop-types';
-import type { LinearGraphData } from './config';
+import { useState, useEffect } from 'react';
+import { useTranslation } from '~/lib/i18next';
+import { testLinearData, testElevationData, type LinearGraphData } from './config';
 
 type LinearGraphProps = {
   data: LinearGraphData[];
-  // elevationData: LinearGraphData[];
+  displayTestData?: boolean;
   height?: string;
   width?: string;
   margin_top?: number;
@@ -72,7 +74,7 @@ const renderRedZones = ({ series, innerWidth, innerHeight }: RenderRedZonesProps
 
 const LinearGraph: React.FC<LinearGraphProps> = ({
   data,
-  // elevationData,
+  displayTestData = true,
   height = '300px',
   width = '100%',
   margin_top = 30,
@@ -86,8 +88,19 @@ const LinearGraph: React.FC<LinearGraphProps> = ({
   leftAxisLegend = 'Value',
   lineColor = 'hsl(118, 100%, 50%)',
   redZoneColor = 'rgba(255, 0, 0, 0.3)',
-  // elevationDataColor = 'hsl(38, 100%, 50%)',
 }) => {
+  const [localDisplayTestData, setLocalDisplayTestData] = useState(displayTestData);
+
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    if (data !== testLinearData && data !== testElevationData) {
+      setLocalDisplayTestData(false);
+    } else {
+      setLocalDisplayTestData(true);
+    }
+  }, [data]);
+
   const processedData = data.map((series) => ({
     ...series,
     data: series.data.map((point) => ({
@@ -98,7 +111,7 @@ const LinearGraph: React.FC<LinearGraphProps> = ({
   }));
 
   return (
-    <div style={{ height, width }}>
+    <div style={{ height, width, position: 'relative' }}>
       <ResponsiveLine
         data={processedData}
         margin={{ top: margin_top, right: margin_right, bottom: margin_bottom, left: margin_left }}
@@ -164,9 +177,30 @@ const LinearGraph: React.FC<LinearGraphProps> = ({
           'points',
           'axes',
           'legends',
+          'mesh',
           renderRedZones,
         ]}
       />
+      <div
+        style={{
+          display: localDisplayTestData ? 'flex' : 'none',
+          position: 'absolute',
+          height: '100%',
+          width: '100%',
+          backgroundColor: 'black',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          opacity: 0.6,
+          fontSize: '5vw',
+          textAlign: 'center',
+          color: 'red',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {t('graph.graphExample')}
+      </div>
     </div>
   );
 };
@@ -184,18 +218,7 @@ LinearGraph.propTypes = {
       ).isRequired,
     }),
   ).isRequired,
-  // elevationData: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     id: PropTypes.string.isRequired,
-  //     color: PropTypes.string,
-  //     data: PropTypes.arrayOf(
-  //       PropTypes.shape({
-  //         x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  //         y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  //       }),
-  //     ).isRequired,
-  //   }),
-  // ).isRequired,
+  displayTestData: PropTypes.bool,
   height: PropTypes.string,
   width: PropTypes.string,
   margin_top: PropTypes.number,

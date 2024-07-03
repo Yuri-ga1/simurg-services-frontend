@@ -22,7 +22,27 @@ import {
 } from '~/ui/graphs/linear/config';
 import LinearGraph from '~/ui/graphs/linear/graph';
 
+const flipData = (data: GraphDataItem[]): GraphDataItem[] => {
+  const flippedData: { [key: string]: { x: string; y: DataStatus }[] } = {};
+
+  data.forEach((item) => {
+    item.data.forEach((d) => {
+      if (!flippedData[d.x]) {
+        flippedData[d.x] = [];
+      }
+      flippedData[d.x].push({ x: item.id, y: d.y });
+    });
+  });
+
+  return Object.entries(flippedData).map(([key, value]) => ({
+    id: key,
+    data: value,
+  }));
+};
+
 const App: FC = () => {
+  const { t } = useTranslation();
+
   const [holesData, setHolesData] = useState<GraphDataItem[]>([]);
   const [mainGraphData, setMainGraphData] = useState<GraphDataItem[]>(testMainGraphData);
   const [satSigData, setSatSigData] = useState<GraphDataItem[]>(testSatSigData);
@@ -32,10 +52,8 @@ const App: FC = () => {
   const [elevationData, setElevationData] = useState<LinearGraphData[]>(testElevationData);
 
   const [dataPeriod, setDataPeriod] = useState<number>(0);
-  const [topAxisLabel, setTopAxisLabel] = useState<string>('');
-  const [leftAxisLabel, setLeftAxisLabel] = useState<string>('');
-
-  const { t } = useTranslation();
+  const [topAxisLabel, setTopAxisLabel] = useState<string>(t('graph.axisSignal'));
+  const [leftAxisLabel, setLeftAxisLabel] = useState<string>(t('graph.axisTime'));
 
   const fetchSatelliteData = async (id: string): Promise<void> => {
     const formData = new FormData();
@@ -120,15 +138,18 @@ const App: FC = () => {
 
       fetchSatelliteData(id);
 
-      setTopAxisLabel(`${id}\nTime`);
-      setLeftAxisLabel('Signals');
-      setSigTimeData(transformedData);
+      setTopAxisLabel(t('graph.axisSignal'));
+      setLeftAxisLabel(t('graph.axisTime'));
+      setSigTimeData(flipData(transformedData));
     }
   };
 
   const handleCellClick = (cell: any): void => {
-    const signal = cell.serieId;
-    const time = cell.data.x;
+    // const signal = cell.serieId;
+    // const time = cell.data.x;
+
+    const time = cell.serieId;
+    const signal = cell.data.x;
 
     if (
       [DataStatus.COMPLETE, DataStatus.MINOR_HOLES, DataStatus.MAJOR_HOLES].includes(cell.value)
@@ -162,7 +183,9 @@ const App: FC = () => {
         <Box style={{ height: '100%' }}>
           <GraphSignalTypesData
             height="250px"
-            margin_top={0}
+            topAxisname={t('graph.axisSignal')}
+            leftAxisname={t('graph.axisSatellite')}
+            margin_top={30}
             margin_left={35}
             topLegendOffset={-35}
             leftLegendOffset={-30}
@@ -171,10 +194,12 @@ const App: FC = () => {
           />
         </Box>
       </Grid.Col>
-      <Grid.Col span={4}>
+      <Grid.Col span={3}>
         <Box style={{ height: '100%' }}>
           <GraphSignalTypesData
             height="700px"
+            topAxisname={t('graph.axisSignal')}
+            leftAxisname={t('graph.axisSatellite')}
             margin_top={60}
             margin_bottom={30}
             margin_right={30}
@@ -187,38 +212,54 @@ const App: FC = () => {
           />
         </Box>
       </Grid.Col>
-      <Grid.Col span={8}>
-        <Box style={{ height: '100%' }}>
+      <Grid.Col span={2}>
+        <Box style={{ height: '100%', position: 'relative' }}>
           <GraphSignalTypesData
             topAxisname={topAxisLabel}
             leftAxisname={leftAxisLabel}
-            height="300px"
-            margin_top={60}
+            height="700px"
             topTickRotation={-90}
+            margin_top={50}
             margin_bottom={30}
             margin_right={30}
             margin_left={50}
-            topLegendOffset={-60}
+            topLegendOffset={-40}
             leftLegendOffset={-45}
             graphData={sigTimeData}
             cellOnClickEvent={handleCellClick}
           />
-          <LinearGraph
-            data={linearData}
-            // elevationData={elevationData}
-            margin_left={100}
-            margin_bottom={70}
-            bottomLegendOffset={65}
-            bottomTickRotation={-90}
-            leftLegendOffset={-70}
-          />
         </Box>
       </Grid.Col>
-      {elevationData && (
+      <Grid.Col span={7}>
+        <Box style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <Box style={{ flexGrow: 1 }}>
+            <LinearGraph
+              data={linearData}
+              margin_left={78}
+              margin_bottom={70}
+              leftLegendOffset={-73}
+              bottomLegendOffset={65}
+              bottomTickRotation={-90}
+            />
+          </Box>
+          <Box style={{ flexGrow: 1, display: 'flex', alignItems: 'flex-end' }}>
+            <LinearGraph
+              data={elevationData}
+              lineColor="hsl(38, 100%, 50%)"
+              margin_left={50} // 100
+              margin_bottom={70}
+              bottomLegendOffset={65}
+              bottomTickRotation={-90}
+              leftLegendOffset={-45}
+            />
+          </Box>
+        </Box>
+      </Grid.Col>
+      {sigTimeData && (
         <div>
           <Title order={3}>{t('content.jsonResult')}</Title>
           <Code mt="xs" block style={{ display: 'inline-block' }}>
-            {JSON.stringify(elevationData, null, 2)}
+            {JSON.stringify(sigTimeData, null, 2)}
           </Code>
         </div>
       )}

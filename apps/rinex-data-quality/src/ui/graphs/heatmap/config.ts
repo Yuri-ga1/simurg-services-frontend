@@ -469,109 +469,627 @@ export const testSatSigData: GraphDataItem[] = [
 
 export const testSigTimeData: GraphDataItem[] = [
   {
-    id: 'C7I',
+    id: '00:00',
     data: [
-      { x: '00:00', y: DataStatus.COMPLETE },
-      { x: '00:30', y: DataStatus.COMPLETE },
-      { x: '01:00', y: DataStatus.COMPLETE },
-      { x: '01:30', y: DataStatus.COMPLETE },
-      { x: '02:00', y: DataStatus.COMPLETE },
-      { x: '02:30', y: DataStatus.COMPLETE },
-      { x: '03:00', y: DataStatus.COMPLETE },
-      { x: '03:30', y: DataStatus.COMPLETE },
-      { x: '04:00', y: DataStatus.COMPLETE },
-      { x: '04:30', y: DataStatus.COMPLETE },
-      { x: '05:00', y: DataStatus.COMPLETE },
-      { x: '05:30', y: DataStatus.COMPLETE },
-      { x: '06:00', y: DataStatus.COMPLETE },
-      { x: '06:30', y: DataStatus.COMPLETE },
-      { x: '07:00', y: DataStatus.COMPLETE },
-      { x: '07:30', y: DataStatus.COMPLETE },
-      { x: '08:00', y: DataStatus.COMPLETE },
-      { x: '08:30', y: DataStatus.COMPLETE },
-      { x: '09:00', y: DataStatus.COMPLETE },
-      { x: '09:30', y: DataStatus.COMPLETE },
-      { x: '10:00', y: DataStatus.COMPLETE },
-      { x: '10:30', y: DataStatus.COMPLETE },
-      { x: '11:00', y: DataStatus.COMPLETE },
-      { x: '11:30', y: DataStatus.COMPLETE },
-      { x: '12:00', y: DataStatus.COMPLETE },
-      { x: '12:30', y: DataStatus.COMPLETE },
-      { x: '13:00', y: DataStatus.COMPLETE },
-      { x: '13:30', y: DataStatus.COMPLETE },
-      { x: '14:00', y: DataStatus.COMPLETE },
-      { x: '14:30', y: DataStatus.COMPLETE },
-      { x: '15:00', y: DataStatus.COMPLETE },
-      { x: '15:30', y: DataStatus.COMPLETE },
-      { x: '16:00', y: DataStatus.COMPLETE },
-      { x: '16:30', y: DataStatus.COMPLETE },
-      { x: '17:00', y: DataStatus.COMPLETE },
-      { x: '17:30', y: DataStatus.COMPLETE },
-      { x: '18:00', y: DataStatus.COMPLETE },
-      { x: '18:30', y: DataStatus.COMPLETE },
-      { x: '19:00', y: DataStatus.COMPLETE },
-      { x: '19:30', y: DataStatus.MINOR_HOLES },
-      { x: '20:00', y: DataStatus.COMPLETE },
-      { x: '20:30', y: DataStatus.COMPLETE },
-      { x: '21:00', y: DataStatus.COMPLETE },
-      { x: '21:30', y: DataStatus.COMPLETE },
-      { x: '22:00', y: DataStatus.COMPLETE },
-      { x: '22:30', y: DataStatus.MINOR_HOLES },
-      { x: '23:00', y: DataStatus.COMPLETE },
-      { x: '23:30', y: DataStatus.COMPLETE },
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
     ],
   },
   {
-    id: 'L7I',
+    id: '00:30',
     data: [
-      { x: '00:00', y: DataStatus.COMPLETE },
-      { x: '00:30', y: DataStatus.COMPLETE },
-      { x: '01:00', y: DataStatus.COMPLETE },
-      { x: '01:30', y: DataStatus.COMPLETE },
-      { x: '02:00', y: DataStatus.COMPLETE },
-      { x: '02:30', y: DataStatus.COMPLETE },
-      { x: '03:00', y: DataStatus.COMPLETE },
-      { x: '03:30', y: DataStatus.COMPLETE },
-      { x: '04:00', y: DataStatus.COMPLETE },
-      { x: '04:30', y: DataStatus.COMPLETE },
-      { x: '05:00', y: DataStatus.COMPLETE },
-      { x: '05:30', y: DataStatus.COMPLETE },
-      { x: '06:00', y: DataStatus.COMPLETE },
-      { x: '06:30', y: DataStatus.COMPLETE },
-      { x: '07:00', y: DataStatus.COMPLETE },
-      { x: '07:30', y: DataStatus.COMPLETE },
-      { x: '08:00', y: DataStatus.COMPLETE },
-      { x: '08:30', y: DataStatus.COMPLETE },
-      { x: '09:00', y: DataStatus.COMPLETE },
-      { x: '09:30', y: DataStatus.COMPLETE },
-      { x: '10:00', y: DataStatus.COMPLETE },
-      { x: '10:30', y: DataStatus.COMPLETE },
-      { x: '11:00', y: DataStatus.COMPLETE },
-      { x: '11:30', y: DataStatus.COMPLETE },
-      { x: '12:00', y: DataStatus.COMPLETE },
-      { x: '12:30', y: DataStatus.COMPLETE },
-      { x: '13:00', y: DataStatus.COMPLETE },
-      { x: '13:30', y: DataStatus.COMPLETE },
-      { x: '14:00', y: DataStatus.COMPLETE },
-      { x: '14:30', y: DataStatus.COMPLETE },
-      { x: '15:00', y: DataStatus.COMPLETE },
-      { x: '15:30', y: DataStatus.COMPLETE },
-      { x: '16:00', y: DataStatus.COMPLETE },
-      { x: '16:30', y: DataStatus.COMPLETE },
-      { x: '17:00', y: DataStatus.COMPLETE },
-      { x: '17:30', y: DataStatus.COMPLETE },
-      { x: '18:00', y: DataStatus.COMPLETE },
-      { x: '18:30', y: DataStatus.COMPLETE },
-      { x: '19:00', y: DataStatus.COMPLETE },
-      { x: '19:30', y: DataStatus.MINOR_HOLES },
-      { x: '20:00', y: DataStatus.COMPLETE },
-      { x: '20:30', y: DataStatus.COMPLETE },
-      { x: '21:00', y: DataStatus.COMPLETE },
-      { x: '21:30', y: DataStatus.COMPLETE },
-      { x: '22:00', y: DataStatus.COMPLETE },
-      { x: '22:30', y: DataStatus.MINOR_HOLES },
-      { x: '23:00', y: DataStatus.COMPLETE },
-      { x: '23:30', y: DataStatus.COMPLETE },
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '01:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '01:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '02:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '02:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '03:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '03:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '04:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '04:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '05:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '05:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '06:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '06:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '07:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '07:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '08:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '08:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '09:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '09:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '10:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '10:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '11:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '11:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '12:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '12:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '13:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '13:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '14:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '14:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '15:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '15:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '16:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '16:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '17:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '17:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '18:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '18:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '19:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '19:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.MINOR_HOLES,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.MINOR_HOLES,
+      },
+    ],
+  },
+  {
+    id: '20:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '20:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '21:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '21:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '22:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '22:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.MINOR_HOLES,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.MINOR_HOLES,
+      },
+    ],
+  },
+  {
+    id: '23:00',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
+    ],
+  },
+  {
+    id: '23:30',
+    data: [
+      {
+        x: 'C7I',
+        y: DataStatus.COMPLETE,
+      },
+      {
+        x: 'L7I',
+        y: DataStatus.COMPLETE,
+      },
     ],
   },
 ];

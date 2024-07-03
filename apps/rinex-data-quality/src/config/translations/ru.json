@@ -10,13 +10,18 @@
     "fieldRequired": "Обязательно к заполнению",
     "uploadFile": "Загрузить файл",
     "archive": "Архив",
-    "uploadNavFile": "Построить график",
+    "submitButton": "Получить данные для постройки графиков",
     "buildGraphError": "Произошла ошибка при построении графика",
     "rinexUploadError": "Произошла ошибка при загрузке rinex файла",
     "graphTS": "Временной промежуток",
     "graphTSPlaceholder": "Выберите временной промежуток"
   },
   "graph": {
-    "alertSendRequestToServer": "Нет данных для построения графика"
+    "alertSendRequestToServer": "Нет данных для построения графика",
+    "axisSignal": "Сигнал",
+    "axisTime": "Время",
+    "axisSatellite": "Спутник",
+    "axisElevation": "Угол",
+    "graphExample": "Пример графика"
   }
 }
