@@ -12,6 +12,11 @@ export type GraphDataItem = {
   data: Array<{ x: string; y: DataStatus }>;
 };
 
+export type TaskIdAndGraphData = {
+  task_id: string;
+  graph_data: GraphDataItem[];
+};
+
 export const getStatus = (val: number): string => {
   const statusMap: Record<number, string> = {
     '-1': DataStatus.NO_DATA,

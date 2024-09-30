@@ -1,4 +1,4 @@
-import { Code, Grid, Title, Box } from '@mantine/core';
+import { Grid, Box } from '@mantine/core';
 import { notification } from '@repo/lib/notification';
 import { useState, type FC } from 'react';
 import { api } from '~/api';
@@ -30,7 +30,7 @@ const flipData = (data: GraphDataItem[]): GraphDataItem[] => {
       if (!flippedData[d.x]) {
         flippedData[d.x] = [];
       }
-      flippedData[d.x].push({ x: item.id, y: d.y });
+      flippedData[d.x]!.push({ x: item.id, y: d.y });
     });
   });
 
@@ -117,21 +117,26 @@ const App: FC = () => {
     } else {
       const transformedData = filteredData.flatMap((item) =>
         item.data.map((d) => {
-          const allNoData = d.y.every((val) => val === -1);
+          const allNoData = Array.isArray(d.y)
+            ? d.y.every((val: number) => val === -1)
+            : d.y === DataStatus.NO_SIGNAL;
+          // const allNoData = d.y.every((val) => val === -1);
           return {
             id: d.x,
-            data: d.y.map((val, index) => {
-              const timestampInMinutes = index * dataPeriod;
-              const hours = Math.floor(timestampInMinutes / 60)
-                .toString()
-                .padStart(2, '0');
-              const minutes = (timestampInMinutes % 60).toString().padStart(2, '0');
-              const timeString = `${hours}:${minutes}`;
-              return {
-                x: timeString,
-                y: allNoData ? DataStatus.NO_SIGNAL : getStatus(val),
-              };
-            }),
+            data: Array.isArray(d.y)
+              ? d.y.map((val: number, index: number) => {
+                  const timestampInMinutes = index * dataPeriod;
+                  const hours = Math.floor(timestampInMinutes / 60)
+                    .toString()
+                    .padStart(2, '0');
+                  const minutes = (timestampInMinutes % 60).toString().padStart(2, '0');
+                  const timeString = `${hours}:${minutes}`;
+                  return {
+                    x: timeString,
+                    y: allNoData ? DataStatus.NO_SIGNAL : getStatus(val),
+                  };
+                })
+              : [{ x: '00:00', y: d.y }],
           };
         }),
       );
@@ -145,15 +150,11 @@ const App: FC = () => {
   };
 
   const handleCellClick = (cell: any): void => {
-    // const signal = cell.serieId;
-    // const time = cell.data.x;
-
-    const time = cell.serieId;
-    const signal = cell.data.x;
-
     if (
       [DataStatus.COMPLETE, DataStatus.MINOR_HOLES, DataStatus.MAJOR_HOLES].includes(cell.value)
     ) {
+      const time = cell.serieId;
+      const signal = cell.data.x;
       const [formattedSignalData, formattedElevationData] = formatSignalDataForNivo(
         signal,
         satelliteData,
@@ -255,14 +256,6 @@ const App: FC = () => {
           </Box>
         </Box>
       </Grid.Col>
-      {sigTimeData && (
-        <div>
-          <Title order={3}>{t('content.jsonResult')}</Title>
-          <Code mt="xs" block style={{ display: 'inline-block' }}>
-            {JSON.stringify(sigTimeData, null, 2)}
-          </Code>
-        </div>
-      )}
     </Grid>
   );
 };

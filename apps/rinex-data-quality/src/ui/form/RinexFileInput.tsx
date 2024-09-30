@@ -10,9 +10,10 @@ import type { FC } from 'react';
 
 type RinexFileInputProps = {
   updateGraph: (data: GraphDataItem[]) => void;
+  setTaskId: (taskId: string) => void;
 };
 
-export const RinexFileInput: FC<RinexFileInputProps> = ({ updateGraph }) => {
+export const RinexFileInput: FC<RinexFileInputProps> = ({ updateGraph, setTaskId }) => {
   const { control, setValue, clearErrors } = useFormContext<FormValues>();
   const { t } = useTranslation();
 
@@ -23,7 +24,11 @@ export const RinexFileInput: FC<RinexFileInputProps> = ({ updateGraph }) => {
         setValue('rinexFile', file);
         clearErrors('rinexFile');
 
-        updateGraph(data);
+        const graphData: GraphDataItem[] = data.graph_data;
+        const taskId: string = data.task_id;
+
+        setTaskId(taskId);
+        updateGraph(graphData);
       },
       onError: () =>
         notification.error({

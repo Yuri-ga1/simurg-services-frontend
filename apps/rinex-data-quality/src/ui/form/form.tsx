@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Select, Stack } from '@mantine/core';
 import { notification } from '@repo/lib/notification';
 import { useAsyncCallback } from '@repo/lib/react';
+import { useState, type FC } from 'react';
 import {
   useForm,
   Controller,
@@ -14,7 +15,6 @@ import { useTranslation } from '~/lib/i18next';
 import { type FormValues, formSchema, getGraphTSData } from './config';
 import { RinexFileInput } from './RinexFileInput';
 import type { GraphDataItem } from '../graphs/heatmap/config';
-import type { FC } from 'react';
 
 type FormProps = {
   onSubmit: (result: GraphDataItem[]) => void;
@@ -23,6 +23,8 @@ type FormProps = {
 };
 
 export const Form: FC<FormProps> = ({ onSubmit, setMainGraphData, setDataPeriod }) => {
+  const [taskId, setTaskId] = useState<string>();
+
   const methods = useForm<FormValues>({
     resolver: zodResolver(formSchema),
   });
@@ -40,7 +42,11 @@ export const Form: FC<FormProps> = ({ onSubmit, setMainGraphData, setDataPeriod 
 
   const submitHandler: SubmitHandler<FormValues> = async ({ data_period }): Promise<void> => {
     const formData = new FormData();
+    if (taskId) {
+      formData.append('task_id', taskId);
+    }
     formData.append('data_period', data_period.toString());
+
     setDataPeriod(data_period);
     callCallback(formData);
   };
@@ -50,7 +56,7 @@ export const Form: FC<FormProps> = ({ onSubmit, setMainGraphData, setDataPeriod 
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(submitHandler)}>
           <Stack>
-            <RinexFileInput updateGraph={setMainGraphData} />
+            <RinexFileInput updateGraph={setMainGraphData} setTaskId={setTaskId} />
             <TimeStepSelect />
             <Button type="submit" loading={isLoading}>
               {t('form.submitButton')}

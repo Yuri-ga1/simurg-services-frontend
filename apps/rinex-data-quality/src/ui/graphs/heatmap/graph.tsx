@@ -158,7 +158,7 @@ const GraphSignalTypesData: React.FC<GraphSignalTypesDataProps> = ({
           left: '50%',
           transform: 'translate(-50%, -50%)',
           opacity: 0.6,
-          fontSize: '5vw',
+          fontSize: '4vw',
           textAlign: 'center',
           color: 'red',
           justifyContent: 'center',
