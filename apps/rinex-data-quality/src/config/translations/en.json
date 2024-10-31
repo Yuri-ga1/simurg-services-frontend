@@ -1,0 +1,27 @@
+{
+  "common": {
+    "error": "Error",
+    "minute": "{{ value }} min."
+  },
+  "content": {
+    "jsonResult": "Result in JSON"
+  },
+  "form": {
+    "fieldRequired": "This field is required",
+    "uploadFile": "Upload file",
+    "archive": "Archive",
+    "submitButton": "Get data for graphs",
+    "buildGraphError": "There was an error while building graph",
+    "rinexUploadError": "There was an error while uploading rinex file",
+    "graphTS": "Time steps in graph",
+    "graphTSPlaceholder": "Select a time step"
+  },
+  "graph": {
+    "alertNoData": "No data to plot",
+    "axisSignal": "Signal",
+    "axisTime": "Time",
+    "axisSatellite": "Satellite",
+    "axisElevation": "Elevation",
+    "graphExample": "This is an graph example"
+  }
+}
