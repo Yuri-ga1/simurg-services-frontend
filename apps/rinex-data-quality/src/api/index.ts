@@ -17,12 +17,15 @@ const uploadNavFile = async (data: FormData): Promise<TaskIdAndGraphData> =>
     contentType: 'multipart/form-data',
   });
 
-const getDatasForDetailedGraphs = async (data: FormData): Promise<GraphDataItem[]> =>
+const getDatasForDetailedGraphs = async (
+  task_id: string,
+  data_period = 15,
+): Promise<GraphDataItem[]> =>
   httpClient.request({
     path: 'find_holes_in_data',
     method: 'POST',
-    data,
-    contentType: 'application/json',
+    data: JSON.stringify({ task_id, data_period }),
+    headers: { 'Content-Type': 'application/json' },
   });
 
 const getSatelliteData = async (data: FormData): Promise<SignalData> =>
