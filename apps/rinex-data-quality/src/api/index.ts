@@ -22,7 +22,7 @@ const getDatasForDetailedGraphs = async (data: FormData): Promise<GraphDataItem[
     path: 'find_holes_in_data',
     method: 'POST',
     data,
-    contentType: 'multipart/form-data',
+    contentType: 'application/json',
   });
 
 const getSatelliteData = async (data: FormData): Promise<SignalData> =>
@@ -30,7 +30,7 @@ const getSatelliteData = async (data: FormData): Promise<SignalData> =>
     path: 'fetch_satellite_info',
     method: 'POST',
     data,
-    contentType: 'multipart/form-data',
+    contentType: 'application/json',
   });
 
 export const api = { getDatasForDetailedGraphs, uploadNavFile, getSatelliteData };
