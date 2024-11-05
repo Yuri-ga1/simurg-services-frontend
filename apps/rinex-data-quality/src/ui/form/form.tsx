@@ -41,11 +41,11 @@ export const Form: FC<FormProps> = ({ onSubmit, setMainGraphData, setDataPeriod 
   });
 
   const submitHandler: SubmitHandler<FormValues> = async ({ data_period }): Promise<void> => {
+    setDataPeriod(data_period);
+
     if (taskId) {
       callCallback(taskId, data_period);
     }
-
-    setDataPeriod(data_period);
   };
 
   return (
