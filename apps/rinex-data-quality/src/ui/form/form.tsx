@@ -10,7 +10,7 @@ import {
   useFormContext,
   type SubmitHandler,
 } from 'react-hook-form';
-import { api } from '~/api';
+import { type FindHolesQuery, api } from '~/api';
 import { useTranslation } from '~/lib/i18next';
 import { type FormValues, formSchema, getGraphTSData } from './config';
 import { RinexFileInput } from './RinexFileInput';
@@ -41,14 +41,15 @@ export const Form: FC<FormProps> = ({ onSubmit, setMainGraphData, setDataPeriod 
   });
 
   const submitHandler: SubmitHandler<FormValues> = async ({ data_period }): Promise<void> => {
-    const formData = new FormData();
-    if (taskId) {
-      formData.append('task_id', taskId);
-    }
-    formData.append('data_period', data_period.toString());
-
     setDataPeriod(data_period);
-    callCallback(formData);
+
+    if (taskId) {
+      const query: FindHolesQuery = {
+        task_id: taskId,
+        data_period,
+      };
+      callCallback(query);
+    }
   };
 
   return (

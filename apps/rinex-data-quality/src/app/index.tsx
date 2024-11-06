@@ -1,7 +1,7 @@
 import { Grid, Box } from '@mantine/core';
 import { notification } from '@repo/lib/notification';
 import { useState, type FC } from 'react';
-import { api } from '~/api';
+import { type SatelliteQuery, api } from '~/api';
 import { useTranslation } from '~/lib/i18next';
 import { Form } from '~/ui/form/form';
 import {
@@ -56,11 +56,12 @@ const App: FC = () => {
   const [leftAxisLabel, setLeftAxisLabel] = useState<string>(t('graph.axisTime'));
 
   const fetchSatelliteData = async (id: string): Promise<void> => {
-    const formData = new FormData();
-    formData.append('satellite', id);
-
     try {
-      const data = await api.getSatelliteData(formData);
+      const query: SatelliteQuery = {
+        satellite: id,
+      };
+
+      const data = await api.getSatelliteData(query);
       setSatelliteData(data);
     } catch {
       notification.error({
