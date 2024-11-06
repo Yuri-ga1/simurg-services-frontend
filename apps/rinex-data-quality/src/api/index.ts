@@ -26,7 +26,7 @@ const getDatasForDetailedGraphs = async (query: FindHolesQuery): Promise<GraphDa
   httpClient.request({
     path: 'find_holes_in_data',
     method: 'POST',
-    responseType: 'arraybuffer',
+    responseType: 'json',
     query,
   });
 

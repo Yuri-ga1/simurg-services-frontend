@@ -256,6 +256,7 @@ const App: FC = () => {
           </Box>
         </Box>
       </Grid.Col>
+      <pre>{JSON.stringify(holesData, null, 2)}</pre>
     </Grid>
   );
 };
