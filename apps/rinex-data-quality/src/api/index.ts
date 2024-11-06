@@ -5,6 +5,11 @@ import type { SignalData } from '~/ui/graphs/linear/config';
 
 export type GraphTS = 10 | 15 | 20 | 30;
 
+export type FindHolesQuery = {
+  task_id: string;
+  data_period: number;
+};
+
 const httpClient = createHttpClient({
   baseUrl: API_URL,
 });
@@ -17,15 +22,12 @@ const uploadNavFile = async (data: FormData): Promise<TaskIdAndGraphData> =>
     contentType: 'multipart/form-data',
   });
 
-const getDatasForDetailedGraphs = async (
-  task_id: string,
-  data_period = 15,
-): Promise<GraphDataItem[]> =>
+const getDatasForDetailedGraphs = async (query: FindHolesQuery): Promise<GraphDataItem[]> =>
   httpClient.request({
     path: 'find_holes_in_data',
     method: 'POST',
-    data: JSON.stringify({ task_id, data_period }),
-    headers: { 'Content-Type': 'application/json' },
+    responseType: 'arraybuffer',
+    query,
   });
 
 const getSatelliteData = async (data: FormData): Promise<SignalData> =>
