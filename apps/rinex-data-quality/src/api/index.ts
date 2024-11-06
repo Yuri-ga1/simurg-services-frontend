@@ -10,6 +10,10 @@ export type FindHolesQuery = {
   data_period: number;
 };
 
+export type SatelliteQuery = {
+  satellite: string;
+};
+
 const httpClient = createHttpClient({
   baseUrl: API_URL,
 });
@@ -30,12 +34,12 @@ const getDatasForDetailedGraphs = async (query: FindHolesQuery): Promise<GraphDa
     query,
   });
 
-const getSatelliteData = async (data: FormData): Promise<SignalData> =>
+const getSatelliteData = async (query: SatelliteQuery): Promise<SignalData> =>
   httpClient.request({
     path: 'fetch_satellite_info',
     method: 'POST',
-    data,
-    contentType: 'application/json',
+    responseType: 'json',
+    query,
   });
 
 export const api = { getDatasForDetailedGraphs, uploadNavFile, getSatelliteData };
